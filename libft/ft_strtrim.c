@@ -1,36 +1,51 @@
-char	*ft_strtrim(char const *s1, char const *set)
+#include "libft.h"
+#include <stdio.h>
+
+static int	ft_char_in_set(char c, char const *set)
 {
 	size_t	i;
-	size_t	set_len;
-	size_t	nb_set;
-	size_t	jump;
-	size_t	trim_len;
-	char	*trim;
 
-	if (!s1)
-		s1 = "";
-	if (!set)
-		set = "";
-	set_len = ft_strlen(set);
-	nb_set = 0;
 	i = 0;
-	jump = 0;
-	if (ft_strnstr(s1, set, set_len) == 1)
+	while (set[i])
 	{
-		jump = set_len;
-		nb_set = 1;
+		if (c == set[i])
+			return (1);
+		else
+			i++;
 	}
-	if (ft_strnstr((s1 + jump), set, ft_strlen(s1) - jump) == 1)
-		nb_set = 2;
-	trim_len = ft_strlen(s1) - (nb_set * set_len);
-	trim = malloc(sizeof(char) * (trim_len + 1));
-	if (trim == NULL)
-		return (NULL);
-	while (i < trim_len)
+	return (0);
+}
+
+char	*ft_strtrim(char const *s1, char const *set)
+{
+	size_t	start_trim;
+	size_t	end_trim;
+	size_t	trim_len;
+	char	*str_trim;
+
+	if (ft_strlen(s1) == 0)
+		return (ft_strdup(""));
+	start_trim = 0;
+	end_trim = ft_strlen(s1) - 1;
+	while (ft_char_in_set(s1[start_trim], set) == 1)
+		start_trim++;
+	while (ft_char_in_set(s1[end_trim], set) == 1)
+		end_trim--;
+	if (start_trim > end_trim)
+		return (ft_strdup(""));
+	trim_len = end_trim - start_trim + 1;
+	str_trim = ft_substr(s1, start_trim, trim_len);
+	return (str_trim);
+}
+
+int	main(int argc, char **argv)
+{
+	char	*str;
+
+	if (argc == 3)
 	{
-		trim[i] = s[jump + i];
-		i++;
+		str = ft_strtrim(argv[1], argv[2]);
+		printf("str : %s\n", str);
 	}
-	trim[i] = '\0';
-	return (trim);
+	return (0);
 }

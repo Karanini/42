@@ -35,10 +35,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	len = ft_atoi(argv[3]);
 	printf("subs : %s", ft_substr(argv[1], start, len));
 	return (0);
-}*/
+}
 
 int	main(void)
 {
 	printf("subs : %s", ft_substr('\0', 0, 1));
 	return (0);
-}
+}*/

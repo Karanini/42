@@ -1,6 +1,17 @@
-char 	**ft_split(char const *s, char c)
-{
-	
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/23 15:57:57 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/04/23 15:59:05 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
 //1 - compter le nb de string : parcourir la chaine et incrementer a chaque fois qu'on a 'c'
 //2 - compter la longueur de chaque string en parcourant la chaine avec un compteur
 // qui se remet a zero a chaque fois qu'on a 'c' et en stockant la longueur dans un tableau 
@@ -8,6 +19,8 @@ char 	**ft_split(char const *s, char c)
 //3 - faire un double malloc
 //4 - assigner les string dans le tableau  
 
+char 	**ft_split(char const *s, char c)
+{
 	size_t	nb_words;
 	char	**split;
 	size_t	start_word;
@@ -18,8 +31,8 @@ char 	**ft_split(char const *s, char c)
 	split = malloc(sizeof(char*) * (nb_words + 1));
 	if (split == NULL)
 		return (NULL);
-	start_word = 0
-	end_word = 0
+	start_word = 0;
+	end_word = 0;
 	while (i < nb_words)
 	{
 		while(s[end_word] != c)

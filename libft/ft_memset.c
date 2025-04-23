@@ -1,6 +1,16 @@
-#include <stddef.h>
-#include <stdio.h>
-#include <string.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/23 15:57:21 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/04/23 15:57:32 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
 
 void *ft_memset(void *s, int c, size_t n)
 {
@@ -17,19 +27,19 @@ void *ft_memset(void *s, int c, size_t n)
     return s;
 }
 
-int main(void)
-{
-	int	i;
-	int	len;
-	i = 0;
-	int tab[] = {2, 3, 4};
-	len = sizeof(int) * 3;
-	ft_memset(tab, 0, len);
-	while (i < 3)
-	{
-		printf("%d\n", tab[i]);
-		i++;
-	}
-	printf("len : %d", len);
-	return (0);
-}
+// int main(void)
+// {
+// 	int	i;
+// 	int	len;
+// 	i = 0;
+// 	int tab[] = {2, 3, 4};
+// 	len = sizeof(int) * 3;
+// 	ft_memset(tab, 0, len);
+// 	while (i < 3)
+// 	{
+// 		printf("%d\n", tab[i]);
+// 		i++;
+// 	}
+// 	printf("len : %d", len);
+// 	return (0);
+// }

@@ -15,7 +15,7 @@ $(NAME): $(OBJ) $(HEADER)
 	$(AR) $(NAME) $(OBJ)
 
 %.o: %.c
-	$(CC) $(FLAGS) $< -o $@
+	$(CC) $(FLAGS) -c $< -o $@
 
 clean:
 	$(RM) $(OBJ)

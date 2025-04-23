@@ -1,13 +1,26 @@
-void    *ft_memmove(void *dest, const void *src, size_t n)
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memmove.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/23 15:53:24 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/04/23 17:33:17 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+void	*ft_memmove(void *dest, const void *src, size_t n)
 {
-	const unsigned char *s;
-	unsigned char *d;
-	size_t	i;
+	const unsigned char		*s;
+	unsigned char			*d;
+	size_t					i;
 
 	i = 0;
 	s = (const unsigned char *)src;
-	d = (unsigned char)dest;
-
+	d = (unsigned char *)dest;
 	if (d == s || n == 0)
 		return (d);
 	if (d < s)

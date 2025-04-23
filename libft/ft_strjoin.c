@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/23 16:00:03 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/04/23 16:00:16 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-#include <stdio.h>
 
 static void	copy_strings(char *dest, const char *s1, const char *s2)
 {
@@ -39,14 +50,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (join);
 }
 
-int	main(int argc, char **argv)
-{
-	char	*s;
+// int	main(int argc, char **argv)
+// {
+// 	char	*s;
 
-	if (argc == 3)
-	{
-		s = ft_strjoin(argv[1], argv[2]);
-		printf("join : %s\n", s);
-	}
-	return (0);
-}
+// 	if (argc == 3)
+// 	{
+// 		s = ft_strjoin(argv[1], argv[2]);
+// 		printf("join : %s\n", s);
+// 	}
+// 	return (0);
+// }

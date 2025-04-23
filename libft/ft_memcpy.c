@@ -1,4 +1,16 @@
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/23 15:52:59 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/04/23 15:53:18 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
 
 void	*ft_memcpy(void* dest, const void* src, size_t n)
 {
@@ -17,17 +29,17 @@ void	*ft_memcpy(void* dest, const void* src, size_t n)
 	return (dest);
 }
 
-int	main(void)
-{
-	int d[] = {0, 0, 0};
-	int s[] = {32, 32, 32};
-	int i = 0;
+// int	main(void)
+// {
+// 	int d[] = {0, 0, 0};
+// 	int s[] = {32, 32, 32};
+// 	int i = 0;
 
-	ft_memcpy(d, s, sizeof(int) * 3);
-	while (i < 3)
-	{
-		printf("%d\n", d[i]);
-		i++;
-	}
-	return (0);
-}
+// 	ft_memcpy(d, s, sizeof(int) * 3);
+// 	while (i < 3)
+// 	{
+// 		printf("%d\n", d[i]);
+// 		i++;
+// 	}
+// 	return (0);
+// }

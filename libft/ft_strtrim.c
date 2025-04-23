@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/23 16:05:23 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/04/23 17:43:49 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
-#include <stdio.h>
 
 static int	ft_char_in_set(char c, char const *set)
 {
@@ -38,14 +49,14 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (str_trim);
 }
 
-int	main(int argc, char **argv)
-{
-	char	*str;
+// int	main(int argc, char **argv)
+// {
+// 	char	*str;
 
-	if (argc == 3)
-	{
-		str = ft_strtrim(argv[1], argv[2]);
-		printf("str : %s\n", str);
-	}
-	return (0);
-}
+// 	if (argc == 3)
+// 	{
+// 		str = ft_strtrim(argv[1], argv[2]);
+// 		printf("str : %s\n", str);
+// 	}
+// 	return (0);
+// }

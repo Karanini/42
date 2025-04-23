@@ -1,4 +1,16 @@
-#include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/04/23 15:46:22 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/04/23 15:46:36 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
 
 void ft_bzero(void *s, size_t n)
 {
@@ -14,15 +26,15 @@ void ft_bzero(void *s, size_t n)
 	}
 }
 
-int	main(void)
-{
-	int tab[] = {2, 32, 42};
-	int i = 0;
-	ft_bzero(tab, sizeof(int) * 3);
-	while (i < 3)
-	{
-		printf("%d\n", tab[i]);
-		i++;
-	}
-	return (0);
-}
+// int	main(void)
+// {
+// 	int tab[] = {2, 32, 42};
+// 	int i = 0;
+// 	ft_bzero(tab, sizeof(int) * 3);
+// 	while (i < 3)
+// 	{
+// 		printf("%d\n", tab[i]);
+// 		i++;
+// 	}
+// 	return (0);
+// }

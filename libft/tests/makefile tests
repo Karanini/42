@@ -27,7 +27,7 @@ SRC = ft_atoi.c	\
 		ft_toupper.c	\
 		ft_split.c	
 CC = cc
-CCFLAGS = -Wall -Werror -Wextra
+CCFLAGS = -Wall -Werror -Wextra -ggdb
 OBJS := $(SRC:%.c=%.o)
 RM = rm -f
 AR = ar rcs

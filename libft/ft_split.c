@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:57:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/04/23 15:59:05 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/04/24 14:15:15 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 // de size_t
 //3 - faire un double malloc
 //4 - assigner les string dans le tableau  
+
+static size_t	word_count(char const *s, char c);
+static void	ft_free(char **split, size_t nb_words);
 
 char 	**ft_split(char const *s, char c)
 {
@@ -33,15 +36,22 @@ char 	**ft_split(char const *s, char c)
 		return (NULL);
 	start_word = 0;
 	end_word = 0;
+	i = 0;
 	while (i < nb_words)
 	{
 		while(s[end_word] != c)
 			end_word++;
-		split[i] = ft_substr(s, start_word, end_word - start_word - 1);
+		split[i] = ft_substr(s, start_word, end_word - start_word);
+		if (split[i] == NULL)
+		{
+			ft_free(split, nb_words);
+			return (NULL);
+		}
 		start_word = end_word + 1;
 		end_word++;
 		i++;
 	}
+	split[i] = NULL;
 	return (split);
 }
 

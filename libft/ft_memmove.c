@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:53:24 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/04/23 17:33:17 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/04/25 18:49:14 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,9 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 		i = n;
 		while (i > 0)
 		{
-			d[i] = s[i];
 			i--;
+//besoin de copier l'indice 0 donc on fait d'abord i--
+			d[i] = s[i];
 		}
 	}
 	return (d);

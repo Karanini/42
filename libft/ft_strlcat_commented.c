@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlcat.c                                       :+:      :+:    :+:   */
+/*   ft_strlcat_commented.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:00:30 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/05/01 18:33:49 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/05/01 17:48:42 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,12 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dsize)
 	size_t	i;
 
 	i = 0;
+
 	src_len = ft_strlen(src);
 	if (dsize == 0)
-		return (src_len);
+			return (src_len);
+	// si dsize == 0 alors l'appel a strlen peut generer une erreur donc on
+	// renvoie directement src_len si dsize == 0
 	dst_len = ft_strlen(dst);
 	if (dsize <= dst_len)
 		return (src_len + dsize);

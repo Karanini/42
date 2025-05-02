@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:51:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/04/23 15:51:51 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/04/30 17:17:00 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	ft_memcmp(const void *s1, const void *s2, size_t n)
 /*int	main(int argc, char *argv[])
 {
 	(void)argc;
-	printf("res : %d\n", ft_memcmp(argv[1], argv[2], 5));	
+	printf("res : %d\n", ft_memcmp(argv[1], argv[2], 5));
 	printf("res OG : %d\n", memcmp(argv[1], argv[2], 5));
 	return (0);
-}*/	
+}*/

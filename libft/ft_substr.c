@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:05:45 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/04/23 16:05:51 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/05/01 13:15:04 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 	subs_len = 0;
 	i = 0;
-	if (!s || start >= ft_strlen(s))
+	if (!s)
+		return (NULL);
+	if (start > ft_strlen(s))
 		return (ft_strdup(""));
 	while (s[start + subs_len] && subs_len < len)
 		subs_len++;
@@ -38,10 +40,10 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 
 /*int	main(int argc, char **argv)
 {
-	(void)argc;
 	unsigned int	start;
-	size_t	len;
+	size_t			len;
 
+	(void)argc;
 	start = ft_atoi(argv[2]);
 	len = ft_atoi(argv[3]);
 	printf("subs : %s", ft_substr(argv[1], start, len));

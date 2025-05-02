@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:00:03 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/04/30 17:20:27 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/04/30 17:17:23 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 	if (!s1)
 		s1 = "";
+	// on ne renvoie pas s2 car un free(s2) aurait un comportement inattendu
 	if (!s2)
 		s2 = "";
 	join_len = ft_strlen(s1) + ft_strlen(s2);

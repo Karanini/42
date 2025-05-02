@@ -1,35 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/23 15:59:55 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/05/01 19:12:01 by bkaras-g         ###   ########.fr       */
+/*   Created: 2025/04/29 10:06:56 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/05/01 14:58:19 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "stdio.h"
 
-char	*ft_strdup(const char *s)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	char	*s_c;
-	size_t	s_len;
-	size_t	i;
+	size_t			s_len;
+	char			*res;
+	unsigned int	i;
 
-	i = 0;
-	if (s == NULL)
+	if (!s || !f)
 		return (NULL);
 	s_len = ft_strlen(s);
-	s_c = malloc(sizeof(char) * (s_len + 1));
-	if (s_c == NULL)
+	res = malloc(sizeof(char) * (s_len + 1));
+	if (res == NULL)
 		return (NULL);
+	i = 0;
 	while (s[i])
 	{
-		s_c[i] = s[i];
+		res[i] = (*f)(i, s[i]);
 		i++;
 	}
-	s_c[i] = '\0';
-	return (s_c);
+	res[i] = '\0';
+	return (res);
 }
+
+/*static char	ft_putp(unsigned int i, char c)
+{
+		return (i + c);
+}
+
+int	main(void)
+{
+	char *strp = ft_strmapi("hello", &ft_putp);
+	printf("strp : %s", strp);
+	return (0);
+}*/

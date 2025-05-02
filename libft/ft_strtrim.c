@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:05:23 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/04/23 17:43:49 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/05/01 15:34:01 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	trim_len;
 	char	*str_trim;
 
+	if (!s1)
+		return (NULL);
+	if (!set)
+		return (ft_strdup(s1));
 	if (ft_strlen(s1) == 0)
 		return (ft_strdup(""));
 	start_trim = 0;

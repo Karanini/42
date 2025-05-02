@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: bkaras-g <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/02 15:52:17 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/05/02 15:52:22 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/05/02 17:17:03 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,10 @@ SRC = ft_isalpha.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c
 
+BSRC = ft_lstnew_bonus.c
+
 OBJ := $(SRC:%.c=%.o)
+BOBJ := $(BSRC:%.c=%.o)
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 RM = rm -f
@@ -56,14 +59,17 @@ AR = ar rcs
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(HEADER)
+$(NAME): $(OBJ) $(HEADER) Makefile
 	$(AR) $(NAME) $(OBJ)
 
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
 
+bonus: $(OBJ) $(BOBJ) $(HEADER) Makefile
+	$(AR) $(NAME) $(OBJ) $(BOBJ)
+
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ) $(BOBJ)
 
 fclean: clean
 	$(RM) $(NAME)

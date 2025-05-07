@@ -55,6 +55,7 @@ void	ft_putnbr_fd(int n, int fd)
 		return (ft_putstr_fd("-2147483648", fd));
 	sign = 1;
 	len = ft_len_and_sign(&n, &sign);
+	(void)len;
 	if (sign == -1)
 		ft_putchar_fd('-', fd);
 	ft_putnbr(n, fd);

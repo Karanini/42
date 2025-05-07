@@ -33,6 +33,6 @@ char	*ft_strrchr(const char *s, int c)
 // #include <stdio.h>
 // int main(void)
 // {
-// 	printf("%s\n", ft_strrchr("teste",'\0'));\
+// 	printf("%s\n", ft_strrchr("teste",'\0'));
 // 	return (0);
 // }

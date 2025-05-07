@@ -34,6 +34,6 @@ char	*ft_strchr(const char *s, int c)
 
 // int main(void)
 // {
-// 	printf("%s\n", ft_strchr("teste",'\0'));\
+// 	printf("%s\n", ft_strchr("teste",'\0'));
 // 	return (0);
 // }

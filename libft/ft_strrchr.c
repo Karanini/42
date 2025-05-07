@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:05:03 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/05/01 19:18:12 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:49:45 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,25 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	size_t	i;
-	size_t	s_len;
+	size_t			i;
+	size_t			s_len;
+	unsigned char	ch;
 
-	if (s == NULL)
-		return (NULL);
+	ch = (unsigned char)c;
 	s_len = ft_strlen(s);
 	i = s_len;
-	if (c == '\0')
+	if (ch == '\0')
 		return ((char *)(s + s_len));
 	while (i-- > 0)
 	{
-		if (s[i] == (char)c)
+		if (s[i] == ch)
 			return ((char *)(s + i));
 	}
 	return (NULL);
 }
-
-/*int	main(int argc, char *argv[])
-{
-	(void)argc;
-	printf("chaine trouvee : %s\n", ft_strrchr(argv[1], argv[2][0]));
-	return (0);
-}*/
+// #include <stdio.h>
+// int main(void)
+// {
+// 	printf("%s\n", ft_strrchr("teste",'\0'));\
+// 	return (0);
+// }

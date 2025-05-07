@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:59:55 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/05/01 19:12:01 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/05/07 10:54:38 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*ft_strdup(const char *s)
 	size_t	i;
 
 	i = 0;
-	if (s == NULL)
-		return (NULL);
 	s_len = ft_strlen(s);
 	s_c = malloc(sizeof(char) * (s_len + 1));
 	if (s_c == NULL)

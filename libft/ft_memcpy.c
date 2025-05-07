@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:52:59 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/04/30 17:17:02 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/05/07 14:50:35 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 	return (dest);
 }
+// #include <string.h>
+// #include <stdio.h>
 
 // int	main(void)
 // {
@@ -41,5 +43,11 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 // 		printf("%d\n", d[i]);
 // 		i++;
 // 	}
+
+// 	printf("memcpy dest==NULL && src==NULL %p",
+//		memcpy(((void*)0), ((void*)0), 3));
+// 	printf("ft_memcpy dest==NULL && src==NULL %p",
+//		ft_memcpy(((void*)0), ((void*)0), 3));
+
 // 	return (0);
 // }

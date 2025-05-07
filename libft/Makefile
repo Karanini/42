@@ -6,7 +6,7 @@
 #    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/02 15:52:17 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/05/02 17:17:03 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/05/07 11:11:30 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,10 +47,7 @@ SRC = ft_isalpha.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c
 
-BSRC = ft_lstnew_bonus.c
-
 OBJ := $(SRC:%.c=%.o)
-BOBJ := $(BSRC:%.c=%.o)
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 RM = rm -f
@@ -65,11 +62,8 @@ $(NAME): $(OBJ) $(HEADER) Makefile
 %.o: %.c
 	$(CC) $(FLAGS) -c $< -o $@
 
-bonus: $(OBJ) $(BOBJ) $(HEADER) Makefile
-	$(AR) $(NAME) $(OBJ) $(BOBJ)
-
 clean:
-	$(RM) $(OBJ) $(BOBJ)
+	$(RM) $(OBJ) 
 
 fclean: clean
 	$(RM) $(NAME)

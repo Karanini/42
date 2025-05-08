@@ -29,12 +29,12 @@ $(BONUS): %: bonus_start
 $(VSOPEN): vs%:
 	@code $(TESTS_PATH)ft_$*_test.cpp
 
-mandatory_start: update message
+mandatory_start: message
 	@tput setaf 6
 	make -C $(LIBFT_PATH)
 	@tput setaf 4 && echo [Mandatory]
 
-bonus_start: update message
+bonus_start: message
 	@tput setaf 6
 	make bonus -C $(LIBFT_PATH)
 	@tput setaf 5 && echo [Bonus]

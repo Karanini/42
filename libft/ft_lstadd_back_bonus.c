@@ -3,19 +3,16 @@
 
 void ft_lstadd_back(t_list **lst, t_list *new)
 {
-    t_list  *old_last;
+    t_list  *last_node;
 
-    old_last = ft_lstlast(*lst);
-    // if old_last is NULL, we add new as the first
+    // verify if this security check is necessary
+    // if (!lst || !new)
+    //     return ;
+    last_node = ft_lstlast(*lst);
+    // if last_node is NULL, we add new as the first
     // element of the list
-    if (old_last == NULL)
-    {
+    if (last_node == NULL)
         *lst = new;
-        new->next = NULL;
-        return ;
-    }
-    old_last->next = new;
-    if (new->next != NULL)
-        ft_lstadd_back(lst, new->next);
-    new->next = NULL;
+    else
+        last_node->next = new;
 }

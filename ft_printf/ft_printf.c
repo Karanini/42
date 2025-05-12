@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include "libft.h"
 
-//good printf examples : 
+//good printf examples :
 //printf("I love the %d and I mainly eat %s", 32, "yellow kiwis");
 //printf(""); doesn't print ANYTHING and returns 0
 //
@@ -13,12 +13,14 @@
 //bad printf examples (don't print ANYTHING and return (-1)):
 //printf(NULL)
 //printf("banana%"); no conv. specifier after the %
-//printf("banana%b"); b is not a conv. specifier 
+//printf("banana%b"); b is not a conv. specifier
 //if printf("%s%h\n", "banana"); then "banana%h" is printed
 //if printf("%s%h", "banana"); then nthng is printed and printf returns (-1)
 //what is the behavior if %b in the middle of the string ? eg "ba%bnana" ?
 
-static int	ft_check_format(const char *format); 
+static void	ft_put_hex(unsigned int nbr, char conv_specifier, int *bites_printed);
+
+static int	ft_check_format(const char *format);
 
 int	ft_printf(const char *format, ...)
 {
@@ -34,7 +36,7 @@ int	ft_printf(const char *format, ...)
 	va_start(args, format);
 //if no var arg then print format directly and return its length
 //not possible to check if no args -> skip this part ?
-//if no var arg but some conv. specifiers are present it can be 
+//if no var arg but some conv. specifiers are present it can be
 //problematic
 /*	if (args[0] == NULL)
 	{
@@ -61,12 +63,12 @@ int	ft_printf(const char *format, ...)
 		if (format[i] == '%' && format[i + 1])
 		{
 //call functions instead of treating everything here
-//Idea A :group by similar types ? eg 
-//c and s together, 
-//i, d and u 
+//Idea A :group by similar types ? eg
+//c and s together,
+//i, d and u
 //x and X
 //p
-// Idea B : 
+// Idea B :
 // one func to treat the conv. specifier ie all the following ifs
 // one func ft_putptr
 // one func ft_put_hexnbr
@@ -87,7 +89,7 @@ int	ft_printf(const char *format, ...)
 			if (format[i + 1] == 'd' || format[i + 1] == 'i')
 			{
 				ft_putnbr_fd(va_arg(args, int), 1);
-			//modify putnbr to return the number's length to be able to 
+			//modify putnbr to return the number's length to be able to
 			//add it to bites_printed?
 			//is it allowed to modify the functions from libft ?
 			}
@@ -125,6 +127,31 @@ static int	ft_check_format(const char *format)
 	}
 	return (1);
 }
+
+//ft_putptr : convert to uintptr_t then to unsigned int not recommended because uintptr_t
+//is generally an unsigned long so risk of losing data
+
+//check how the OG printf prints hex numbers : is there 0x followed by the hex number ?
+static void	ft_put_hexnbr(unsigned int nbr, char conv_specifier, int *bites_printed)
+{
+	char	*base;
+
+	if (conv_specifier == 'x')
+		base = "0123456789abcdef";
+	if (conv_specifier == 'X')
+		base = "0123456789ABCDEF";
+	if (nbr >= 16)
+	{
+		ft_put_hexnbr(nbr / 16, conv_specifier, bites_printed);
+		ft_putchar_fd(base[nbr % 16], 1);
+		*bites_printed++;
+	}
+	else
+	{
+		ft_putchar_fd(base[nbr], 1);
+		*bites_printed++;
+	}
+}
 int	main(void)
 {
 	//int	printf_ret;
@@ -139,34 +166,34 @@ int	main(void)
 	printf("\n");
 	printf("OG printf behavior if input is 'banana%%' (no specifier after the %%) \n");
 	printf_ret = printf("banana%");
-	printf("printf_ret=%d\n", printf_ret); 
+	printf("printf_ret=%d\n", printf_ret);
 	printf("ft_check_format returns %i\n", ft_check_format("%s%\n"));
 
 	str2 = "banana";
 	printf("OG printf behavior if input is 'banana%%h' (wrong conversion specifier)\n");
 	printf_ret = printf("%s%h\n", str2);
-	printf("printf_ret=%d\n", printf_ret); 
+	printf("printf_ret=%d\n", printf_ret);
 	printf("ft_check_format returns %i\n", ft_check_format("%s%\n"));
 
 	printf("OG printf behavior if input is NULL\n");
 	printf_ret = printf(NULL);
-	printf("printf_ret=%d\n", printf_ret); 
+	printf("printf_ret=%d\n", printf_ret);
 	printf("ft_check_format returns %i\n", ft_check_format(NULL));
 
 	printf("\n");
 	printf("undefined OG printf behaviors");
 	printf("\n");
 
-	str3 = "banana"; 
+	str3 = "banana";
 	printf("OG printf behavior if input is 'banana%%d' w/o the 2nd arg (%%d) precised\n");
 	printf_ret = printf("%s%d\n", str3);
-	printf("printf_ret=%d\n", printf_ret); 
+	printf("printf_ret=%d\n", printf_ret);
 	printf("ft_check_format returns %i\n", ft_check_format("%s%d\n"));
 
 	str4 = " and kiwi jaune";
 	printf("OG printf behavior if input is 'banana%%d' with the wrong 2nd arg (char * instead of int)\n");
 	printf_ret = printf("%s%d\n", str3, str4);
-	printf("printf_ret=%d\n", printf_ret); 
+	printf("printf_ret=%d\n", printf_ret);
 	printf("ft_check_format returns %i\n", ft_check_format("%s%d\n"));
 
 	printf("\n");
@@ -175,14 +202,14 @@ int	main(void)
 
 	printf("OG printf behavior if input is 'banana%%s' with correct 2nd arg str (char *)\n");
 	printf_ret = printf("%s%s\n", str3, str4);
-	printf("printf_ret=%d\n", printf_ret); 
+	printf("printf_ret=%d\n", printf_ret);
 	printf("ft_check_format returns %i\n", ft_check_format("%s%s\n"));
 
 	printf("OG printf behavior if input is \"\"\n");
 	printf_ret = printf("");
-	printf("printf_ret=%d\n", printf_ret); 
+	printf("printf_ret=%d\n", printf_ret);
 	printf("ft_check_format returns %i\n", ft_check_format(""));*/
-	
+
 	printf("\n");
 	printf("ft_printf tests");
 	printf("\n");
@@ -195,5 +222,15 @@ int	main(void)
 	ft_printf_ret = ft_printf("%s are %c%c\n", str1, c1, c2);
 	printf("ft_printf_ret=%d\n", ft_printf_ret);
 
+
+	printf("\n");
+	printf("ft_put_hexnbr tests");
+	printf("\n");
+	int	bites_printed = 0;
+	ft_put_hexnbr(323232, 'x', &bites_printed);
+	ft_put_hexnbr(2147483648, 'x', &bites_printed);
+	ft_put_hexnbr(0, 'x', &bites_printed);
+	ft_put_hexnbr(15, 'x', &bites_printed);
+	ft_put_hexnbr(16, 'x', &bites_printed);
 	return (0);
 }

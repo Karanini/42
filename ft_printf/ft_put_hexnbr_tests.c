@@ -13,12 +13,12 @@ static void	ft_put_hexnbr(unsigned int nbr, char conv_specifier, int *bites_prin
 	{
 		ft_put_hexnbr(nbr / 16, conv_specifier, bites_printed);
 		ft_putchar_fd(base[nbr % 16], 1);
-		*bites_printed++;
+		*(bites_printed)++;
 	}
 	else
 	{
 		ft_putchar_fd(base[nbr], 1);
-		*bites_printed++;
+		*(bites_printed)++;
 	}
 }
 int	main(void)

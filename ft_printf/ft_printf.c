@@ -16,6 +16,7 @@
 //printf("banana%b"); b is not a conv. specifier 
 //if printf("%s%h\n", "banana"); then "banana%h" is printed
 //if printf("%s%h", "banana"); then nthng is printed and printf returns (-1)
+//what is the behavior if %b in the middle of the string ? eg "ba%bnana" ?
 
 static int	ft_check_format(const char *format); 
 
@@ -45,20 +46,30 @@ int	ft_printf(const char *format, ...)
 	i = 0;
 	while (format[i])
 	{
-		if (format[i] != '%')
+//if we have a char to print or if we have '%%'
+		if (format[i] != '%' || (format[i] == '%' &&
+			format[i + 1] == '%'))
 		{
 			ft_putchar_fd(format[i], 1);
-			i++;
+//if we have '%%' we print the first % then skip the next
+			if (format[i + 1] == '%')
+				i += 2;
+			else
+				i++;
 			bites_printed++;
 		}
 		if (format[i] == '%' && format[i + 1])
 		{
 //call functions instead of treating everything here
-//group by similar types ? eg 
+//Idea A :group by similar types ? eg 
 //c and s together, 
 //i, d and u 
 //x and X
 //p
+// Idea B : 
+// one func to treat the conv. specifier ie all the following ifs
+// one func ft_putptr
+// one func ft_put_hexnbr
 // norm : 5 functions max per file
 			if (format[i + 1] == 'c')
 			{
@@ -69,8 +80,24 @@ int	ft_printf(const char *format, ...)
 			{
 				s = va_arg(args, const char *),
 				ft_putstr_fd((char *)s, 1);
-				bites_printed+=ft_strlen(s);
+				bites_printed += ft_strlen(s);
 			}
+			if (format[i + 1] == 'p')
+				ft_putptr(va_arg(args, void *), &bites_printed);
+			if (format[i + 1] == 'd' || format[i + 1] == 'i')
+			{
+				ft_putnbr_fd(va_arg(args, int), 1);
+			//modify putnbr to return the number's length to be able to 
+			//add it to bites_printed?
+			//is it allowed to modify the functions from libft ?
+			}
+			if (format[i + 1] == 'u')
+			{
+				ft_putnbr_fd(va_arg(args, unsigned int), 1);
+			//add num length to bites_printed
+			}
+			if (format[i + 1] == 'x' || format[i + 1] == 'X')
+				ft_put_hexnbr(va_arg(args, unsigned int), format[i + 1], &bites_printed);
 			i = i + 2;
 		}
 	}

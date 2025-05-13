@@ -46,7 +46,8 @@ SRC = ft_isalpha.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
-		ft_put_hexnbr.c
+		ft_put_hexnbr.c \
+		ft_putptr.c
 
 BSRC = $(addsuffix _bonus.c, ft_lstnew \
 		ft_lstadd_front \

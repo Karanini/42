@@ -2,24 +2,6 @@
 #include <stdio.h>
 #include "libft.h"
 
-//good printf examples :
-//printf("I love the %d and I mainly eat %s", 32, "yellow kiwis");
-//printf(""); doesn't print ANYTHING and returns 0
-//
-//to clarify printf examples :
-//printf("banana%d\n"); error but returns nb bites printed anyway
-//printf("banana%d\n", str);error but returns nb bites printed anyway
-//
-//bad printf examples (don't print ANYTHING and return (-1)):
-//printf(NULL)
-//printf("banana%"); no conv. specifier after the %
-//printf("banana%b"); b is not a conv. specifier
-//if printf("%s%h\n", "banana"); then "banana%h" is printed
-//if printf("%s%h", "banana"); then nthng is printed and printf returns (-1)
-//what is the behavior if %b in the middle of the string ? eg "ba%bnana" ?
-
-static void	ft_put_hex(unsigned int nbr, char conv_specifier, int *bites_printed);
-
 static int	ft_check_format(const char *format);
 
 int	ft_printf(const char *format, ...)
@@ -76,6 +58,7 @@ int	ft_printf(const char *format, ...)
 			if (format[i + 1] == 'c')
 			{
 				ft_putchar_fd((unsigned char)va_arg(args, int), 1);
+				// modify putchar and putstr to count the bites printed ?
 				bites_printed++;
 			}
 			if (format[i + 1] == 's')
@@ -115,11 +98,12 @@ static int	ft_check_format(const char *format)
 	specifiers_set = "cspdiuxX%";
 	if (format == NULL)
 		return (-1);
+//the OG printf function returns 0 with printf("");
 	if (format[0] == '\0')
 		return (0);
 	while(format[i])
 	{
-//check if we need to take into acbites_printed those error cases :
+//check if we need to take into account those error cases :
 		if (format[i] == '%' && (!format[i + 1] ||
 			!ft_strchr(specifiers_set, format[i + 1])))
 			return (-1);
@@ -131,27 +115,6 @@ static int	ft_check_format(const char *format)
 //ft_putptr : convert to uintptr_t then to unsigned int not recommended because uintptr_t
 //is generally an unsigned long so risk of losing data
 
-//check how the OG printf prints hex numbers : is there 0x followed by the hex number ?
-static void	ft_put_hexnbr(unsigned int nbr, char conv_specifier, int *bites_printed)
-{
-	char	*base;
-
-	if (conv_specifier == 'x')
-		base = "0123456789abcdef";
-	if (conv_specifier == 'X')
-		base = "0123456789ABCDEF";
-	if (nbr >= 16)
-	{
-		ft_put_hexnbr(nbr / 16, conv_specifier, bites_printed);
-		ft_putchar_fd(base[nbr % 16], 1);
-		*bites_printed++;
-	}
-	else
-	{
-		ft_putchar_fd(base[nbr], 1);
-		*bites_printed++;
-	}
-}
 int	main(void)
 {
 	//int	printf_ret;

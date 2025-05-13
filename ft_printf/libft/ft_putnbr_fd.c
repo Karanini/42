@@ -46,22 +46,25 @@ static void	ft_putnbr(int n, int fd)
 	}
 }
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr_fd(int n, int fd)
 {
 	int		sign;
 	size_t	len;
 
 	if (n == INT_MIN)
-		return (ft_putstr_fd("-2147483648", fd));
+		return (ft_putstr_fd("-2147483648", fd), 11);
 	sign = 1;
 	len = ft_len_and_sign(&n, &sign);
-	(void)len;
 	if (sign == -1)
 		ft_putchar_fd('-', fd);
 	ft_putnbr(n, fd);
+	return (len);
 }
 // int main(void)
 // {
-// 	ft_putnbr_fd(132,1);
+// 	unsigned int	champignon;
+
+// 	champignon = 142;
+// 	ft_putnbr_fd(champignon,1);
 // 	return (0);
 // }

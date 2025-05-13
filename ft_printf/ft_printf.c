@@ -3,19 +3,8 @@
 #include "libft.h"
 
 static int	ft_check_format(const char *format);
+static void	ft_converter(va_list *args, char conv_specifier, int *bites_printed);
 
-int	ft_printf(const char *format, ...)
-{
-	int	bites_printed;
-	va_list	args;
-	size_t	i;
-	const char	*s;
-
-	if (ft_check_format(format) == -1)
-		return (-1);
-	if (ft_check_format(format) == 0)
-		return (0);
-	va_start(args, format);
 //if no var arg then print format directly and return its length
 //not possible to check if no args -> skip this part ?
 //if no var arg but some conv. specifiers are present it can be
@@ -26,24 +15,6 @@ int	ft_printf(const char *format, ...)
 		va_end(args);
 		return (ft_strlen(format));
 	}*/
-	bites_printed = 0;
-	i = 0;
-	while (format[i])
-	{
-//if we have a char to print or if we have '%%'
-		if (format[i] != '%' || (format[i] == '%' &&
-			format[i + 1] == '%'))
-		{
-			ft_putchar_fd(format[i], 1);
-//if we have '%%' we print the first % then skip the next
-			if (format[i + 1] == '%')
-				i += 2;
-			else
-				i++;
-			bites_printed++;
-		}
-		if (format[i] == '%' && format[i + 1])
-		{
 //call functions instead of treating everything here
 //Idea A :group by similar types ? eg
 //c and s together,
@@ -55,38 +26,64 @@ int	ft_printf(const char *format, ...)
 // one func ft_putptr
 // one func ft_put_hexnbr
 // norm : 5 functions max per file
-			if (format[i + 1] == 'c')
-			{
-				ft_putchar_fd((unsigned char)va_arg(args, int), 1);
-				// modify putchar and putstr to count the bites printed ?
-				bites_printed++;
-			}
-			if (format[i + 1] == 's')
-			{
-				s = va_arg(args, const char *),
-				ft_putstr_fd((char *)s, 1);
-				bites_printed += ft_strlen(s);
-			}
-			if (format[i + 1] == 'p')
-				ft_putptr(va_arg(args, void *), &bites_printed);
-			if (format[i + 1] == 'd' || format[i + 1] == 'i')
-			{
-				ft_putnbr_fd(va_arg(args, int), 1);
-			//modify putnbr to return the number's length to be able to
-			//add it to bites_printed?
-			//is it allowed to modify the functions from libft ?
-			}
-			if (format[i + 1] == 'u')
-			{
-				ft_putnbr_fd(va_arg(args, unsigned int), 1);
-			//add num length to bites_printed
-			}
-			if (format[i + 1] == 'x' || format[i + 1] == 'X')
-				ft_put_hexnbr(va_arg(args, unsigned int), format[i + 1], &bites_printed);
+
+int	ft_printf(const char *format, ...)
+{
+	int	bites_printed;
+	va_list	args;
+	size_t	i;
+
+	if (ft_check_format(format) == -1)
+		return (-1);
+	if (ft_check_format(format) == 0)
+		return (0);
+	va_start(args, format);
+	bites_printed = 0;
+	i = 0;
+	while (format[i])
+	{
+		if (format[i] != '%')
+		{
+			ft_putchar_fd(format[i++], 1);
+			bites_printed++;
+		}
+		if (format[i] == '%' && format[i + 1])
+		{
+			ft_converter(&args, format[i + 1], &bites_printed);
 			i = i + 2;
 		}
 	}
 	return (bites_printed);
+}
+
+static void	ft_converter(va_list *args, char conv_specifier, int *bites_printed)
+{
+	const char	*s;
+
+	if (conv_specifier == '%')
+	{
+		ft_putchar_fd('%', 1);
+		(*bites_printed)++;
+	}
+	if (conv_specifier == 'c')
+	{
+		ft_putchar_fd((unsigned char)va_arg(*args, int), 1);
+		(*bites_printed)++;
+	}
+	if (conv_specifier == 's')
+	{
+		s = va_arg(*args, const char *),
+		ft_putstr_fd((char *)s, 1);
+		(*bites_printed) += ft_strlen(s);
+	}
+	if (conv_specifier == 'p')
+		ft_putptr(va_arg(*args, void *), bites_printed);
+	if (conv_specifier == 'd' || conv_specifier == 'i')
+		(*bites_printed) += ft_putnbr_fd(va_arg(*args, int), 1);
+	if (conv_specifier == 'u')
+		(*bites_printed) += ft_putnbr_fd(va_arg(*args, unsigned int), 1);
+	if (conv_specifier == 'x' || conv_specifier == 'X')
+		ft_put_hexnbr(va_arg(*args, unsigned int), conv_specifier, bites_printed);
 }
 
 static int	ft_check_format(const char *format)

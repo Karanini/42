@@ -13,10 +13,20 @@
 
 NAME = libftprintf.a
 
-SRC = ft_printf.c
+SRC = ft_printf.c \
+	$(addprefix libft/, \
+	ft_putchar_fd.c \
+	ft_putstr_fd.c \
+	ft_putptr.c \
+	ft_putnbr_fd.c \
+	ft_put_hexnbr.c \
+	ft_strchr.c)
 
 RM = rm -f
-OBJS := $(SRC:%.c=%.o)
+# We define OBJS like this because it's replacing the suffix of each file.
+# $(SRC:%.c=%.o) is looking for a pattern. It is replacing only the name 
+# of the function so it's not working when a directory is precised.   
+OBJS := $(SRC:.c=.o)
 CC = cc
 FLAGS = -Wall -Wextra -Werror
 LIBFT_DIR = libft
@@ -29,10 +39,12 @@ $(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(OBJS) $(LIBFT) $(HEADER) Makefile
-	ar rcs $(NAME) $(OBJS) $(LIBFT)
+	ar rcs $(NAME) $(OBJS)
 
+# We search for the headers in the current folder then in the libft
+# folder, so that each function finds its header file. 
 %.o: %.c
-	$(CC) $(FLAGS) -I$(LIBFT_DIR) -c $< -o $@
+	$(CC) $(FLAGS) -I. -I$(LIBFT_DIR) -c $< -o $@
 
 clean:
 	$(MAKE) clean -C $(LIBFT_DIR)

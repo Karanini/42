@@ -1,6 +1,5 @@
-#include <stdarg.h>
 #include <stdio.h>
-#include "libft.h"
+#include "ft_printf.h"
 
 static int	ft_check_format(const char *format);
 static void	ft_converter(va_list *args, char conv_specifier, int *bites_printed);
@@ -106,12 +105,12 @@ static int	ft_check_format(const char *format)
 //ft_putptr : convert to uintptr_t then to unsigned int not recommended because uintptr_t
 //is generally an unsigned long so risk of losing data
 
-int	main(void)
+/*int	main(void)
 {
 	//int	printf_ret;
 	int	ft_printf_ret;
 	const char	*str1;
-	/*char	*str2;
+	char	*str2;
 	char	*str3;
 	char	*str4;
 
@@ -162,7 +161,7 @@ int	main(void)
 	printf("OG printf behavior if input is \"\"\n");
 	printf_ret = printf("");
 	printf("printf_ret=%d\n", printf_ret);
-	printf("ft_check_format returns %i\n", ft_check_format(""));*/
+	printf("ft_check_format returns %i\n", ft_check_format(""));
 
 	printf("\n");
 	printf("ft_printf tests");
@@ -231,14 +230,14 @@ int	main(void)
 	ft_printf_ret = ft_printf("nbr3 %%X=%X\n", nbr3);
 	printf("ft_printf_ret=%d\n", ft_printf_ret);
 
-	// printf("\n");
-	// printf("ft_put_hexnbr tests");
-	// printf("\n");
-	// int	bites_printed = 0;
-	// ft_put_hexnbr(323232, 'x', &bites_printed);
-	// ft_put_hexnbr(2147483648, 'x', &bites_printed);
-	// ft_put_hexnbr(0, 'x', &bites_printed);
-	// ft_put_hexnbr(15, 'x', &bites_printed);
-	// ft_put_hexnbr(16, 'x', &bites_printed);
+	printf("\n");
+	printf("ft_put_hexnbr tests");
+	printf("\n");
+	int	bites_printed = 0;
+	ft_put_hexnbr(323232, 'x', &bites_printed);
+	ft_put_hexnbr(2147483648, 'x', &bites_printed);
+	ft_put_hexnbr(0, 'x', &bites_printed);
+	ft_put_hexnbr(15, 'x', &bites_printed);
+	ft_put_hexnbr(16, 'x', &bites_printed);
 	return (0);
-}
+}*/

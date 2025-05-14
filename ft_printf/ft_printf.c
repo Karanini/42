@@ -58,8 +58,6 @@ int	ft_printf(const char *format, ...)
 
 static void	ft_converter(va_list *args, char conv_specifier, int *bites_printed)
 {
-	const char	*s;
-
 	if (conv_specifier == '%')
 	{
 		ft_putchar_fd('%', 1);
@@ -71,11 +69,7 @@ static void	ft_converter(va_list *args, char conv_specifier, int *bites_printed)
 		(*bites_printed)++;
 	}
 	if (conv_specifier == 's')
-	{
-		s = va_arg(*args, const char *),
-		ft_putstr_fd((char *)s, 1);
-		(*bites_printed) += ft_strlen(s);
-	}
+		(*bites_printed) += ft_putstr_fd((char *)va_arg(*args, const char *), 1);
 	if (conv_specifier == 'p')
 		ft_putptr(va_arg(*args, void *), bites_printed);
 	if (conv_specifier == 'd' || conv_specifier == 'i')
@@ -175,22 +169,76 @@ int	main(void)
 	printf("\n");
 
 	str1 = "stars";
-	int c1 = '3';
-	int c2 = '2';
-	printf("test 1\n");
+	char c1 = '3';
+	char c2 = '2';
+	printf("test 1 : %%s and %%c\n");
 	printf("expected output (OG printf) : %s are %c%c\n", str1, c1, c2);
+	printf("ft_printf output : ");
+	fflush(stdout);
 	ft_printf_ret = ft_printf("%s are %c%c\n", str1, c1, c2);
 	printf("ft_printf_ret=%d\n", ft_printf_ret);
 
+	printf("\n");
+	printf("test 2 : %%s and %%p\n");
+	printf("expected output (OG printf) : str1 (%s) adress is %p !\n", str1, str1);
+	printf("ft_printf output : ");
+	fflush(stdout);
+	ft_printf_ret = ft_printf("str1 (%s) adress is %p !\n", str1, str1);
+	printf("ft_printf_ret=%d\n", ft_printf_ret);
+
+	int nbr1 = 323232;
+	int nbr2 = 0;
+	
+	printf("\n");
+	printf("test 3a : %%d, %%%% and %%i\n");
+	printf("expected output (OG printf) : nbr1 %%d=%d, nbr1 %%i=%i\n", nbr1, nbr1);
+	printf("ft_printf output : ");
+	fflush(stdout);
+	ft_printf_ret = ft_printf("nbr1 %%d=%d, nbr1 %%i=%i\n", nbr1, nbr1);
+	printf("ft_printf_ret=%d\n", ft_printf_ret);
 
 	printf("\n");
-	printf("ft_put_hexnbr tests");
+	printf("test 3b : %%d, %%%% and %%i\n");
+	printf("expected output (OG printf) : nbr2 %%d=%d, nbr2 %%i=%i\n", nbr2, nbr2);
+	printf("ft_printf output : ");
+	fflush(stdout);
+	ft_printf_ret = ft_printf("nbr2 %%d=%d, nbr2 %%i=%i\n", nbr2, nbr2);
+	printf("ft_printf_ret=%d\n", ft_printf_ret);
+
+	unsigned int nbr3 = 420;
+	
 	printf("\n");
-	int	bites_printed = 0;
-	ft_put_hexnbr(323232, 'x', &bites_printed);
-	ft_put_hexnbr(2147483648, 'x', &bites_printed);
-	ft_put_hexnbr(0, 'x', &bites_printed);
-	ft_put_hexnbr(15, 'x', &bites_printed);
-	ft_put_hexnbr(16, 'x', &bites_printed);
+	printf("test 4 : %%u\n");
+	printf("expected output (OG printf) : nbr3 %%u=%u\n", nbr3);
+	printf("ft_printf output : ");
+	fflush(stdout);
+	ft_printf_ret = ft_printf("nbr3 %%u=%u\n", nbr3);
+	printf("ft_printf_ret=%d\n", ft_printf_ret);
+
+	printf("\n");
+	printf("test 5 : %%x\n");
+	printf("expected output (OG printf) : nbr3 %%x=%x\n", nbr3);
+	printf("ft_printf output : ");
+	fflush(stdout);
+	ft_printf_ret = ft_printf("nbr3 %%x=%x\n", nbr3);
+	printf("ft_printf_ret=%d\n", ft_printf_ret);
+
+	printf("\n");
+	printf("test 6 : %%X\n");
+	printf("expected output (OG printf) : nbr3 %%X=%X\n", nbr3);
+	printf("ft_printf output : ");
+	fflush(stdout);
+	ft_printf_ret = ft_printf("nbr3 %%X=%X\n", nbr3);
+	printf("ft_printf_ret=%d\n", ft_printf_ret);
+
+	// printf("\n");
+	// printf("ft_put_hexnbr tests");
+	// printf("\n");
+	// int	bites_printed = 0;
+	// ft_put_hexnbr(323232, 'x', &bites_printed);
+	// ft_put_hexnbr(2147483648, 'x', &bites_printed);
+	// ft_put_hexnbr(0, 'x', &bites_printed);
+	// ft_put_hexnbr(15, 'x', &bites_printed);
+	// ft_put_hexnbr(16, 'x', &bites_printed);
 	return (0);
 }

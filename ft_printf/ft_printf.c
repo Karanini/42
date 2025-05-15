@@ -74,31 +74,31 @@ static void	ft_converter(va_list *args, char conv_specifier, int *bites_printed)
 	if (conv_specifier == 'd' || conv_specifier == 'i')
 		(*bites_printed) += ft_putnbr_fd(va_arg(*args, int), 1);
 	if (conv_specifier == 'u')
-		(*bites_printed) += ft_putnbr_fd(va_arg(*args, unsigned int), 1);
+		(*bites_printed) += ft_put_uint_fd(va_arg(*args, unsigned int), 1);
 	if (conv_specifier == 'x' || conv_specifier == 'X')
 		ft_put_hexnbr(va_arg(*args, unsigned int), conv_specifier, bites_printed);
 }
 
 static int	ft_check_format(const char *format)
 {
-	size_t	i;
-	char	*specifiers_set;
+	// size_t	i;
+	// char	*specifiers_set;
 
-	i = 0;
-	specifiers_set = "cspdiuxX%";
+	// i = 0;
+	// specifiers_set = "cspdiuxX%";
 	if (format == NULL)
 		return (-1);
 //the OG printf function returns 0 with printf("");
 	if (format[0] == '\0')
 		return (0);
-	while(format[i])
-	{
-//check if we need to take into account those error cases :
-		if (format[i] == '%' && (!format[i + 1] ||
-			!ft_strchr(specifiers_set, format[i + 1])))
-			return (-1);
-		i++;
-	}
+// 	while(format[i])
+// 	{
+// //check if we need to take into account those error cases :
+// 		if (format[i] == '%' && (!format[i + 1] ||
+// 			!ft_strchr(specifiers_set, format[i + 1])))
+// 			return (-1);
+// 		i += 2;
+// 	}
 	return (1);
 }
 
@@ -241,3 +241,44 @@ static int	ft_check_format(const char *format)
 	ft_put_hexnbr(16, 'x', &bites_printed);
 	return (0);
 }*/
+
+// int main(void)
+// {
+// 	ft_printf(" %u ", -1);
+// 	ft_printf(" %u ", -9);
+// 	ft_printf(" %u ", -10);
+// 	ft_printf(" %u ", -11);
+// 	ft_printf("\n");
+// }
+
+// int main(void)
+// {
+// 	printf(" %% ");
+// 	printf(" %%%% ");
+// 	printf(" %% %% %% ");
+// 	printf(" %%  %%  %% ");
+// 	printf(" %%   %%   %% ");
+// 	printf("%%");
+// 	printf("%% %%");
+// 	printf("\n");
+// 	fflush(stdout);
+
+// 	int nb = ft_printf(" %% ");
+// 	ft_printf(" %%%% ");
+// 	ft_printf(" %% %% %% ");
+// 	ft_printf(" %%  %%  %% ");
+// 	ft_printf(" %%   %%   %% ");
+// 	ft_printf("%%");
+// 	ft_printf("%% %%");
+// 	printf("\n");
+// 	ft_printf("%d", nb);
+// }
+
+// int main(void)
+// {
+// 	printf(" NULL %s NULL ", NULL);
+// 	printf("\n");
+// 	ft_printf(" NULL %s NULL ", NULL);
+// 	return (0);
+// }
+

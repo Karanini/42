@@ -20,6 +20,7 @@ SRC = ft_printf.c \
 	ft_putptr.c \
 	ft_putnbr_fd.c \
 	ft_put_hexnbr.c \
+	ft_put_uint_fd.c \
 	ft_strchr.c)
 
 RM = rm -f

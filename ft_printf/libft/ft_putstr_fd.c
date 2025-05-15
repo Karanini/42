@@ -17,10 +17,18 @@ int		ft_putstr_fd(char *s, int fd)
 	size_t	i;
 
 	i = 0;
-	while (s[i])
+	if (s == NULL)
 	{
-		ft_putchar_fd(s[i], fd);
-		i++;
+		write(fd, "(null)", 6);
+		return (6);
+	}
+	else
+	{
+		while (s[i])
+		{
+			ft_putchar_fd(s[i], fd);
+			i++;
+		}
 	}
 	return (i);
 }

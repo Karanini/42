@@ -70,5 +70,6 @@ void ft_lstiter(t_list *lst, void (*f)(void *));
 t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_put_hexnbr(unsigned int nbr, char conv_specifier, int *bites_printed);
 void    ft_putptr(void *ptr, int *bites_printed);
+int	ft_put_uint_fd(unsigned int n, int fd);
 
 #endif

@@ -282,3 +282,9 @@ static int	ft_check_format(const char *format)
 // 	return (0);
 // }
 
+// int main(void)
+// {
+// 	printf(" %p %p ", 0, 0);
+// 	printf("\n");
+// 	ft_printf(" %p %p ", 0, 0);
+// }

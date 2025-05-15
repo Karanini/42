@@ -7,6 +7,12 @@ void    ft_putptr(void *ptr, int *bites_printed)
 {
     uintptr_t   ptr_int;
     
+    if (!ptr)
+    {
+        ft_putstr_fd("(nil)", 1);
+        (*bites_printed) += 5;
+        return ;
+    }
     ft_putstr_fd("0x", 1);
     (*bites_printed) += 2;
     ptr_int = (uintptr_t)ptr;

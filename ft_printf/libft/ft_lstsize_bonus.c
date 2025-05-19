@@ -1,10 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/19 17:15:30 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/05/19 17:15:33 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-int ft_lstsize(t_list *lst)
+int	ft_lstsize(t_list *lst)
 {
-	int	i;
+	int		i;
 	t_list	*next_elt;
 
 	i = 0;
@@ -19,9 +30,9 @@ int ft_lstsize(t_list *lst)
 
 /*int	main(void)
 {
-	t_list	*lst1_elt1 = ft_lstnew(0);	
-	t_list	*lst1_elt2 = ft_lstnew(0);	
-	t_list	*lst1_elt3 = ft_lstnew(0);	
+	t_list	*lst1_elt1 = ft_lstnew(0);
+	t_list	*lst1_elt2 = ft_lstnew(0);
+	t_list	*lst1_elt3 = ft_lstnew(0);
 	t_list	*lst2_elt1 = ft_lstnew(0);
 	t_list	*lst3_elt1 = NULL;
 
@@ -30,13 +41,13 @@ int ft_lstsize(t_list *lst)
 	lst1_elt3->next = NULL;
 
 	printf("list 1 size is %d (expected is 3)\n", ft_lstsize(lst1_elt1));
-	
+
 	lst2_elt1->next = NULL;
 
 	printf("list 2 size is %d (expected is 1)\n", ft_lstsize(lst2_elt1));
 
 	printf("list 3 size is %d (expected is 0)", ft_lstsize(lst3_elt1));
-	
+
 	free(lst1_elt1);
 	free(lst1_elt2);
 	free(lst1_elt3);

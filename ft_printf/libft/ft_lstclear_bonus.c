@@ -1,35 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstclear_bonus.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/19 17:01:57 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/05/19 17:01:57 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
 
-// void ft_lstclear_old(t_list **lst, void (*del)(void *))
-// {
-//     t_list  *temp;
-
-//     temp = ft_lstlast(*lst);
-//     while (temp != *lst)
-//     {
-//         ft_lstdelone(temp, *del);
-//         temp = ft_lstlast(*lst);
-//     }
-//     ft_lstdelone(temp, *del);
-//     //free(lst);
-//     *lst = NULL;
-// }
-
-void ft_lstclear(t_list **lst, void (*del)(void *))
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-    t_list  *temp;
+	t_list	*temp;
 
-    while (*lst)
-    {
-        temp = (*lst)->next;
-        ft_lstdelone(*lst, del);
-        *lst = temp;
-    }
-    // 2 prochaines lignes inutiles : *lst est deja NULL
-    // free(*lst);
-    // *lst = NULL;
+	while (*lst)
+	{
+		temp = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = temp;
+	}
 }
 
 // void ft_del(void *content)
@@ -39,9 +32,9 @@ void ft_lstclear(t_list **lst, void (*del)(void *))
 
 // int	main(void)
 // {
-// 	t_list	*lst1_elt1 = ft_lstnew(0);	
-// 	t_list	*lst1_elt2 = ft_lstnew(0);	
-// 	t_list	*lst1_elt3 = ft_lstnew(0);	
+// 	t_list	*lst1_elt1 = ft_lstnew(0);
+// 	t_list	*lst1_elt2 = ft_lstnew(0);
+// 	t_list	*lst1_elt3 = ft_lstnew(0);
 // 	// t_list	*lst2_elt1 = ft_lstnew(0);
 // 	// t_list	*lst3_elt1 = NULL;
 
@@ -63,13 +56,13 @@ void ft_lstclear(t_list **lst, void (*del)(void *))
 //     printf("lst1_elt2 adress is %p\n", lst1_elt2);
 //     printf("lst1_elt3 adress is %p\n", lst1_elt3);
 // 	printf("list 1 size is %d (expected is 1)\n", ft_lstsize(lst1_elt1));
-	
+
 // 	// lst2_elt1->next = NULL;
 
 // 	// printf("list 2 size is %d (expected is 1)\n", ft_lstsize(lst2_elt1));
 
 // 	// printf("list 3 size is %d (expected is 0)", ft_lstsize(lst3_elt1));
-	
+
 // 	free(lst1_elt1);
 // 	// free(lst2_elt1);
 // 	return (0);

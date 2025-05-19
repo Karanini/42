@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstmap_bonus.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/19 17:12:48 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/05/19 17:12:48 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libft.h"
 
-t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
 	t_list	*first;
 	t_list	*new;
@@ -24,14 +35,14 @@ t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 			ft_lstclear(&first, del);
 			return (NULL);
 		}
-		ft_lstadd_back(&first, new);	
+		ft_lstadd_back(&first, new);
 		lst = lst->next;
 	}
 	return (first);
 }
 
-#include <stdio.h>
-#include <string.h>
+// #include <stdio.h>
+// #include <string.h>
 
 /*static void	*ft_strlen_void(void *content)
 {

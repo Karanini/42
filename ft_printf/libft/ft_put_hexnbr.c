@@ -1,6 +1,23 @@
-#include "libft.h"
-# include <stdio.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_put_hexnbr.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/19 16:48:34 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/05/19 17:16:13 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
+#include "libft.h"
+#include <stdio.h>
+
+/* ************************************************************************** *
+ * Prints a hex number in the standard output.
+ * Lowercase if conv_specifier == 'x' (eg 4eea0)
+ * Uppercase if conv_specifier == 'X'(eg 4EEA0)
+ * ***************************************************************************/
 void	ft_put_hexnbr(unsigned int nbr, char conv_specifier, int *bites_printed)
 {
 	char	*base;
@@ -17,7 +34,7 @@ void	ft_put_hexnbr(unsigned int nbr, char conv_specifier, int *bites_printed)
 		ft_putchar_fd(base[nbr % 16], 1);
 	}
 	else
-		ft_putchar_fd(base[nbr], 1); 
+		ft_putchar_fd(base[nbr], 1);
 	(*bites_printed)++;
 }
 /*int	main(void)

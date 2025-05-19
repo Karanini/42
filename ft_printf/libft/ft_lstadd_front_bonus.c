@@ -1,11 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstadd_front_bonus.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/19 17:00:44 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/05/19 17:00:52 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
 	if (*lst)
 		new->next = *lst;
-	//if *lst is NULL we just have to define new
-	//as the first element of the list
 	*lst = new;
 }

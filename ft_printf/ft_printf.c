@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:41:41 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/05/19 16:52:35 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/05/19 17:38:53 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,8 @@ int	ft_printf(const char *format, ...)
 	va_list	args;
 	size_t	i;
 
-	if (ft_check_format(format) == -1)
-		return (-1);
-	if (ft_check_format(format) == 0)
-		return (0);
+	if (ft_check_format(format) == -1 || ft_check_format(format) == 0)
+		return (ft_check_format(format));
 	va_start(args, format);
 	bites_printed = 0;
 	i = 0;
@@ -48,6 +46,7 @@ int	ft_printf(const char *format, ...)
 			i = i + 2;
 		}
 	}
+	va_end(args);
 	return (bites_printed);
 }
 

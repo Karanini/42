@@ -3,9 +3,9 @@
 
 int main(void)
 {
-	int ret = printf("");
+	int ret = printf(0);
 	printf("%d", ret);
-	ret = ft_printf("");
+	ret = ft_printf(0);
 	printf("%d", ret);
 	return(0);
 }

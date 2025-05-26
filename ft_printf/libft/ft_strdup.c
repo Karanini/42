@@ -11,7 +11,12 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-
+/* ************************************************************************** *
+* The ft_strdup function creates a duplicate of the input string s by 
+* allocating memory for the new string, copying the characters from the 
+* original string, and appending a null terminator. If memory allocation 
+* fails, the function returns NULL.
+* ************************************************************************** */
 char	*ft_strdup(const char *s)
 {
 	char	*s_c;

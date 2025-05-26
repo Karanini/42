@@ -11,7 +11,13 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-
+/* ************************************************************************** *
+* The ft_strlcat function appends the null-terminated string src to the end of 
+* the null-terminated string dst, ensuring the total length of the resulting 
+* string does not exceed dsize (including the null terminator). It returns 
+* the total length of the string it tried to create, which is the initial 
+* length of dst plus the length of src.
+* ***************************************************************************/
 size_t	ft_strlcat(char *dst, const char *src, size_t dsize)
 {
 	size_t	dst_len;

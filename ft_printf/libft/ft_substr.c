@@ -11,7 +11,13 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-
+/* ************************************************************************** *
+* The ft_substr function creates and returns a new null-terminated substring 
+* from the given string s, starting at the specified index start and with a 
+* maximum length of len. If s is NULL or start exceeds the length of s, the 
+* function returns either NULL or an empty string, and it dynamically 
+* allocates memory for the substring, which must be freed by the caller.
+* ************************************************************************** */
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*subs;

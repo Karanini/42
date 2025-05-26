@@ -31,7 +31,12 @@ static void	copy_strings(char *dest, const char *s1, const char *s2)
 	}
 	dest[i + j] = '\0';
 }
-
+/* ************************************************************************** *
+* The ft_strjoin function takes two C-style strings (s1 and s2), concatenates 
+* them into a newly allocated string, and returns a pointer to the result. 
+* If either input is NULL, it treats it as an empty string, and the function 
+* returns NULL if memory allocation fails.
+* ************************************************************************** */
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	join_len;

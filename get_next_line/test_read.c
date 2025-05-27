@@ -22,5 +22,8 @@ int main(void)
 		bytes_read = read(fdes, buff, nbytes);
 		printf("%s", buff);
 	} while (bytes_read);
+	printf("%zd\n", bytes_read);
+	bytes_read = read(fdes, buff, nbytes);
+	printf("%zd\n", bytes_read);
 	return (0);
 }

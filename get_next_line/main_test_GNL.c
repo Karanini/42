@@ -6,16 +6,18 @@ int main(void)
 	char *line;
 	int	i;
 
-	i = 4;
-	fdes = open("32.txt", O_RDONLY);
+	i = 31;
+	fdes = open("HP1.txt", O_RDONLY);
 	line = get_next_line(fdes);
-	printf("get_next_line return==%s\n", line);
-	fflush(stdout);
-	while (i)
+	// printf("get_next_line return==%s\n", line);
+	// fflush(stdout);
+	printf("%s", line);
+	while (line)
 	{
 		line = get_next_line(fdes);
-		printf("get_next_line return==%s\n", line);
-		fflush(stdout);
+		// printf("get_next_line return==%s\n", line);
+		// fflush(stdout);
+		printf("%s", line);
 		i--;
 	}
 	return (0);

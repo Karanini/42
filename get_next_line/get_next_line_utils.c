@@ -3,7 +3,7 @@
 /* ************************************************************************** *
 The ft_strchr function searches for the first occurrence of the character c
 * (converted to an unsigned char) in the string s. It returns a pointer to the
-* located character in the string or NULL if the character is not found; 
+* located character in the string or NULL if the character is not found;
 * if c is '\0', it returns a pointer to the null terminator of the string.
 * ***************************************************************************/
 char	*ft_strchr(const char *s, int c)
@@ -13,6 +13,8 @@ char	*ft_strchr(const char *s, int c)
 
 	ch = (unsigned char)c;
 	i = 0;
+	if (!s || !c)
+		return (NULL);
 	while (s[i])
 	{
 		if (s[i] == ch)
@@ -24,10 +26,10 @@ char	*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 /* ************************************************************************** *
-* The ft_substr function creates and returns a new null-terminated substring 
-* from the given string s, starting at the specified index start and with a 
-* maximum length of len. If s is NULL or start exceeds the length of s, the 
-* function returns either NULL or an empty string, and it dynamically 
+* The ft_substr function creates and returns a new null-terminated substring
+* from the given string s, starting at the specified index start and with a
+* maximum length of len. If s is NULL or start exceeds the length of s, the
+* function returns either NULL or an empty string, and it dynamically
 * allocates memory for the substring, which must be freed by the caller.
 * ************************************************************************** */
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -75,9 +77,9 @@ static void	copy_strings(char *dest, const char *s1, const char *s2)
 	dest[i + j] = '\0';
 }
 /* ************************************************************************** *
-* The ft_strjoin function takes two C-style strings (s1 and s2), concatenates 
-* them into a newly allocated string, and returns a pointer to the result. 
-* If either input is NULL, it treats it as an empty string, and the function 
+* The ft_strjoin function takes two C-style strings (s1 and s2), concatenates
+* them into a newly allocated string, and returns a pointer to the result.
+* If either input is NULL, it treats it as an empty string, and the function
 * returns NULL if memory allocation fails.
 * ************************************************************************** */
 char	*ft_strjoin(char const *s1, char const *s2)
@@ -97,9 +99,9 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (join);
 }
 /* ************************************************************************** *
-* The ft_strdup function creates a duplicate of the input string s by 
-* allocating memory for the new string, copying the characters from the 
-* original string, and appending a null terminator. If memory allocation 
+* The ft_strdup function creates a duplicate of the input string s by
+* allocating memory for the new string, copying the characters from the
+* original string, and appending a null terminator. If memory allocation
 * fails, the function returns NULL.
 * ************************************************************************** */
 char	*ft_strdup(const char *s)

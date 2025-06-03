@@ -13,8 +13,12 @@
 #include "get_next_line.h"
 /* ************************************************************************** *
 * NOTE : APPELER LA CAF
+Dans get_next_line : 
 buff
 stash
+
+Dans cooking_line : 
+tmp
 * ************************************************************************** */
 
 /* ************************************************************************** *
@@ -47,7 +51,9 @@ char	*get_next_line(int fd)
 
 	read_bytes = 1;
 	stash = cooking_line(fd, buff, stash, &read_bytes);
-
+	if (!stash)
+		return (free(buff), NULL);
+	return (stash);
 
 }
 
@@ -60,10 +66,22 @@ char	*get_next_line(int fd)
 - ET qu'on ne soit pas a la fin du fichier (EOF check : return de read == 0)
 RETURN read_bytes ou stash ???
 * ************************************************************************** */
-char	*cooking_line(int fdd, char *buff, char *stash, int *ptr_vers_read_bytes)
+char	*cooking_line(int fd, char *buff, char *stash, int *ptr_vers_read_bytes)
 {
-	*ptr_vers_read_bytes = read(fd, buff, BUFFER_SIZE);
+	char	*tmp;
 
+	while (!ft_strchr(stash, '\n') && *ptr_vers_read_bytes)
+	{
+		*ptr_vers_read_bytes = read(fd, buff, BUFFER_SIZE);
+		if (*ptr_vers_read_bytes < 0)
+			return (free(stash), NULL);
+		if (*ptr_vers_read_bytes == 0)
+			return (stash);
+		tmp = ft_strdup(stash);
+		free(stash);
+		stash = ft_strjoin(tmp, buff);
+		free(tmp);
+	}
 	return (stash);
 }
 

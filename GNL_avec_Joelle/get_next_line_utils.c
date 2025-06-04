@@ -103,6 +103,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 * allocating memory for the new string, copying the characters from the
 * original string, and appending a null terminator. If memory allocation
 * fails, the function returns NULL.
+* added if !s return NULL for GNL
 * ************************************************************************** */
 char	*ft_strdup(const char *s)
 {
@@ -111,6 +112,8 @@ char	*ft_strdup(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	s_len = ft_strlen(s);
 	s_c = malloc(sizeof(char) * (s_len + 1));
 	if (s_c == NULL)

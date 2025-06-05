@@ -1,16 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_commented.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:13:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/06/05 16:31:15 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/06/05 16:08:29 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+/* ************************************************************************** *
+* NOTE : APPELER LA CAF
+Dans get_next_line :
+buff
+stash
+
+Dans cooking_stash :
+tmp
+* ************************************************************************** */
 
 /* ************************************************************************** *
 * 1. on verifie que fd et BUFFER_SIZE sont valides
@@ -21,10 +30,10 @@
 * ************************************************************************** */
 char	*get_next_line(int fd)
 {
-	ssize_t		read_bytes;
-	char		*buff;
+	ssize_t	read_bytes;
+	char *buff;
 	static char	*stash = NULL;
-	char		*line;
+	char	*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -58,8 +67,7 @@ char	*get_next_line(int fd)
 - stash ne contient pas de '\n'
 - ET qu'on ne soit pas a la fin du fichier (EOF check : return de read == 0)
 * ************************************************************************** */
-char	*cooking_stash(int fd, char *buff, char *stash,
-		ssize_t *ptr_vers_read_bytes)
+char	*cooking_stash(int fd, char *buff, char *stash, ssize_t *ptr_vers_read_bytes)
 {
 	char	*tmp;
 
@@ -86,7 +94,6 @@ char	*cooking_stash(int fd, char *buff, char *stash,
 	}
 	return (stash);
 }
-
 size_t	ft_strlen(const char *str)
 {
 	int	i;
@@ -101,8 +108,7 @@ size_t	ft_strlen(const char *str)
 * fonction extract_and_clean()
 3. si '\n' dans stash :
 3a. on recupere line dans stash AVEC le '\n'
-3b. on nettoie stash cad on recupere le ptr vers la chaine de caracteres
-juste apres '\n'
+3b. on nettoie stash cad on recupere le ptr vers la chaine de car juste apres '\n'
 3c. on return line
 4. si EOF cad pas de '\n' dans le stash
 4a. on assigne stash a line
@@ -111,25 +117,33 @@ juste apres '\n'
 * ************************************************************************** */
 char	*extract_and_clean(char **stash)
 {
-	int		i;
-	char	*line;
+	int	i;
+	char *line;
 	char	*tmp;
 
 	if (!stash || !*stash)
-		return (NULL);
+        return (NULL);
 	i = ft_find_the_nl(*stash);
-	if (i >= 0)
+	if (i >= 0) // '\n' dans stash
 	{
 		line = ft_substr(*stash, 0, i + 1);
 		if (!line)
-			return (free(*stash), *stash = NULL, NULL);
+			return (free(*stash), NULL);
+		// tmp = ft_strdup(*stash);
+		// if (!tmp)
+		// 	return (free(*stash), NULL);
+		// free(*stash);
+		// la ligne suivante ne fonctionne pas car le free ne marche que sur le debut
+		// d'un espace alloue. Ici on donne l'adresse du debut + 1 a stash,
+		// donc les tentatives de free(stash) echouent apres
+		// *stash = (ft_strchr(ft_strdup(tmp), '\n') + 1);
 		tmp = ft_strdup(*stash + i + 1);
 		if (!tmp)
 			return (free(*stash), NULL);
 		free(*stash);
 		*stash = tmp;
 	}
-	else
+	else // '\n' not found --> EOF
 	{
 		line = ft_strdup(*stash);
 		if (!line)
@@ -140,16 +154,14 @@ char	*extract_and_clean(char **stash)
 	return (line);
 }
 
-int	ft_find_the_nl(char *str)
+int ft_find_the_nl(char *str)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
+    int i = 0;
+    while (str[i])
+    {
+        if (str[i] == '\n')  // test de comparaison
+            return i;        // position du '\n'
+        i++;
+    }
+    return -1;  // pas trouvé
 }

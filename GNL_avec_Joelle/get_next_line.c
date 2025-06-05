@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   GNL rewrite.c                                      :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:13:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/06/03 15:18:10 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/06/05 14:36:53 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 /* ************************************************************************** *
 * NOTE : APPELER LA CAF
-Dans get_next_line : 
+Dans get_next_line :
 buff
 stash
 
-Dans cooking_stash : 
+Dans cooking_stash :
 tmp
 * ************************************************************************** */
 
@@ -30,23 +30,29 @@ tmp
 * ************************************************************************** */
 char	*get_next_line(int fd)
 {
-	ssize_t	read_bytes;
+	static ssize_t	read_bytes = 1;
 	char *buff;
 	static char	*stash;
 	char	*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || read_bytes == 0)
 	{
 		return (NULL);
 	}
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
 		return (NULL);
-	read_bytes = 1;
 	stash = cooking_stash(fd, buff, stash, &read_bytes);
 	if (!stash)
 		return (free(buff), NULL);
 	line = extract_and_clean(&stash);
+	if (!line)
+		return (free(buff), NULL);
+	if (read_bytes == 0)
+	{
+		free(stash);
+		stash = NULL;
+	}
 	return (free(buff), line);
 }
 
@@ -72,11 +78,19 @@ char	*cooking_stash(int fd, char *buff, char *stash, ssize_t *ptr_vers_read_byte
 		if (*ptr_vers_read_bytes < 0)
 			return (free(stash), NULL);
 		if (*ptr_vers_read_bytes == 0)
+		{
+			if (stash && stash[0] == '\0')
+				return (free(stash), NULL);
 			return (stash);
+		}
 		buff[*ptr_vers_read_bytes] = '\0';
-		tmp = ft_strdup(stash); //besoin de gerer le cas !tmp (echec du malloc)
+		tmp = ft_strdup(stash);
+		if (stash && !tmp)
+			return (free(stash), NULL);
 		free(stash);
-		stash = ft_strjoin(tmp, buff); //besoin de gerer le cas !stash (echec du malloc)
+		stash = ft_strjoin(tmp, buff);
+		if (!stash)
+			return (free(tmp), NULL);
 		free(tmp);
 	}
 	return (stash);
@@ -109,21 +123,30 @@ char	*extract_and_clean(char **stash)
 	char	*tmp;
 
 	i = ft_find_the_nl(*stash);
-	if (i >= 0) // '\n' dans stash 
+	if (i >= 0) // '\n' dans stash
 	{
 		line = ft_substr(*stash, 0, i + 1);
 		if (!line)
 			return (free(*stash), NULL);
-		tmp = ft_strdup(*stash); //besoin de gerer le cas !tmp (echec du malloc)
+		// tmp = ft_strdup(*stash);
+		// if (!tmp)
+		// 	return (free(*stash), NULL);
+		// free(*stash);
+		// la ligne suivante ne fonctionne pas car le free ne marche que sur le debut
+		// d'un espace alloue. Ici on donne l'adresse du debut + 1 a stash,
+		// donc les tentatives de free(stash) echouent apres
+		// *stash = (ft_strchr(ft_strdup(tmp), '\n') + 1);
+		tmp = ft_strdup(*stash + i + 1);
+		if (!tmp)
+			return (free(*stash), NULL);
 		free(*stash);
-		*stash = (ft_strchr(ft_strdup(tmp), '\n') + 1); //besoin de gerer le cas !*stash (echec du malloc)
-		free(tmp);
+		*stash = tmp;
 	}
 	else // '\n' not found --> EOF
 	{
-		line = ft_strdup(*stash); //besoin de gerer le cas !line (echec du malloc)
-		free(*stash);
-		*stash = NULL; 
+		line = ft_strdup(*stash);
+		if (!line)
+			return (free(*stash), NULL);
 	}
 	return (line);
 }

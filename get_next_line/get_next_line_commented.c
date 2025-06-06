@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:13:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/06/05 16:08:29 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/06/06 15:46:43 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ Dans get_next_line :
 buff
 stash
 
-Dans cooking_stash :
+Dans cooking_stash et dans extract_and_clean:
 tmp
 * ************************************************************************** */
 
@@ -79,7 +79,7 @@ char	*cooking_stash(int fd, char *buff, char *stash, ssize_t *ptr_vers_read_byte
 		if (*ptr_vers_read_bytes == 0)
 		{
 			if (stash && stash[0] == '\0')
-				return (free(stash), NULL);
+				return (free(stash), stash = NULL, NULL);
 			return (stash);
 		}
 		buff[*ptr_vers_read_bytes] = '\0';

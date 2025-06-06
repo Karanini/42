@@ -5,53 +5,143 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/27 11:31:07 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/06/02 19:52:51 by bkaras-g         ###   ########.fr       */
+/*   Created: 2025/06/03 14:13:10 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/06/06 13:22:39 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char    *get_next_line(int fd)
+/* ************************************************************************** *
+* 1. on verifie que fd et BUFFER_SIZE sont valides
+2. on malloc buff
+3. on prepare le stash avec cooking_stash()
+4. on recupere line et on nettoie stash avec extract_and_clean()
+5. on free buff et on return line
+* ************************************************************************** */
+char	*get_next_line(int fd)
 {
-    char    	*buf;
-    char    	*line;
-    static char *stash;
-	// static int	end_of_file = 0;
-	ssize_t		nbytes;
-//(stash && !stash[0]) condition if stash == ""
-    if (BUFFER_SIZE <= 0 || fd < 0 || read(fd, 0, 0) < 0 || (stash && !stash[0]))
-	{
-		if (stash)
-			free(stash);
-        return (NULL);
-	}
-    buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-    if (buf == NULL)
+	ssize_t		read_bytes;
+	char		*buff;
+	static char	*stash = NULL;
+	char		*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	//pas besoin de passer par ca, on peut executer ft_fill_stash
-	//sans que stash soit initialisee
-	//if (!stash) //if stash == NULL -> need to initialize it
-    // {
-	// 	stash = malloc(sizeof(char)); //just 1 for the '\0'
-	// 	if (!stash)
-	// 		return (free(buf), NULL);
-	// 	stash[0] = '\0';
-    // }
-	nbytes = 1;
-	stash = ft_fill_stash(stash, fd, buf, &nbytes);
-	if (stash == NULL)
-		return (free(buf), NULL);
-	// if (!nbytes)
-	// 	end_of_file = 1;
-	line = ft_extract_line(&stash, nbytes);
+	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buff)
+		return (NULL);
+	read_bytes = 1;
+	stash = cooking_stash(fd, buff, stash, &read_bytes);
+	if (!stash)
+		return (free(buff), NULL);
+	line = extract_and_clean(&stash);
 	if (!line)
-		return (free(buf), free(stash), NULL);
-	free(buf);
-	// if (!nbytes && stash)
-	// 	free(stash);
-    return (line);
+		return (free(buff), NULL);
+	if (stash && read_bytes == 0)
+	{
+		free(stash);
+		stash = NULL;
+	}
+	return (free(buff), line);
 }
+
+/* ************************************************************************** *
+* fonction cooking_stash()
+1a. on lit le fichier avec read() et on stocke les caracteres dans buffer
+1b. si erreur de read() on free stash et on return NULL
+1c. on ajoute '\0' a la fin de buff
+1d. on stocke l'ancienne valeur de stash dans tmp puis on free stash
+1e. on redefinit stash en concatenant tmp et buff
+1f. on free tmp
+2. on repete tant que :
+- stash ne contient pas de '\n'
+- ET qu'on ne soit pas a la fin du fichier (EOF check : return de read == 0)
+* ************************************************************************** */
+char	*cooking_stash(int fd, char *buff, char *stash,
+		ssize_t *ptr_vers_read_bytes)
+{
+	char	*tmp;
+
+	while (!ft_strchr(stash, '\n'))
+	{
+		*ptr_vers_read_bytes = read(fd, buff, BUFFER_SIZE);
+		if (*ptr_vers_read_bytes < 0)
+			return (free(stash), NULL);
+		if (*ptr_vers_read_bytes == 0)
+		{
+			if (stash && stash[0] == '\0')
+				return (free(stash), stash = NULL, NULL);
+			return (stash);
+		}
+		buff[*ptr_vers_read_bytes] = '\0';
+		tmp = ft_strdup(stash);
+		if (stash && !tmp)
+			return (free(stash), stash = NULL, NULL);
+		free(stash);
+		stash = ft_strjoin(tmp, buff);
+		if (!stash)
+			return (free(tmp), NULL);
+		free(tmp);
+	}
+	return (stash);
+}
+
+/* ************************************************************************** *
+* fonction extract_and_clean()
+3. si '\n' dans stash :
+3a. on recupere line dans stash AVEC le '\n'
+3b. on nettoie stash cad on recupere le ptr vers la chaine de caracteres
+juste apres '\n'
+3c. on return line
+4. si EOF cad pas de '\n' dans le stash
+4a. on assigne stash a line
+4b. on free line et on le fixe a NULL
+4c. on return line
+* ************************************************************************** */
+char	*extract_and_clean(char **stash)
+{
+	int		i;
+	char	*line;
+	char	*tmp;
+
+	if (!stash || !*stash)
+		return (NULL);
+	i = ft_find_the_nl(*stash);
+	if (i >= 0)
+	{
+		line = ft_substr(*stash, 0, i + 1);
+		tmp = ft_strdup(*stash + i + 1);
+		if (!line || !tmp)
+			return (free(*stash), *stash = NULL, NULL);
+		free(*stash);
+		*stash = tmp;
+	}
+	else
+	{
+		line = ft_strdup(*stash);
+		if (!line)
+			return (free(*stash), *stash = NULL, NULL);
+		free(*stash);
+		*stash = NULL;
+	}
+	return (line);
+}
+
+int	ft_find_the_nl(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 size_t	ft_strlen(const char *str)
 {
 	int	i;
@@ -60,68 +150,4 @@ size_t	ft_strlen(const char *str)
 	while (str[i])
 		i++;
 	return (i);
-}
-char *ft_fill_stash(char *stash, int fd, char *buf, ssize_t *nbytes)
-{
-    char    	*tmp;
-
-    tmp = NULL;
-	//We fill the stash until we find a '\n' or EOF indicated by !nbytes
-    while (!ft_strchr(stash, '\n'))
-    {
-        *nbytes = read(fd, buf, BUFFER_SIZE);
-		// printf("buf==%s\n", buf);
-		if (!*nbytes) //EOF -> we return stash
-			return (stash);
-		if (*nbytes == -1)
-			return (NULL);
-		buf[*nbytes] = '\0';
-        if (stash)
-		{
-			tmp = ft_strdup(stash);
-        	if (!tmp)
-            	return (NULL);
-        	free(stash);
-		}
-        stash = ft_strjoin(tmp, buf);
-        if (!stash)
-            return (NULL);
-        free(tmp);
-    }
-	return (stash);
-}
-/* ************************************************************************** *
-* If !nbytes then EOF then the return line is also the stash line
-* If '\n' then we use ft_substr to get the line in the *stash, including
-* the '\n', then we clean the *stash
-* CHECK WHY **stash ? Maybe useless and *stash is already OK
-* ************************************************************************** */
-char *ft_extract_line(char **stash, ssize_t nbytes)
-{
-	char	*line;
-	char	*tmp;
-	int		i;
-
-    if (!nbytes)
-	{
-		//(*stash)[ft_strlen(*stash)] = '\0'; //check if it works w/o since strjoin
-		// in ft_fill_stash already adds a '\0'
-		return (*stash);
-	}
-	i = 0;
-	while ((*stash)[i] != '\n')
-		i++;
-	line = ft_substr(*stash, 0, i + 1); //len i + 1 to include the '\n'
-	if (!line)
-		return (NULL);
-//we clean the stash, leaving only the characters after '\n'
-	tmp = ft_strdup(ft_strchr(*stash, '\n') + 1);
-	// printf("tmp ft_extract_line==%s\n", tmp);
-	free(*stash);
-	*stash = tmp;
-	// printf("stash after cleaning in ft_extract_line==%s\n", *stash);
-	if (!*stash)
-		return (NULL);
-	//line[ft_strlen(line)] = '\0'; //utile ? ft_substr already adds a '\0'
-	return (line);
 }

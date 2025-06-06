@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:13:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/06/05 16:31:15 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/06/06 13:22:39 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,13 @@ char	*cooking_stash(int fd, char *buff, char *stash,
 		if (*ptr_vers_read_bytes == 0)
 		{
 			if (stash && stash[0] == '\0')
-				return (free(stash), NULL);
+				return (free(stash), stash = NULL, NULL);
 			return (stash);
 		}
 		buff[*ptr_vers_read_bytes] = '\0';
 		tmp = ft_strdup(stash);
 		if (stash && !tmp)
-			return (free(stash), NULL);
+			return (free(stash), stash = NULL, NULL);
 		free(stash);
 		stash = ft_strjoin(tmp, buff);
 		if (!stash)
@@ -85,16 +85,6 @@ char	*cooking_stash(int fd, char *buff, char *stash,
 		free(tmp);
 	}
 	return (stash);
-}
-
-size_t	ft_strlen(const char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
 }
 
 /* ************************************************************************** *
@@ -121,11 +111,9 @@ char	*extract_and_clean(char **stash)
 	if (i >= 0)
 	{
 		line = ft_substr(*stash, 0, i + 1);
-		if (!line)
-			return (free(*stash), *stash = NULL, NULL);
 		tmp = ft_strdup(*stash + i + 1);
-		if (!tmp)
-			return (free(*stash), NULL);
+		if (!line || !tmp)
+			return (free(*stash), *stash = NULL, NULL);
 		free(*stash);
 		*stash = tmp;
 	}
@@ -133,7 +121,7 @@ char	*extract_and_clean(char **stash)
 	{
 		line = ft_strdup(*stash);
 		if (!line)
-			return (free(*stash), NULL);
+			return (free(*stash), *stash = NULL, NULL);
 		free(*stash);
 		*stash = NULL;
 	}
@@ -152,4 +140,14 @@ int	ft_find_the_nl(char *str)
 		i++;
 	}
 	return (-1);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }

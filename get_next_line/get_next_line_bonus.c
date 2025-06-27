@@ -23,7 +23,7 @@ char	*get_next_line(int fd)
 {
 	ssize_t		read_bytes;
 	char		*buff;
-	static char	*stash = NULL;
+	static char	*stash[1024];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
@@ -32,16 +32,16 @@ char	*get_next_line(int fd)
 	if (!buff)
 		return (NULL);
 	read_bytes = 1;
-	stash = cooking_stash(fd, buff, stash, &read_bytes);
-	if (!stash)
+	stash[fd] = cooking_stash(fd, buff, stash[fd], &read_bytes);
+	if (!stash[fd])
 		return (free(buff), NULL);
-	line = extract_and_clean(&stash);
+	line = extract_and_clean(&stash[fd]);
 	if (!line)
 		return (free(buff), NULL);
-	if (stash && read_bytes == 0)
+	if (stash[fd] && read_bytes == 0)
 	{
-		free(stash);
-		stash = NULL;
+		free(stash[fd]);
+		stash[fd] = NULL;
 	}
 	return (free(buff), line);
 }
@@ -77,7 +77,7 @@ char	*cooking_stash(int fd, char *buff, char *stash,
 		buff[*read_bytes] = '\0';
 		tmp = ft_strdup(stash);
 		if (stash && !tmp)
-			return (free(stash), stash = NULL, NULL);
+			return (free(stash), stash = NULL,  NULL);
 		free(stash);
 		stash = ft_strjoin(tmp, buff);
 		if (!stash)
@@ -105,7 +105,7 @@ char	*extract_and_clean(char **stash)
 	char	*line;
 	char	*tmp;
 
-	if (!stash || !*stash)
+	if (!stash || !*stash || !**stash)
 		return (NULL);
 	i = ft_find_the_nl(*stash);
 	if (i >= 0)

@@ -1,5 +1,5 @@
 #include"list.h"
-#include<stdio.h>
+
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {
@@ -8,21 +8,21 @@ void	ft_lstadd_front(t_list **lst, t_list *new)
 }
 
 // Helper function to print the entire linked list
-void print_list(t_list *lst)
-{
-	t_list *current = lst;
-	int i = 0;
+// static void print_list(t_list *lst)
+// {
+// 	t_list *current = lst;
+// 	int i = 0;
 
-	printf("Linked list contents:\n");
-	while (current != NULL)
-	{
-		printf("Node %d: \"%s\" (address: %p, next: %p)\n",
-			i, (char*)current->content, current, current->next);
-		current = current->next;
-		i++;
-	}
-	printf("--- End of list ---\n\n");
-}
+// 	printf("Linked list contents:\n");
+// 	while (current != NULL)
+// 	{
+// 		printf("Node %d: \"%s\" (address: %p, next: %p)\n",
+// 			i, (char*)current->content, current, current->next);
+// 		current = current->next;
+// 		i++;
+// 	}
+// 	printf("--- End of list ---\n\n");
+// }
 
 // int main(void)
 // {

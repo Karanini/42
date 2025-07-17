@@ -6,11 +6,11 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 12:41:41 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/16 12:56:33 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/16 12:57:38 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libft.h"
 #include <stdio.h>
 
 static int	ft_check_format(const char *format);

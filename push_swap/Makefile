@@ -6,7 +6,7 @@
 #    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/16 14:08:56 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/07/17 16:54:07 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/07/17 18:07:14 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC = ft_lstadd_back.c \
 		ft_rotate.c \
 		ft_swap.c \
 		ft_push.c \
+		ft_lstclear.c \
 		main_test.c
 
 RM = rm -f

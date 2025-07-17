@@ -19,15 +19,18 @@ int		main(void)
 	ft_printf("Before operation stack 2 : \n\n");
 	print_list(*begin_2);
 
-	ft_push(begin_1, begin_2);
-	ft_push(begin_1, begin_2);
-	ft_push(begin_1, begin_2);
-	ft_push(begin_1, begin_2);
+	pb(begin_1, begin_2);
+	pb(begin_1, begin_2);
+	pa(begin_1, begin_2);
+	// pb(begin_1, begin_2);
 
 	ft_printf("After operation stack 1 : \n\n");
 	print_list(*begin_1);
 	ft_printf("After operation stack 2 : \n\n");
 	print_list(*begin_2);
+
+	ft_lstclear(begin_1);
+	ft_lstclear(begin_2);
 	return (0);
 }
 // ***********main test for swap**********

@@ -22,7 +22,7 @@ static void	ft_push(t_ps_list **begin_1, t_ps_list **begin_2)
     *begin_1 = elt;
 }
 
-void	pa(t_ps_list **stack_b, t_ps_list **stack_a)
+void	pa(t_ps_list **stack_a, t_ps_list **stack_b)
 {
 	ft_push(stack_b, stack_a);
 	ft_putstr_fd("pa\n", 1);

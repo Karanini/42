@@ -6,7 +6,7 @@
 #    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/02 15:52:17 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/07/16 15:40:04 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/07/18 18:21:58 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,8 @@ SRC = ft_isalpha.c \
 		ft_printf.c \
 		ft_put_hexnbr.c \
 		ft_putptr.c \
-		ft_put_uint_fd.c
+		ft_put_uint_fd.c \
+		ft_strcmp.c
 
 OBJ := $(SRC:%.c=%.o)
 CC = cc

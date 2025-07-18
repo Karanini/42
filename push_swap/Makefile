@@ -6,7 +6,7 @@
 #    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/16 14:08:56 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/07/17 18:07:14 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/07/18 16:04:35 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRC = ft_lstadd_back.c \
 		ft_swap.c \
 		ft_push.c \
 		ft_lstclear.c \
-		main_test.c
+		ft_parsing.c \
+		main.c
 
 RM = rm -f
 OBJ := $(patsubst %.c, %.o, $(SRC))

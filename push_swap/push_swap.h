@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:51:14 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/18 17:13:05 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/21 12:00:00 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,9 @@ typedef struct s_push_swap
 	struct s_push_swap	*next;
 }						t_ps_list;
 
-t_ps_list				*ft_lstnew(int val, size_t index, size_t target);
+t_ps_list				*ft_lstnew(int val);
 void					ft_lstadd_front(t_ps_list **begin_lst, t_ps_list *new);
+void					ft_lstadd_back(t_ps_list **lst, t_ps_list *new);
 t_ps_list				*ft_lstlast(t_ps_list *lst);
 void					print_list(t_ps_list *lst);
 void					ra(t_ps_list **stack_a);
@@ -41,6 +42,7 @@ void					pa(t_ps_list **stack_b, t_ps_list **stack_a);
 void					pb(t_ps_list **stack_a, t_ps_list **stack_b);
 
 char					**ft_parsing(int argc, char *argv[], size_t *total_size);
+t_ps_list				*ft_init_stack(char *tab_str[], size_t total_size);
 
 void					ft_free_tab_str(char **split);
 

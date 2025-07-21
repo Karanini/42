@@ -6,7 +6,7 @@
 #    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/16 14:08:56 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/07/18 16:04:35 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/07/21 11:49:55 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC = ft_lstadd_back.c \
 		ft_push.c \
 		ft_lstclear.c \
 		ft_parsing.c \
+		ft_init_stack.c \
 		main.c
 
 RM = rm -f

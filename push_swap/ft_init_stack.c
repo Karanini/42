@@ -6,13 +6,14 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:45:24 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/21 12:06:53 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:48:12 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static long long	ft_atol(const char *nptr);
+static void	ft_init_index(t_ps_list *begin, size_t total_size);
 
 t_ps_list	*ft_init_stack(char *tab_str[], size_t total_size)
 {
@@ -35,6 +36,8 @@ t_ps_list	*ft_init_stack(char *tab_str[], size_t total_size)
 		ft_lstadd_back(&begin, new);
 		i++;
 	}
+	if (total_size != 1)
+		ft_init_index(begin, total_size);
 	return (begin);
 }
 
@@ -63,11 +66,40 @@ static long long	ft_atol(const char *nptr)
 	{
 		res *= 10;
 		res += nptr[i] - '0';
-		if ((sign == 1 && res > INT_MAX) || (sign == -1 && res > INT_MAX - 1))
+		if ((sign == 1 && res > INT_MAX) || (sign == -1 && res * sign < INT_MIN))
 			return (res * sign);
 		i++;
 	}
 	return (res * sign);
+}
+
+static void	ft_init_index(t_ps_list *begin, size_t total_size)
+{
+	size_t		nb_sorted;
+	t_ps_list	*smallest;
+	t_ps_list	*elt;
+
+	nb_sorted = 0;
+	elt = begin;
+	smallest = begin->next;
+	while (nb_sorted < total_size - 1)
+	{
+		while (elt)
+		{
+			if (elt->index == -1 && elt->val < smallest->val)
+				smallest = elt;
+			elt = elt->next;
+		}
+		smallest->index = ++nb_sorted;
+		elt = begin;
+		while (elt->index != -1)
+			elt = elt->next;
+		smallest = begin->next;
+		while (smallest->index != -1 && elt->val != smallest->val
+			&& nb_sorted != total_size - 1)
+			smallest = smallest->next;
+	}
+	elt->index = ++nb_sorted;
 }
 
 

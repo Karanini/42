@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 14:51:28 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/21 12:03:46 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:25:31 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char *argv[])
 	if (!head_stack_a)
 		return (ft_free_tab_str(tab_str), ft_putstr_fd("Error\n", 2), 1);
 	head_stack_b = NULL;
-	print_list(head_stack_a);
+	print_list_complete(head_stack_a);
 	for (size_t i = 0; i < total_size; i++)
 	{
 		ft_printf("tab_str elt num %d : %s\n", i, tab_str[i]);

@@ -6,15 +6,25 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:45:24 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/21 15:48:12 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/22 09:37:10 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static long long	ft_atol(const char *nptr);
-static void	ft_init_index(t_ps_list *begin, size_t total_size);
+static void			ft_init_index(t_ps_list *begin, size_t total_size);
 
+/**
+ * Initializes a stack (linked list) for the push_swap project.
+ *
+ * @param tab_str      An array of strings, each representing an integer value
+ *  to be added to the stack.
+ * @param total_size   The total number of elements in the tab_str array.
+
+ * @return             A pointer to the head of the initialized stack
+  (t_ps_list), or NULL on failure.
+ */
 t_ps_list	*ft_init_stack(char *tab_str[], size_t total_size)
 {
 	size_t		i;
@@ -42,17 +52,18 @@ t_ps_list	*ft_init_stack(char *tab_str[], size_t total_size)
 }
 
 /*
-* @brief ft_atol converts ASCII to long long. Function adapted to push_swap :
-* no whitespace check, no '+' sign check (both deleted with the parsing before)
-* Parsing also has already guaranteed that there are only digits.
-* This function also checks if the number to convert is in the INT_MIN / INT_MAX
-* range after each iteration
-*/
+ * @brief ft_atol converts ASCII to long long. Function adapted to push_swap :
+ * no whitespace check, no '+' sign check (both deleted with the parsing before)
+ * Parsing also has already guaranteed that there are only digits.
+ * This function also checks if the number to convert is in the INT_MIN
+	/ INT_MAX
+ * range after each iteration
+ */
 static long long	ft_atol(const char *nptr)
 {
-	size_t	i;
-	int		sign;
-	long long		res;
+	size_t		i;
+	int			sign;
+	long long	res;
 
 	i = 0;
 	sign = 1;
@@ -66,7 +77,8 @@ static long long	ft_atol(const char *nptr)
 	{
 		res *= 10;
 		res += nptr[i] - '0';
-		if ((sign == 1 && res > INT_MAX) || (sign == -1 && res * sign < INT_MIN))
+		if ((sign == 1 && res > INT_MAX) || (sign == -1 && res
+				* sign < INT_MIN))
 			return (res * sign);
 		i++;
 	}
@@ -101,5 +113,3 @@ static void	ft_init_index(t_ps_list *begin, size_t total_size)
 	}
 	elt->index = ++nb_sorted;
 }
-
-

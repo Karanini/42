@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 17:17:49 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/21 11:34:54 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/23 13:29:55 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,7 @@ t_ps_list	*ft_lstnew(int val)
 	new->val = val;
 	new->index = -1;
 	new->target = -1;
-	new->cost_a = 0;
-	new->cost_b = 0;
+	new->cost = 0;
 	new->next = NULL;
 	return (new);
 }

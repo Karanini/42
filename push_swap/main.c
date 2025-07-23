@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 14:51:28 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/22 13:34:13 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/23 13:51:18 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,16 @@ int	main(int argc, char *argv[])
 	if (!head_a)
 		return (ft_free_tab_str(tab_str), ft_putstr_fd("Error\n", 2), 1);
 	head_b = NULL;
+	ft_printf("Stack A before sorting : \n");
 	print_list_complete(head_a);
-	for (size_t i = 0; i < total_size; i++)
-	{
-		ft_printf("tab_str elt num %d : %s\n", i, tab_str[i]);
-	}
+	ft_sort(&head_a, &head_b, total_size);
+	ft_printf("\nStack A after sorting : \n");
+	print_list_complete(head_a);
+	// for (size_t i = 0; i < total_size; i++)
+	// {
+	// 	ft_printf("tab_str elt num %d : %s\n", i, tab_str[i]);
+	// }
 	ft_free_tab_str(tab_str);
 	ft_lstclear(&head_a);
 	return (0);
-	// ft_init_list(tab_str);
 }

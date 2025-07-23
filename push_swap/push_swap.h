@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:51:14 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/21 15:26:43 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/23 13:24:04 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,7 @@ typedef struct s_push_swap
 	int					val;
 	int					index;
 	size_t				target;
-	int					cost_a;
-	int					cost_b;
+	int					cost;
 	struct s_push_swap	*next;
 }						t_ps_list;
 
@@ -37,6 +36,9 @@ void					ft_lstclear(t_ps_list **lst);
 void					ra(t_ps_list **stack_a);
 void					rb(t_ps_list **stack_b);
 void					rr(t_ps_list **stack_a, t_ps_list **stack_b);
+void					rra(t_ps_list **stack_a);
+void					rrb(t_ps_list **stack_b);
+void					rrr(t_ps_list **stack_a, t_ps_list **stack_b);
 void					sa(t_ps_list **stack_a);
 void					sb(t_ps_list **stack_b);
 void					ss(t_ps_list **stack_a, t_ps_list **stack_b);
@@ -45,6 +47,13 @@ void					pb(t_ps_list **stack_a, t_ps_list **stack_b);
 
 char					**ft_parsing(int argc, char *argv[], size_t *total_size);
 t_ps_list				*ft_init_stack(char *tab_str[], size_t total_size);
+void					ft_sort(t_ps_list **head_a, t_ps_list **head_b, size_t total_size);
+
+t_ps_list				*ft_get_max(t_ps_list *list);
+t_ps_list				*ft_get_min(t_ps_list *list);
+void					ft_get_cost(t_ps_list *list);
+void					ft_move_to_front(t_ps_list **head, t_ps_list *elt);
+
 
 void					ft_free_tab_str(char **split);
 

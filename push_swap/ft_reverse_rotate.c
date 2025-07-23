@@ -2,14 +2,14 @@
 
 #include "push_swap.h"
 
-void	ft_reverse_rotate(t_ps_list **begin)
+static void	ft_reverse_rotate(t_ps_list **begin)
 {
 	t_ps_list	*new_last;
 	t_ps_list	*old_last;
 
 	if (!begin || !*begin || !(*begin)-> next)
 		return ;
-	old_last = ft_lstlast(begin);
+	old_last = ft_lstlast(*begin);
 	new_last = *begin;
 	while (new_last->next != old_last)
 		new_last = new_last->next;
@@ -32,6 +32,7 @@ void	rrb(t_ps_list **stack_b)
 void	rrr(t_ps_list **stack_a, t_ps_list **stack_b)
 {
 	ft_reverse_rotate(stack_a);
+	ft_reverse_rotate(stack_b);
 	ft_putstr_fd("rrr\n", 1);
 }
 

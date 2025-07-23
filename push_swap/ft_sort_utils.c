@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 10:05:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/23 14:42:26 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:31:17 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,15 @@ t_ps_list	*ft_get_max(t_ps_list *list)
 	return (max);
 }
 
+/**
+ * @brief Finds and returns the node with the minimum value in a linked list.
+ *
+ * This function iterates through the given t_ps_list linked list and returns
+ * a pointer to the node containing the smallest value, using index.
+ *
+ * @param list Pointer to the head of the linked list.
+ * @return Pointer to the node with the minimum value, or NULL if the list is empty.
+ */
 t_ps_list	*ft_get_min(t_ps_list *list)
 {
 	t_ps_list	*min;
@@ -55,6 +64,12 @@ t_ps_list	*ft_get_min(t_ps_list *list)
 	return (min);
 }
 
+/**
+ * @brief Calculates the number of elements in a t_ps_list linked list.
+ *
+ * @param list Pointer to the head of the t_ps_list.
+ * @return The number of elements in the list.
+ */
 size_t	ft_get_size(t_ps_list *list)
 {
 	size_t size;
@@ -70,7 +85,15 @@ size_t	ft_get_size(t_ps_list *list)
 	return (size);
 }
 
-void	ft_get_cost(t_ps_list *list)
+/**
+ * Calculates and assigns the cost for each element in the given list.
+ *
+ * The cost represents the number of operations required to move
+ * each element to the top of the stack.
+ *
+ * @param list Pointer to the head of the t_ps_list linked list.
+ */
+void	ft_set_cost(t_ps_list *list)
 {
 	size_t	size;
 	size_t	pos;
@@ -92,6 +115,16 @@ void	ft_get_cost(t_ps_list *list)
 	}
 }
 
+/**
+ * @brief Moves the specified element to the front of the linked list.
+ *
+ * This function takes a pointer to the head of a linked list and a pointer to an element
+ * within that list. It moves the specified element to the front (head) of the list,
+ * updating the necessary pointers. If the element is already at the front, no changes are made.
+ *
+ * @param head Double pointer to the head of the linked list.
+ * @param elt Pointer to the element to move to the front.
+ */
 void	ft_move_to_front(t_ps_list **head, t_ps_list *elt)
 {
 	if (!head || !*head || !(*head)->next)

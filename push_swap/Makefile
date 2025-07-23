@@ -6,7 +6,7 @@
 #    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/16 14:08:56 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/07/23 15:01:13 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/07/23 16:55:32 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ SRC = ft_lstadd_back.c \
 		ft_init_stack.c \
 		ft_sort.c \
 		ft_sort_utils.c \
+		ft_sort_utils_2.c \
 		main.c
 
 RM = rm -f

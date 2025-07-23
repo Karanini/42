@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 13:31:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/23 15:07:12 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/23 16:51:17 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ static void	ft_sort_5_num(t_ps_list **head_a, t_ps_list **head_b,
 	i = 0;
 	while (i < total_size - 3)
 	{
-		ft_get_cost(*head_a);
+		ft_set_cost(*head_a);
 		min = ft_get_min(*head_a);
 		ft_move_to_front(head_a, min);
 		pb(head_a, head_b);

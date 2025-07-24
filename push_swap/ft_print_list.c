@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:08:19 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/23 16:58:52 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/24 10:26:58 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ void	print_list_complete(t_ps_list *lst)
 		ft_printf("node num %p :\n   value : %d\n   index : %d\n",
 				print_node, print_node->val, print_node->index);
 		ft_printf("   cost : %d\n", print_node->cost);
-		ft_printf("   target val : %d\n", print_node->target->val);
+		if (print_node->target)
+			ft_printf("   target val : %d\n", print_node->target->val);
 		ft_printf("   next node : %p\n", print_node->next);
 		ft_printf("***********************\n");
 		i++;

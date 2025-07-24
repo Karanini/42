@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:51:14 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/23 17:00:17 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/24 11:43:32 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,12 @@ void					ft_sort(t_ps_list **head_a, t_ps_list **head_b, size_t total_size);
 
 t_ps_list				*ft_get_max(t_ps_list *list);
 t_ps_list				*ft_get_min(t_ps_list *list);
-t_ps_list				*ft_get_target(t_ps_list *head_a, t_ps_list *nbr);
+size_t					ft_get_size(t_ps_list *list);
+void					ft_set_target(t_ps_list *head_a, t_ps_list *head_b);
 void					ft_set_cost(t_ps_list *list);
+t_ps_list				*ft_get_min_cost_elt(t_ps_list *head_b);
 void					ft_move_to_front(t_ps_list **head, t_ps_list *elt);
-
+int						ft_abs(int n);
 
 void					ft_free_tab_str(char **split);
 

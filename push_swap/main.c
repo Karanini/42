@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 14:51:28 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/23 16:59:53 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/24 11:56:20 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,28 @@ int	main(int argc, char *argv[])
 	if (!head_a)
 		return (ft_free_tab_str(tab_str), ft_putstr_fd("Error\n", 2), 1);
 	head_b = NULL;
-	pb(&head_a, &head_b);
-	pb(&head_a, &head_b);
-	pb(&head_a, &head_b);
 	print_2_stacks(head_a, head_b);
-	t_ps_list *elt = head_b;
-	while (elt)
-	{
-		ft_get_target(head_a, elt);
-		elt = elt->next;
-	}
-	ft_printf("\nStack B with targets :\n");
-	print_list_complete(head_b);
+	ft_sort(&head_a, &head_b, total_size);
 	ft_free_tab_str(tab_str);
 	ft_lstclear(&head_a);
 	return (0);
 }
+
+// set target testing
+//
+// pb(&head_a, &head_b);
+// 	pb(&head_a, &head_b);
+// 	pb(&head_a, &head_b);
+// 	pb(&head_a, &head_b);
+// 	pb(&head_a, &head_b);
+// 	print_2_stacks(head_a, head_b);
+// 	// ft_printf("\nStack A :\n");
+// 	// print_list_complete(head_a);
+// 	t_ps_list *elt = head_b;
+// 	while (elt)
+// 	{
+// 		elt->target = ft_set_target(head_a, elt);
+// 		elt = elt->next;
+// 	}
+// 	ft_printf("\nStack B with targets :\n");
+// 	print_list_complete(head_b);

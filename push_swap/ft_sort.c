@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 13:31:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/24 11:56:10 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:34:38 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static void	ft_sort_5_num(t_ps_list **head_a, t_ps_list **head_b,
 	{
 		ft_set_cost(*head_a);
 		min = ft_get_min(*head_a);
-		ft_move_to_front(head_a, min);
+		ft_move_to_front(head_a, min, "A");
 		pb(head_a, head_b);
 		i++;
 	}
@@ -91,23 +91,22 @@ static void	ft_sort_yolo_num(t_ps_list **head_a, t_ps_list **head_b)
 
 	while (ft_get_size(*head_a) > 3)
 		pb(head_a, head_b);
-	print_2_stacks(*head_a, *head_b);
+	// print_2_stacks(*head_a, *head_b);
 	ft_sort_3_num(head_a);
 	print_2_stacks(*head_a, *head_b);
-	while (ft_get_size(*head_b) >= 2)
+	while (*head_b)
 	{
 		ft_set_cost(*head_b);
-		ft_set_cost(*head_a);
-		ft_set_target(*head_a, *head_b);
+		ft_set_cost(*head_a); //
+		ft_set_target(*head_a, *head_b); //
 		min_cost_elt = ft_get_min_cost_elt(*head_b);
-		ft_move_to_front(head_a, min_cost_elt->target);
-		ft_move_to_front(head_b, min_cost_elt);
+		ft_printf("min cost elt : %d", min_cost_elt->val);
+		ft_move_to_front(head_a, min_cost_elt->target, "A");
+		ft_move_to_front(head_b, min_cost_elt, "B");
 		pa(head_b, head_a);
 		print_2_stacks(*head_a, *head_b);
 	}
-	pa(head_b, head_a);
-	print_2_stacks(*head_a, *head_b);
-	while ((*head_a)->index != 1)
-		ra(head_a);
+	ft_set_cost(*head_a);
+	ft_move_to_front(head_a, ft_get_min(*head_a), "A");
 	print_2_stacks(*head_a, *head_b);
 }

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 10:05:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/23 16:31:17 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/24 14:51:56 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	ft_set_cost(t_ps_list *list)
  * @param head Double pointer to the head of the linked list.
  * @param elt Pointer to the element to move to the front.
  */
-void	ft_move_to_front(t_ps_list **head, t_ps_list *elt)
+void	ft_move_to_front(t_ps_list **head, t_ps_list *elt, char *stack)
 {
 	if (!head || !*head || !(*head)->next)
 		return ;
@@ -133,12 +133,18 @@ void	ft_move_to_front(t_ps_list **head, t_ps_list *elt)
 	{
 		if (elt->cost < 0)
 		{
-			rra(head);
+			if (!ft_strcmp(stack, "A"))
+				rra(head);
+			else
+				rrb(head);
 			elt->cost++;
 		}
 		else
 		{
-			ra(head);
+			if (!ft_strcmp(stack, "A"))
+				ra(head);
+			else
+				rb(head);
 			elt->cost--;
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 16:28:46 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/24 11:56:31 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/24 15:00:00 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,29 +17,26 @@
 void	ft_set_target(t_ps_list *head_a, t_ps_list *head_b)
 {
 	t_ps_list	*target;
-	t_ps_list	*elt_a;
-	t_ps_list	*elt_b;
+	t_ps_list	*current_a;
 
-	elt_a = head_a;
-	elt_b = head_b;
-	while (elt_b)
+	while (head_b)
 	{
-		if (ft_get_max(head_a)->index > elt_b->index) // if there are bigger numbers in A
+		current_a = head_a;
+		if (ft_get_max(head_a)->index > head_b->index) // if there are bigger numbers in A
 		{
 			target = ft_get_max(head_a);
-			while (elt_a)
+			while (current_a)
 			{
-				// searching the nearest index in A above elt_b->index
-				if (elt_a->index < target->index && elt_a->index > elt_b->index)
-					target = elt_a;
-				elt_a = elt_a->next;
+				// searching the nearest index in A above head_b->index
+				if (current_a->index < target->index && current_a->index > head_b->index)
+					target = current_a;
+				current_a = current_a->next;
 			}
-			elt_a = head_a;
 		}
-		else // elt_b is the new max of A so target is the smallest number of A (then
-		// we just have to rotate the max to put it to the last position of A)
+		else // head_b is the new max of A so target is the smallest number of A
 			target = ft_get_min(head_a);
-		elt_b = elt_b->next;
+		head_b->target = target;
+		head_b = head_b->next;
 	}
 }
 
@@ -57,6 +54,8 @@ t_ps_list	*ft_get_min_cost_elt(t_ps_list *head_b)
 	int			elt_cost;
 	int			min_cost;
 
+	if (!head_b->next)
+		return (head_b);
 	min = head_b;
 	elt = head_b->next;
 	elt_cost = 0;

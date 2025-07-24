@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 10:05:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/24 14:51:56 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/24 17:13:18 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_set_cost(t_ps_list *list)
 	pos = 2;
 	while (list)
 	{
-		if (pos <= size / 2)
+		if (pos <= size / 2 + 1)
 			list->cost = pos - 1;
 		else
 			list->cost = (size - pos + 1) * -1;

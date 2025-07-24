@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:06:20 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/16 18:26:32 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/24 16:15:46 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,41 @@ static void	ft_rotate(t_ps_list **begin)
 	old_last->next = elt;
 }
 
+/**
+ * @brief Rotates stack_a upwards by one position.
+ *
+ * The first element of stack_a becomes the last one.
+ *
+ * @param stack_a Double pointer to the head of the stack_a list.
+ */
 void	ra(t_ps_list **stack_a)
 {
 	ft_rotate(stack_a);
 	ft_putstr_fd("ra\n", 1);
 }
 
+/**
+ * @brief Rotates stack_b upwards by one position.
+ *
+ * The first element of stack_b becomes the last one.
+ *
+ * @param stack_b Double pointer to the head of stack_b.
+ */
 void	rb(t_ps_list **stack_b)
 {
 	ft_rotate(stack_b);
 	ft_putstr_fd("rb\n", 1);
 }
 
+/**
+ * @brief Rotates both stack_a and stack_b upwards by one position.
+ *
+ * This function performs a simultaneous rotate operation on both stack_a and stack_b.
+ * The first element of each stack becomes the last one.
+ *
+ * @param stack_a Double pointer to the head of stack A.
+ * @param stack_b Double pointer to the head of stack B.
+ */
 void	rr(t_ps_list **stack_a, t_ps_list **stack_b)
 {
 	ft_rotate(stack_a);

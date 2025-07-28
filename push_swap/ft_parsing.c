@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 14:44:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/28 14:35:49 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/28 17:23:10 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,9 @@ static int	ft_char_checker(char *str)
 	{
 		if ((!ft_isdigit(str[i]) && str[i] != 32 && str[i] != '+'
 				&& str[i] != '-')
-				|| (str[i] == '-' && !str[i + 1])
-				|| (str[i] == '+' && !str[i + 1])
-				|| (str[i] == '-' && str[i + 1] && !ft_isdigit(str[i + 1]))
-				|| (str[i] == '+' && str[i + 1] && !ft_isdigit(str[i + 1])))
+				|| ((str[i] == '-' || str[i] == '+') && !str[i + 1])
+				|| ((str[i] == '-' || str[i] == '+') && str[i + 1] && !ft_isdigit(str[i + 1]))
+				|| ((str[i] == '-' || str[i] == '+') && ft_isdigit(str[i - 1])))
 			return (0);
 		if (str[i] != 32)
 			only_32 = 0;
@@ -95,6 +94,14 @@ static int	ft_char_checker(char *str)
 		return (0);
 	return (1);
 }
+
+// if ((!ft_isdigit(str[i]) && str[i] != 32 && str[i] != '+'
+// 				&& str[i] != '-')
+// 				|| ((str[i] == '-' || str[i] == '+')
+// 				&& (!str[i + 1] || (str[i + 1] && !ft_isdigit(str[i + 1]))
+// 				|| ft_isdigit(str[i - 1]))))
+
+
 
 static int	ft_duplicate_checker(char *tab_str[])
 {

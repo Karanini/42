@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:45:24 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/22 09:37:10 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:08:29 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,16 @@ static long long	ft_atol(const char *nptr)
 	return (res * sign);
 }
 
+/**
+ * Initializes the index values for each element in the stack.
+ *
+ * @param begin Pointer to the beginning of the stack (linked list).
+ * @param total_size The total number of elements in the stack.
+ *
+ * This function assigns an index to each node in the stack, which can be used
+ * for sorting or tracking the position of elements. The indexing starts from 0
+ * and continues up to total_size - 1.
+ */
 static void	ft_init_index(t_ps_list *begin, size_t total_size)
 {
 	size_t		nb_sorted;

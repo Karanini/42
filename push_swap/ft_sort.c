@@ -6,12 +6,13 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 13:31:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/24 17:53:48 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/28 12:31:37 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+static int	ft_is_sorted(t_ps_list *head_a);
 static void	ft_sort_3_num(t_ps_list **head_a);
 static void	ft_sort_5_num(t_ps_list **head_a, t_ps_list **head_b,
 				size_t total_size);
@@ -19,7 +20,7 @@ static void	ft_sort_yolo_num(t_ps_list **head_a, t_ps_list **head_b);
 
 void	ft_sort(t_ps_list **head_a, t_ps_list **head_b, size_t total_size)
 {
-	if (total_size == 1)
+	if (total_size == 1 || ft_is_sorted(*head_a))
 		return ;
 	else if (total_size == 2)
 	{
@@ -41,6 +42,40 @@ void	ft_sort(t_ps_list **head_a, t_ps_list **head_b, size_t total_size)
 		ft_sort_yolo_num(head_a, head_b);
 }
 
+/**
+ * Checks if the linked list starting at head_a is sorted in ascending order.
+ *
+ * @param head_a Pointer to the head of the linked list to check.
+ * @return 1 if the list is sorted, 0 otherwise.
+ */
+static int	ft_is_sorted(t_ps_list *head_a)
+{
+	t_ps_list	*elt;
+
+	elt = head_a;
+	while (elt)
+	{
+		if (elt->next && elt->next->index != elt->index + 1)
+			break ;
+		elt = elt->next;
+	}
+	if (!elt)
+		return (1);
+	else
+		return (0);
+}
+
+/**
+ * Sorts a stack containing exactly three elements.
+ *
+
+	* This function sorts the top three elements of the stack pointed to by `head_a`
+
+	* in ascending order using the allowed stack operations. It assumes that the stack
+ * contains exactly three nodes and modifies the stack in place.
+ *
+ * @param head_a Pointer to the pointer of the head of the stack (linked list).
+ */
 static void	ft_sort_3_num(t_ps_list **head_a)
 {
 	t_ps_list	*elt;
@@ -85,27 +120,40 @@ static void	ft_sort_5_num(t_ps_list **head_a, t_ps_list **head_b,
 		pa(head_b, head_a);
 }
 
+/**
+ * Sorts the elements in stack 'a' using a custom "yolo" sorting algorithm,
+ * utilizing stack 'b' as auxiliary storage (actually mechanical turk algo).
+ *
+ * (1) pushing (total_size - 3) numbers to B and sorting the 3 that remain in A
+ *
+ * (2) setting cost and target for each number, then pushing from B to A the
+ * cheapest number to move
+ *
+ * (3) setting cost of A numbers one last time to move the min of A to the top
+ * using rr or rrr depending on its position in the stack
+ *
+ * @param head_a Pointer to the pointer of the head of stack 'a'.
+ * @param head_b Pointer to the pointer of the head of stack 'b'.
+ *
+ * This function is intended for internal use and implements a specific
+ * sorting strategy for the push_swap project.
+ */
 static void	ft_sort_yolo_num(t_ps_list **head_a, t_ps_list **head_b)
 {
 	t_ps_list	*min_cost_elt;
 
 	while (ft_get_size(*head_a) > 3)
 		pb(head_a, head_b);
-	// print_2_stacks(*head_a, *head_b);
 	ft_sort_3_num(head_a);
-	// print_2_stacks(*head_a, *head_b);
 	while (*head_b)
 	{
 		ft_set_cost(*head_b);
-		ft_set_cost(*head_a); //
-		ft_set_target(*head_a, *head_b); //
+		ft_set_cost(*head_a);
+		ft_set_target(*head_a, *head_b);
 		min_cost_elt = ft_get_min_cost_elt(*head_b);
-		// ft_printf("\nmin cost elt : %d\n", min_cost_elt->val);
 		ft_move_top_A_B(head_a, head_b, min_cost_elt);
 		pa(head_b, head_a);
-		// print_2_stacks(*head_a, *head_b);
 	}
 	ft_set_cost(*head_a);
 	ft_move_to_front(head_a, ft_get_min(*head_a), "A");
-	// print_2_stacks(*head_a, *head_b);
 }

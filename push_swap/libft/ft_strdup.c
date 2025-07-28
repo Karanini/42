@@ -6,16 +6,24 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:59:55 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/05/07 10:54:38 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/28 14:44:10 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 /* ************************************************************************** *
-* The ft_strdup function creates a duplicate of the input string s by 
-* allocating memory for the new string, copying the characters from the 
-* original string, and appending a null terminator. If memory allocation 
+			/!\\/!\\/!\\ Modified version for push_swap /!\\/!\\/!\\
+
+* The ft_strdup function creates a duplicate of the input string s by
+* allocating memory for the new string, copying the characters from the
+* original string, and appending a null terminator. If memory allocation
 * fails, the function returns NULL.
+*
+Mods for push_swap (to normalize the list to be able to identify duplicates
+* afterwards):
+*
+* (1) adds a whitespace 32 instead of a '+' sign for each number
+* (2) adds a whitespace 32 instead of a '-' sign only before 0
 * ************************************************************************** */
 char	*ft_strdup(const char *s)
 {
@@ -30,7 +38,11 @@ char	*ft_strdup(const char *s)
 		return (NULL);
 	while (s[i])
 	{
-		s_c[i] = s[i];
+		if (s[i] == '+' || (s[i] == '-' && s[i + 1] && s[i + 1] == '0')
+			|| (s[i] == '0' && s[i + 1] && s[i + 1] == '0'))
+			s_c[i] = 32;
+		else
+			s_c[i] = s[i];
 		i++;
 	}
 	s_c[i] = '\0';

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 14:44:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/18 19:07:12 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/28 14:35:49 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static char	*ft_join_all_args(int argc, char *argv[])
 		return (NULL);
 	while (i < argc)
 	{
-		tmp = ft_strdup(join); //strdup necessary ?
+		tmp = ft_strdup(join);
 		if (!tmp)
 			return (free(join), NULL);
 		free(join);
@@ -67,6 +67,7 @@ static char	*ft_join_all_args(int argc, char *argv[])
 			return (free(tmp), NULL);
 		free(tmp);
 	}
+	// ft_printf("join : %s\n", join);
 	return (join);
 }
 
@@ -80,9 +81,11 @@ static int	ft_char_checker(char *str)
 	while (str[i])
 	{
 		if ((!ft_isdigit(str[i]) && str[i] != 32 && str[i] != '+'
-				&& str[i] != '-') || (str[i] == '-' && str[i + 1]
-				&& !ft_isdigit(str[i + 1])) || (str[i] == '+' && str[i + 1]
-				&& !ft_isdigit(str[i + 1])))
+				&& str[i] != '-')
+				|| (str[i] == '-' && !str[i + 1])
+				|| (str[i] == '+' && !str[i + 1])
+				|| (str[i] == '-' && str[i + 1] && !ft_isdigit(str[i + 1]))
+				|| (str[i] == '+' && str[i + 1] && !ft_isdigit(str[i + 1])))
 			return (0);
 		if (str[i] != 32)
 			only_32 = 0;

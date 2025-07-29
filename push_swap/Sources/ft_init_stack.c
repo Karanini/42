@@ -6,14 +6,16 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:45:24 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/28 12:08:29 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/29 11:59:20 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 static long long	ft_atol(const char *nptr);
 static void			ft_init_index(t_ps_list *begin, size_t total_size);
+static int			ft_duplicate_checker(t_ps_list *head, int nbr);
 
 /**
  * Initializes a stack (linked list) for the push_swap project.
@@ -38,11 +40,12 @@ t_ps_list	*ft_init_stack(char *tab_str[], size_t total_size)
 	while (i < total_size)
 	{
 		nbr = ft_atol(tab_str[i]);
-		if (nbr < INT_MIN || nbr > INT_MAX)
-			return (ft_lstclear(&begin), NULL);
+		if (nbr < INT_MIN || nbr > INT_MAX || ft_duplicate_checker(begin,
+				(int)nbr))
+			return (ft_free_tab_str(tab_str), ft_lstclear(&begin), NULL);
 		new = ft_lstnew((int)nbr);
 		if (!new)
-			return (ft_lstclear(&begin), NULL);
+			return (ft_free_tab_str(tab_str), ft_lstclear(&begin), NULL);
 		ft_lstadd_back(&begin, new);
 		i++;
 	}
@@ -51,14 +54,22 @@ t_ps_list	*ft_init_stack(char *tab_str[], size_t total_size)
 	return (begin);
 }
 
-/*
- * @brief ft_atol converts ASCII to long long. Function adapted to push_swap :
- * no whitespace check, no '+' sign check (both deleted with the parsing before)
- * Parsing also has already guaranteed that there are only digits.
+/*****************************************************************************
+ *			/!\\/!\\/!\\ Modified version for push_swap /!\\/!\\/!\\
+ *
+ * @brief ft_atol converts ASCII to long long.
+ *
+ * Mods for push_swap :
+ *
+ * No whitespace check (deleted with the ft_split before)
+ *
+ * Parsing has already guaranteed that there are only digits,
+ * possibly with only one '+' or '-' sign before the number.
+ *
  * This function also checks if the number to convert is in the INT_MIN
-	/ INT_MAX
+ *	/ INT_MAX
  * range after each iteration
- */
+ * ************************************************************************** */
 static long long	ft_atol(const char *nptr)
 {
 	size_t		i;
@@ -68,10 +79,10 @@ static long long	ft_atol(const char *nptr)
 	i = 0;
 	sign = 1;
 	res = 0;
-	if (nptr[i] == '-')
+	if (nptr[i] == '-' || nptr[i] == '+')
 	{
-		sign = -1;
-		i++;
+		if (nptr[i++] == '-')
+			sign = -1;
 	}
 	while (nptr[i])
 	{
@@ -122,4 +133,24 @@ static void	ft_init_index(t_ps_list *begin, size_t total_size)
 			smallest = smallest->next;
 	}
 	elt->index = ++nb_sorted;
+}
+
+/**
+ * Checks if the given number already exists in the stack.
+ *
+ * @param head Pointer to the head of the stack (linked list of t_ps_list).
+ * @param nbr  The number to check for duplication in the stack.
+ * @return     1 if the number is a duplicate, 0 otherwise.
+ */
+static int	ft_duplicate_checker(t_ps_list *head, int nbr)
+{
+	if (!head)
+		return (0);
+	while (head)
+	{
+		if (head->val == nbr)
+			return (1);
+		head = head->next;
+	}
+	return (0);
 }

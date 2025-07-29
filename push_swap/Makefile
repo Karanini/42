@@ -6,7 +6,7 @@
 #    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/16 14:08:56 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/07/23 16:55:32 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/07/29 12:06:56 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@
 
 NAME = push_swap
 
-SRC = ft_lstadd_back.c \
+SRC_DIR = Sources
+SRC_FILES = ft_lstadd_back.c \
 		ft_lstadd_front.c \
 		ft_lstlast.c \
 		ft_lstnew.c \
@@ -31,6 +32,8 @@ SRC = ft_lstadd_back.c \
 		ft_sort_utils.c \
 		ft_sort_utils_2.c \
 		main.c
+
+SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 RM = rm -f
 OBJ := $(patsubst %.c, %.o, $(SRC))

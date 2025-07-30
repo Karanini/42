@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:50:15 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/30 16:35:50 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 17:02:44 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,41 @@ int	main(int argc, char *argv[])
 	ft_free_tab_str(tab_str);
 	head_b = NULL;
 	if (!ft_listen_input(&head_a, &head_b))
-		return (ft_lstclear(head_a), ft_lstclear(head_b),
+		return (ft_lstclear(&head_a), ft_lstclear(&head_b),
 			ft_putstr_fd("Error\n", 2), 1);
-	ft_lstclear(head_a);
-	ft_lstclear(head_b);
+	ft_lstclear(&head_a);
+	ft_lstclear(&head_b);
 	return (0);
 }
 
 static int	ft_listen_input(t_ps_list **head_a, t_ps_list **head_b)
 {
+	char	*input;
 	char	*cmd;
 
-	cmd = get_next_line(0);
-	while (cmd)
+	input = get_next_line(0);
+	if (!input)
+		return (0);
+	while (input)
 	{
-		if (!ft_cmd_in_set(cmd))
+		cmd = ft_strtrim(input, "\n");
+		if (!cmd)
 			return (0);
+		free(input);
+		if (!ft_cmd_in_set(cmd))
+		{
+			ft_printf("%s is a wrong cmd\n", cmd);
+			return (0);
+		}
 		ft_do_cmd(cmd, head_a, head_b);
-		cmd = get_next_line(0);
+		free(cmd);
+		input = get_next_line(0);
 	}
 	if (ft_is_sorted(*head_a) && !*head_b)
 		ft_putstr_fd("OK\n", 1);
 	else
 		ft_putstr_fd("KO\n", 1);
-	return (1);
+	return (free(input), 1);
 }
 
 static int	ft_cmd_in_set(char *cmd)

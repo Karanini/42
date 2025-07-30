@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:05:23 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/05/01 15:34:01 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:55:09 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,17 @@ static int	ft_char_in_set(char c, char const *set)
 	return (0);
 }
 
+/**
+ * @brief Trims all characters from the beginning and end of the string 's1'
+ *        that are present in the string 'set'.
+ *
+ * This function allocates and returns a copy of 's1' with the characters
+ * specified in 'set' removed from the start and end of the string.
+ *
+ * @param s1  The string to be trimmed.
+ * @param set The set of characters to trim from 's1'.
+ * @return A new trimmed string, or NULL if the allocation fails.
+ */
 char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	start_trim;
@@ -52,15 +63,3 @@ char	*ft_strtrim(char const *s1, char const *set)
 	str_trim = ft_substr(s1, start_trim, trim_len);
 	return (str_trim);
 }
-
-// int	main(int argc, char **argv)
-// {
-// 	char	*str;
-
-// 	if (argc == 3)
-// 	{
-// 		str = ft_strtrim(argv[1], argv[2]);
-// 		printf("str : %s\n", str);
-// 	}
-// 	return (0);
-// }

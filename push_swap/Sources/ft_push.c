@@ -10,7 +10,7 @@
  * @param begin_1 Double pointer to the head of the source stack.
  * @param begin_2 Double pointer to the head of the destination stack.
  */
-static void	ft_push(t_ps_list **begin_1, t_ps_list **begin_2)
+void	ft_push(t_ps_list **begin_1, t_ps_list **begin_2)
 {
 	t_ps_list	*elt;
 

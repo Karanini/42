@@ -6,13 +6,13 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 15:35:12 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/16 17:24:04 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:56:45 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static void	ft_swap(t_ps_list **begin)
+void	ft_swap(t_ps_list **begin)
 {
 		t_ps_list	*first;
 		t_ps_list	*second;

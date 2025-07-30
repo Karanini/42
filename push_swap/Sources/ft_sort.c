@@ -6,13 +6,12 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 13:31:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/28 12:31:37 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:11:24 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	ft_is_sorted(t_ps_list *head_a);
 static void	ft_sort_3_num(t_ps_list **head_a);
 static void	ft_sort_5_num(t_ps_list **head_a, t_ps_list **head_b,
 				size_t total_size);
@@ -48,7 +47,7 @@ void	ft_sort(t_ps_list **head_a, t_ps_list **head_b, size_t total_size)
  * @param head_a Pointer to the head of the linked list to check.
  * @return 1 if the list is sorted, 0 otherwise.
  */
-static int	ft_is_sorted(t_ps_list *head_a)
+int	ft_is_sorted(t_ps_list *head_a)
 {
 	t_ps_list	*elt;
 

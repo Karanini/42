@@ -6,13 +6,11 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:06:20 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/24 16:15:46 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:58:04 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h>
-#include <unistd.h>
 
 /**
  * @brief Rotates the elements of the given linked list upwards.
@@ -22,7 +20,7 @@
  *
  * @param begin Double pointer to the head of the t_ps_list linked list.
  */
-static void	ft_rotate(t_ps_list **begin)
+void	ft_rotate(t_ps_list **begin)
 {
 	t_ps_list	*elt;
 	t_ps_list	*old_last;

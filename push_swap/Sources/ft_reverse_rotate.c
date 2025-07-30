@@ -2,7 +2,7 @@
 
 #include "push_swap.h"
 
-static void	ft_reverse_rotate(t_ps_list **begin)
+void	ft_reverse_rotate(t_ps_list **begin)
 {
 	t_ps_list	*new_last;
 	t_ps_list	*old_last;

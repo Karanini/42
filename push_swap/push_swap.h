@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:51:14 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/30 14:51:25 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:11:39 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,10 @@ void					print_list_complete(t_ps_list *lst);
 void					print_list_val(t_ps_list *lst);
 void					print_2_stacks(t_ps_list *head_a, t_ps_list *head_b);
 
+void					ft_swap(t_ps_list **begin);
+void					ft_reverse_rotate(t_ps_list **begin);
+void					ft_push(t_ps_list **begin_1, t_ps_list **begin_2);
+void					ft_rotate(t_ps_list **begin);
 void					ra(t_ps_list **stack_a);
 void					rb(t_ps_list **stack_b);
 void					rr(t_ps_list **stack_a, t_ps_list **stack_b);
@@ -52,6 +56,7 @@ char					**ft_parsing(int argc, char *argv[],
 t_ps_list				*ft_init_stack(char *tab_str[], size_t total_size);
 void					ft_sort(t_ps_list **head_a, t_ps_list **head_b,
 							size_t total_size);
+int						ft_is_sorted(t_ps_list *head_a);
 
 t_ps_list				*ft_get_max(t_ps_list *list);
 t_ps_list				*ft_get_min(t_ps_list *list);
@@ -59,7 +64,8 @@ size_t					ft_get_size(t_ps_list *list);
 void					ft_set_target(t_ps_list *head_a, t_ps_list *head_b);
 void					ft_set_cost(t_ps_list *list);
 t_ps_list				*ft_get_min_cost_elt(t_ps_list *head_b);
-int						ft_get_total_cost(int abs_elt_cost, int abs_target_cost);
+int						ft_get_total_cost(int abs_elt_cost,
+							int abs_target_cost);
 void					ft_move_to_front(t_ps_list **head, t_ps_list *elt,
 							char *stack);
 void					ft_move_top_A_B(t_ps_list **head_a, t_ps_list **head_b,

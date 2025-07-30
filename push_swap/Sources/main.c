@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 14:51:28 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/29 11:00:56 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 09:59:56 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,21 +27,9 @@ int	main(int argc, char *argv[])
 	head_a = ft_init_stack(tab_str, total_size);
 	if (!head_a)
 		return (ft_putstr_fd("Error\n", 2), 1);
-	head_b = NULL;
-	// print_2_stacks(head_a, head_b);
-	// pb(&head_a, &head_b);
-	// pb(&head_a, &head_b);
-	// pb(&head_a, &head_b);
-	// pb(&head_a, &head_b);
-	// pb(&head_a, &head_b);
-	// print_2_stacks(head_a, head_b);
-	// // ft_printf("\nStack A :\n");
-	// // print_list_complete(head_a);
-	// ft_set_target(head_a, head_b);
-	// ft_printf("\nStack B with targets :\n");
-	// print_list_complete(head_b);
-	ft_sort(&head_a, &head_b, total_size);
 	ft_free_tab_str(tab_str);
+	head_b = NULL;
+	ft_sort(&head_a, &head_b, total_size);
 	ft_lstclear(&head_a);
 	return (0);
 }

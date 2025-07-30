@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:45:24 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/29 11:59:20 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 09:55:09 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@ static void			ft_init_index(t_ps_list *begin, size_t total_size);
 static int			ft_duplicate_checker(t_ps_list *head, int nbr);
 
 /**
- * Initializes a stack (linked list) for the push_swap project.
+ * Initializes a stack (linked list) for the push_swap project, while checking
+ * if the numbers are in the `INT_MIN` / `INT_MAX` range, and checks for
+ * duplicates
  *
  * @param tab_str      An array of strings, each representing an integer value
- *  to be added to the stack.
+ *  to be added to the stack, in the following format : "x" or "-x" or "+x"
  * @param total_size   The total number of elements in the tab_str array.
 
  * @return             A pointer to the head of the initialized stack
-  (t_ps_list), or NULL on failure.
+  (t_ps_list), or NULL on failure (malloc failure or numbers above
+  `INT_MIN` / `INT_MAX` range detected, or duplicates detected)
  */
 t_ps_list	*ft_init_stack(char *tab_str[], size_t total_size)
 {

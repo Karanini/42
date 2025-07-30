@@ -6,19 +6,23 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 14:44:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/29 11:01:52 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:46:59 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
 static int	ft_char_checker(char *str);
-// static int	ft_duplicate_checker(char *tab_str[]);
 static char	*ft_join_all_args(int argc, char *argv[]);
 
 /*
-Parsing of the input args. Checks for unauthorized chars and double values.
-We assume that argc >= 2
+Parsing of the input args. Checks for unauthorized chars. Duplicates are checked
+later. We assume that argc >= 2 (argc == 1 checked in the main.c)
+
+@return On success, an array of strings containing the numbers,
+in the following format : "x" or "-x" or "+x"
+
+NULL if a malloc error occurs or if the parsing detects unauthorized chars
 */
 char	**ft_parsing(int argc, char *argv[], size_t *total_size)
 {
@@ -41,8 +45,6 @@ char	**ft_parsing(int argc, char *argv[], size_t *total_size)
 	if (!tab_str)
 		return (free(join), NULL);
 	free(join);
-	// if (ft_duplicate_checker(tab_str))
-	// 	return (ft_free_tab_str(tab_str), NULL);
 	return (tab_str);
 }
 
@@ -62,15 +64,26 @@ static char	*ft_join_all_args(int argc, char *argv[])
 		if (!tmp)
 			return (free(join), NULL);
 		free(join);
-		join = ft_strjoin(tmp, argv[i++]);
+		join = ft_strjoin(tmp, argv[i++], 1);
 		if (!join)
 			return (free(tmp), NULL);
 		free(tmp);
 	}
-	// ft_printf("join : %s\n", join);
 	return (join);
 }
 
+/**
+ * @brief Checks if the given string contains only valid characters.
+ *
+ * This static function inspects the input string and determines whether
+ * all characters meet the required criteria (e.g., digits, signs, etc.).
+ *
+* The function uses a local variable `only_32` that checks if the string
+ * contains only whitespaces (ASCII 32). For example: "   "
+ *
+ * @param str Pointer to the null-terminated string to check.
+ * @return int Returns 1 if the string contains only valid characters, 0 otherwise.
+ */
 static int	ft_char_checker(char *str)
 {
 	int	i;
@@ -81,10 +94,10 @@ static int	ft_char_checker(char *str)
 	while (str[i])
 	{
 		if ((!ft_isdigit(str[i]) && str[i] != 32 && str[i] != '+'
-				&& str[i] != '-')
-				|| ((str[i] == '-' || str[i] == '+') && !str[i + 1])
-				|| ((str[i] == '-' || str[i] == '+') && str[i + 1] && !ft_isdigit(str[i + 1]))
-				|| ((str[i] == '-' || str[i] == '+') && ft_isdigit(str[i - 1])))
+				&& str[i] != '-') || ((str[i] == '-' || str[i] == '+') && !str[i
+				+ 1]) || ((str[i] == '-' || str[i] == '+') && str[i + 1]
+				&& !ft_isdigit(str[i + 1])) || ((str[i] == '-' || str[i] == '+')
+				&& ft_isdigit(str[i - 1])))
 			return (0);
 		if (str[i] != 32)
 			only_32 = 0;
@@ -95,34 +108,14 @@ static int	ft_char_checker(char *str)
 	return (1);
 }
 
-// if ((!ft_isdigit(str[i]) && str[i] != 32 && str[i] != '+'
-// 				&& str[i] != '-')
-// 				|| ((str[i] == '-' || str[i] == '+')
-// 				&& (!str[i + 1] || (str[i + 1] && !ft_isdigit(str[i + 1]))
-// 				|| ft_isdigit(str[i - 1]))))
-
-
-
-// static int	ft_duplicate_checker(char *tab_str[])
-// {
-// 	int	i;
-// 	int	j;
-
-// 	i = 0;
-// 	while (tab_str[i])
-// 	{
-// 		j = i + 1;
-// 		while (tab_str[j])
-// 		{
-// 			if (!ft_strcmp(tab_str[i], tab_str[j]))
-// 				return (1);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	return (0);
-// }
-
+/**
+ * Frees a dynamically allocated array of strings.
+ *
+ * This function iterates through the given null-terminated array of strings
+ * and frees each individual string, then frees the array itself.
+ *
+ * @param split A null-terminated array of strings to be freed.
+ */
 void	ft_free_tab_str(char **split)
 {
 	size_t	i;

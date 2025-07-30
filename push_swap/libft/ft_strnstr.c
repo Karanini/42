@@ -6,12 +6,27 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:04:53 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/04/30 17:17:51 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:58:55 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/**
+ * @brief Locates the first occurrence of the null-terminated string 'little'
+ *        in the string 'big', where not more than 'len' characters are searched.
+ *
+ * This function searches for the first occurrence of the substring 'little'
+ * within the first 'len' characters of the string 'big'. If 'little' is an
+ * empty string, 'big' is returned; if 'little' occurs nowhere in 'big', NULL
+ * is returned. If 'little' occurs within 'len' characters of 'big', a pointer
+ * to the first character of the first occurrence is returned.
+ *
+ * @param big    The string to be searched.
+ * @param little The substring to search for.
+ * @param len    The maximum number of characters to search.
+ * @return A pointer to the first occurrence of 'little' in 'big', or NULL if not found.
+ */
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
 	size_t	i;
@@ -34,11 +49,3 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	}
 	return (NULL);
 }
-
-/*int	main(int argc, char *argv[])
-{
-	(void)argc;
-	printf("res : %s\n", ft_strnstr(argv[1], argv[2], 8));
-	//printf("res OG : %s\n", strnstr(argv[1], argv[2], 8));
-	return (0);
-}*/

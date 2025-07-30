@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:59:55 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/29 11:53:50 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:37:13 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 * allocating memory for the new string, copying the characters from the
 * original string, and appending a null terminator. If memory allocation
 * fails, the function returns NULL.
+
+* Added if !s return NULL for GNL
 * ************************************************************************** */
 char	*ft_strdup(const char *s)
 {
@@ -24,6 +26,8 @@ char	*ft_strdup(const char *s)
 	size_t	i;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	s_len = ft_strlen(s);
 	s_c = malloc(sizeof(char) * (s_len + 1));
 	if (s_c == NULL)

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:51:14 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/24 17:31:24 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 14:51:25 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,5 @@ void					ft_move_top_A_B(t_ps_list **head_a, t_ps_list **head_b,
 int						ft_abs(int n);
 
 void					ft_free_tab_str(char **split);
-
-// int ft_lstsize(t_list *lst);
-// void ft_lstadd_back(t_list **lst, t_list *new);
-// void ft_lstdelone(t_list *lst, void (*del)(void *));
-// void ft_lstclear(t_list **lst, void (*del)(void *));
-// void ft_lstiter(t_list *lst, void (*f)(void *));
-// t_list *ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 #endif

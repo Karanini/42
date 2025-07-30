@@ -3,14 +3,14 @@
 
 int main(void)
 {
-    int fd;
+    // int fd;
     char *line;
 
-    fd = open("gnlTester_files/nl", O_RDWR);
-    line = get_next_line(fd);
+    // fd = open("gnlTester_files/nl", O_RDWR);
+    line = get_next_line(0);
     printf("line GNL=%s", line);
     free(line);
-    line = get_next_line(fd);
+    line = get_next_line(0);
     printf("line GNL=%s", line);
     free(line);
     return (0);

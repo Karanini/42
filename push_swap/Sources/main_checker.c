@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/30 11:50:15 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/30 17:02:44 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/07/30 17:28:12 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,14 @@ static int	ft_listen_input(t_ps_list **head_a, t_ps_list **head_b)
 	input = get_next_line(0);
 	if (!input)
 		return (0);
-	while (input)
+	while (input && ft_strcmp(input, "\n") != 0)
 	{
 		cmd = ft_strtrim(input, "\n");
 		if (!cmd)
 			return (0);
 		free(input);
 		if (!ft_cmd_in_set(cmd))
-		{
-			ft_printf("%s is a wrong cmd\n", cmd);
 			return (0);
-		}
 		ft_do_cmd(cmd, head_a, head_b);
 		free(cmd);
 		input = get_next_line(0);

@@ -77,10 +77,8 @@ int	ft_is_sorted(t_ps_list *head_a)
  */
 static void	ft_sort_3_num(t_ps_list **head_a)
 {
-	t_ps_list	*elt;
 	t_ps_list	*max;
 
-	elt = *head_a;
 	max = ft_get_max(*head_a);
 	if (max == *head_a)
 		ra(head_a);

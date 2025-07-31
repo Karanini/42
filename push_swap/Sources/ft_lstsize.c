@@ -14,7 +14,7 @@
 
 int	ft_lstsize(t_ps_list *lst)
 {
-	int		i;
+	int			i;
 	t_ps_list	*next_elt;
 
 	i = 0;

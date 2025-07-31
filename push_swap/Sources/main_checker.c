@@ -47,9 +47,7 @@ static int	ft_listen_input(t_ps_list **head_a, t_ps_list **head_b)
 	char	*cmd;
 
 	input = get_next_line(0);
-	if (!input)
-		return (0);
-	while (input && ft_strcmp(input, "\n") != 0)
+	while (input)
 	{
 		cmd = ft_strtrim(input, "\n");
 		if (!cmd)

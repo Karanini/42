@@ -3,5 +3,9 @@
 		"unistd.h": "c",
 		"push_swap.h": "c",
 		"ranges": "c"
-	}
+	},
+	"[c]": {
+		"editor.defaultFormatter": "keyhr.42-c-format"
+	},
+	"42-c-format.executablePath": "/home/karanini/.local/share/pipx/venvs/c-formatter-42/bin/c_formatter_42"
 }

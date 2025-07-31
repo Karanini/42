@@ -82,7 +82,8 @@ static char	*ft_join_all_args(int argc, char *argv[])
  * contains only whitespaces (ASCII 32). For example: "   "
  *
  * @param str Pointer to the null-terminated string to check.
- * @return int Returns 1 if the string contains only valid characters, 0 otherwise.
+ * @return int Returns 1 if the string contains only valid characters,
+ * 0 otherwise.
  */
 static int	ft_char_checker(char *str)
 {
@@ -95,7 +96,7 @@ static int	ft_char_checker(char *str)
 	{
 		if ((!ft_isdigit(str[i]) && str[i] != 32 && str[i] != '+'
 				&& str[i] != '-') || ((str[i] == '-' || str[i] == '+') && !str[i
-				+ 1]) || ((str[i] == '-' || str[i] == '+') && str[i + 1]
+					+ 1]) || ((str[i] == '-' || str[i] == '+') && str[i + 1]
 				&& !ft_isdigit(str[i + 1])) || ((str[i] == '-' || str[i] == '+')
 				&& ft_isdigit(str[i - 1])))
 			return (0);

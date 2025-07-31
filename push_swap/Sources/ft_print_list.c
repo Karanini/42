@@ -15,9 +15,10 @@
 /*Prints each node of the list. Only values at the moment*/
 void	print_list_complete(t_ps_list *lst)
 {
-	t_ps_list	*print_node = lst;
-	int	i;
+	t_ps_list	*print_node;
+	int			i;
 
+	print_node = lst;
 	if (!print_node)
 	{
 		ft_printf("The list is empty");
@@ -27,7 +28,7 @@ void	print_list_complete(t_ps_list *lst)
 	while (print_node)
 	{
 		ft_printf("node num %p :\n   value : %d\n   index : %d\n",
-				print_node, print_node->val, print_node->index);
+			print_node, print_node->val, print_node->index);
 		ft_printf("   cost : %d\n", print_node->cost);
 		if (print_node->target)
 			ft_printf("   target val : %d\n", print_node->target->val);
@@ -40,8 +41,9 @@ void	print_list_complete(t_ps_list *lst)
 
 void	print_list_val(t_ps_list *lst)
 {
-	t_ps_list	*print_node = lst;
+	t_ps_list	*print_node;
 
+	print_node = lst;
 	if (!print_node)
 	{
 		ft_printf("The list is empty");

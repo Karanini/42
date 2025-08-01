@@ -6,14 +6,14 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:13:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/30 14:42:52 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:41:33 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 static char	*cooking_stash(int fd, char *buff, char *stash,
-		ssize_t *read_bytes);
+				ssize_t *read_bytes);
 static char	*extract_and_clean(char **stash);
 static int	ft_find_the_nl(char *str);
 
@@ -63,8 +63,7 @@ char	*get_next_line(int fd)
 - stash ne contient pas de '\n'
 - ET qu'on ne soit pas a la fin du fichier (EOF check : return de read == 0)
 * ************************************************************************** */
-static char	*cooking_stash(int fd, char *buff, char *stash,
-		ssize_t *read_bytes)
+static char	*cooking_stash(int fd, char *buff, char *stash, ssize_t *read_bytes)
 {
 	char	*tmp;
 

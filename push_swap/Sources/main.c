@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/18 14:51:28 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/30 09:59:56 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:57:01 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,3 @@ int	main(int argc, char *argv[])
 	ft_lstclear(&head_a);
 	return (0);
 }
-
-
-
-

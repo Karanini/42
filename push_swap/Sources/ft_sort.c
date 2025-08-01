@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/22 13:31:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/30 16:11:24 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:57:50 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,10 @@ int	ft_is_sorted(t_ps_list *head_a)
  * Sorts a stack containing exactly three elements.
  *
 
-	* This function sorts the top three elements of the stack pointed to by `head_a`
+* This function sorts the top three elements of the stack pointed to by `head_a`
 
-	* in ascending order using the allowed stack operations. It assumes that the stack
+* in ascending order using the allowed stack operations. It assumes that
+the stack
  * contains exactly three nodes and modifies the stack in place.
  *
  * @param head_a Pointer to the pointer of the head of the stack (linked list).
@@ -87,6 +88,7 @@ static void	ft_sort_3_num(t_ps_list **head_a)
 	if ((*head_a)->index > (*head_a)->next->index)
 		sa(head_a);
 }
+
 /*
  * @brief sorts 4 to 5 numbers. 4 num : pushes the smallest to B then
  * ft_sort_3_num(A). 5 nums : pushes the 2 smallest to B then ft_sort_3_num(A)
@@ -148,7 +150,7 @@ static void	ft_sort_yolo_num(t_ps_list **head_a, t_ps_list **head_b)
 		ft_set_cost(*head_a);
 		ft_set_target(*head_a, *head_b);
 		min_cost_elt = ft_get_min_cost_elt(*head_b);
-		ft_move_top_A_B(head_a, head_b, min_cost_elt);
+		ft_move_top_a_b(head_a, head_b, min_cost_elt);
 		pa(head_b, head_a);
 	}
 	ft_set_cost(*head_a);

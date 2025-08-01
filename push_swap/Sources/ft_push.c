@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_push.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/01 13:43:26 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/08/01 13:43:29 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -18,8 +29,8 @@ void	ft_push(t_ps_list **begin_1, t_ps_list **begin_2)
 		return ;
 	elt = (*begin_1)->next;
 	(*begin_1)->next = *begin_2;
-    *begin_2 = *begin_1;
-    *begin_1 = elt;
+	*begin_2 = *begin_1;
+	*begin_1 = elt;
 }
 
 void	pa(t_ps_list **stack_b, t_ps_list **stack_a)
@@ -33,6 +44,3 @@ void	pb(t_ps_list **stack_a, t_ps_list **stack_b)
 	ft_push(stack_a, stack_b);
 	ft_putstr_fd("pb\n", 1);
 }
-
-
-

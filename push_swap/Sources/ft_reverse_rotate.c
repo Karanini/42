@@ -1,4 +1,14 @@
-
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_reverse_rotate.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/01 13:43:38 by bkaras-g          #+#    #+#             */
+/*   Updated: 2025/08/01 13:43:52 by bkaras-g         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "push_swap.h"
 
@@ -7,7 +17,7 @@ void	ft_reverse_rotate(t_ps_list **begin)
 	t_ps_list	*new_last;
 	t_ps_list	*old_last;
 
-	if (!begin || !*begin || !(*begin)-> next)
+	if (!begin || !*begin || !(*begin)->next)
 		return ;
 	old_last = ft_lstlast(*begin);
 	new_last = *begin;
@@ -17,6 +27,7 @@ void	ft_reverse_rotate(t_ps_list **begin)
 	old_last->next = *begin;
 	*begin = old_last;
 }
+
 /**
  * @brief Performs a reverse rotate operation on stack A.
  *
@@ -27,8 +38,8 @@ void	ft_reverse_rotate(t_ps_list **begin)
  */
 void	rra(t_ps_list **stack_a)
 {
-		ft_reverse_rotate(stack_a);
-		ft_putstr_fd("rra\n", 1);
+	ft_reverse_rotate(stack_a);
+	ft_putstr_fd("rra\n", 1);
 }
 
 /**
@@ -59,4 +70,3 @@ void	rrr(t_ps_list **stack_a, t_ps_list **stack_b)
 	ft_reverse_rotate(stack_b);
 	ft_putstr_fd("rrr\n", 1);
 }
-

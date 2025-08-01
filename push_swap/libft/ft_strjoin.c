@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:00:03 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/30 14:46:11 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:42:29 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	copy_strings(char *dest, const char *s1, const char *s2,
 	}
 	dest[i + j] = '\0';
 }
+
 /* ************************************************************************** *
  *			/!\\/!\\/!\\ Modified version for push_swap /!\\/!\\/!\\
  *
@@ -44,7 +45,7 @@ static void	copy_strings(char *dest, const char *s1, const char *s2,
  *
  * Mods for push_swap : `if push_swap != 0` --> adds a whitespace 32
  * between the joined strings
- * ************************************************************************** */
+ * ***************************************************************************/
 char	*ft_strjoin(char const *s1, char const *s2, int push_swap)
 {
 	size_t	join_len;

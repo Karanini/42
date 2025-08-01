@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 10:05:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/24 17:13:18 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:45:38 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ t_ps_list	*ft_get_max(t_ps_list *list)
  * a pointer to the node containing the smallest value, using index.
  *
  * @param list Pointer to the head of the linked list.
- * @return Pointer to the node with the minimum value, or NULL if the list is empty.
+ * @return Pointer to the node with the minimum value,
+	or NULL if the list is empty.
  */
 t_ps_list	*ft_get_min(t_ps_list *list)
 {
@@ -72,7 +73,7 @@ t_ps_list	*ft_get_min(t_ps_list *list)
  */
 size_t	ft_get_size(t_ps_list *list)
 {
-	size_t size;
+	size_t	size;
 
 	size = 0;
 	if (!list)
@@ -118,9 +119,14 @@ void	ft_set_cost(t_ps_list *list)
 /**
  * @brief Moves the specified element to the front of the linked list.
  *
- * This function takes a pointer to the head of a linked list and a pointer to an element
- * within that list. It moves the specified element to the front (head) of the list,
- * updating the necessary pointers. If the element is already at the front, no changes are made.
+
+* This function takes a pointer to the head of a linked list and a
+pointer to an element
+
+* within that list. It moves the specified element to the front
+(head) of the list,
+* updating the necessary pointers. If the element is already at the front,
+	no changes are made.
  *
  * @param head Double pointer to the head of the linked list.
  * @param elt Pointer to the element to move to the front.

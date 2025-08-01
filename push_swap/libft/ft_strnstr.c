@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:04:53 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/30 14:58:55 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:42:42 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 /**
  * @brief Locates the first occurrence of the null-terminated string 'little'
- *        in the string 'big', where not more than 'len' characters are searched.
+ *        in the string 'big',
+	where not more than 'len' characters are searched.
  *
  * This function searches for the first occurrence of the substring 'little'
  * within the first 'len' characters of the string 'big'. If 'little' is an
@@ -25,7 +26,8 @@
  * @param big    The string to be searched.
  * @param little The substring to search for.
  * @param len    The maximum number of characters to search.
- * @return A pointer to the first occurrence of 'little' in 'big', or NULL if not found.
+ * @return A pointer to the first occurrence of 'little' in 'big',
+	or NULL if not found.
  */
 char	*ft_strnstr(const char *big, const char *little, size_t len)
 {

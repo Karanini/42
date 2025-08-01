@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/15 14:51:14 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/30 16:11:39 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:55:24 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int						ft_get_total_cost(int abs_elt_cost,
 							int abs_target_cost);
 void					ft_move_to_front(t_ps_list **head, t_ps_list *elt,
 							char *stack);
-void					ft_move_top_A_B(t_ps_list **head_a, t_ps_list **head_b,
+void					ft_move_top_a_b(t_ps_list **head_a, t_ps_list **head_b,
 							t_ps_list *elt);
 int						ft_abs(int n);
 

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/16 17:06:20 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/30 15:58:04 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:45:01 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ void	rb(t_ps_list **stack_b)
 /**
  * @brief Rotates both stack_a and stack_b upwards by one position.
  *
- * This function performs a simultaneous rotate operation on both stack_a and stack_b.
+
+* This function performs a simultaneous rotate operation on
+	both stack_a and stack_b.
  * The first element of each stack becomes the last one.
  *
  * @param stack_a Double pointer to the head of stack A.

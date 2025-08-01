@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:45:24 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/30 09:55:09 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/01 13:43:17 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_ps_list	*ft_init_stack(char *tab_str[], size_t total_size)
  * This function also checks if the number to convert is in the INT_MIN
  *	/ INT_MAX
  * range after each iteration
- * ************************************************************************** */
+ * ***************************************************************************/
 static long long	ft_atol(const char *nptr)
 {
 	size_t		i;

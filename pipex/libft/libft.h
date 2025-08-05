@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 17:36:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/01 13:42:57 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/05 11:32:58 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 size_t	word_count(char const *s, char c);
 int		ft_strcmp(char *str1, char *str2);
+void	ft_free_tab_str(char **split);
 
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));

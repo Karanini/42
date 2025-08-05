@@ -6,13 +6,13 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:57:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/18 17:02:28 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/05 11:32:42 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void		ft_free(char **split);
+static void		ft_free_tab_str(char **split);
 static int		fill_words(char const *s, char c, size_t nb_words,
 					char **split);
 
@@ -47,7 +47,7 @@ static int	fill_words(char const *s, char c, size_t nb_words, char **split)
 			end_word++;
 		split[i] = ft_substr(s, start_word, end_word - start_word);
 		if (split[i] == NULL)
-			return (ft_free(split), -1);
+			return (ft_free_tab_str(split), -1);
 		start_word = end_word + 1;
 		i++;
 	}
@@ -79,7 +79,7 @@ size_t	word_count(char const *s, char c)
 	return (nb_words);
 }
 
-static void	ft_free(char **split)
+void	ft_free_tab_str(char **split)
 {
 	size_t	i;
 

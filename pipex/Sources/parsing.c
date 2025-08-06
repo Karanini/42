@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:07:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/05 11:37:37 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/06 12:04:37 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,21 @@ void	ft_check_files(char *argv[], int *fd_infile, int *fd_outfile)
 		perror("pipex: outfile");
 	if (*fd_outfile == -1 || *fd_infile == -1)
 		exit(EXIT_FAILURE);
+}
+
+int	ft_check_path(char **cmd1, char **cmd2, char **env)
+{
+	char **path_tab;
+	char *path;
+	int	i;
+
+	i = 0;
+	if (ft_strchr(*cmd1, '\''))
+	{
+		while (env[i] && ft_strncmp(env[i], "PATH=", 5))
+		i++;
+		path_tab = ft_split(env[i], ':');
+		if (!path_tab)
+			return (0);
+	}
 }

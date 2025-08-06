@@ -6,12 +6,26 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:00:56 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/05/07 11:16:20 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/06 12:00:23 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <string.h>
 
+/**
+ * @brief Compares up to n characters of two strings.
+ *
+ * This function compares the first n characters of the strings s1 and s2.
+ * The comparison is done using unsigned characters. The function returns
+ * an integer less than, equal to, or greater than zero if s1 is found,
+ * respectively, to be less than, to match, or be greater than s2.
+ *
+ * @param s1 Pointer to the first string to compare.
+ * @param s2 Pointer to the second string to compare.
+ * @param n Maximum number of characters to compare.
+ * @return An integer less than, equal to, or greater than zero if s1 is found,
+ *         respectively, to be less than, to match, or be greater than s2.
+ */
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t			i;

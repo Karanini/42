@@ -6,7 +6,7 @@
 #    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/16 14:08:56 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/08/05 11:14:18 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/08/06 10:52:08 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ NAME = pipex
 SRC_DIR = Sources
 SRC_FILES = tunelling.c \
 			parsing.c \
+			init_stack.c \
+			ft_print_list.c \
 			main.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))

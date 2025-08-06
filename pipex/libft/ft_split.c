@@ -6,13 +6,12 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:57:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/05 11:32:42 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/06 11:45:20 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static void		ft_free_tab_str(char **split);
 static int		fill_words(char const *s, char c, size_t nb_words,
 					char **split);
 
@@ -29,7 +28,8 @@ char	**ft_split(char const *s, char c)
 		return (NULL);
 	return (split);
 }
-
+/* besoin de modifier fill_words pour prendre en compte le edge case ' ' passé
+* en argument d'une commande */
 static int	fill_words(char const *s, char c, size_t nb_words, char **split)
 {
 	size_t	i;
@@ -43,17 +43,28 @@ static int	fill_words(char const *s, char c, size_t nb_words, char **split)
 		while (s[start_word] == c)
 			start_word++;
 		end_word = start_word + 1;
+		// if (s[start_word] == '\'')
+		// 	c = '\'';
 		while (s[end_word] && s[end_word] != c)
-			end_word++;
+		end_word++;
 		split[i] = ft_substr(s, start_word, end_word - start_word);
 		if (split[i] == NULL)
 			return (ft_free_tab_str(split), -1);
 		start_word = end_word + 1;
 		i++;
+		// c = 32;
 	}
 	split[i] = NULL;
 	return (0);
 }
+
+	// if (s[start_word] == '\'')
+	// 	{
+	// 		while (s[end_word] && s[end_word++] != '\'')
+	// 			end_word++;
+	// 	}
+	// 	else
+	// 	{
 
 size_t	word_count(char const *s, char c)
 {

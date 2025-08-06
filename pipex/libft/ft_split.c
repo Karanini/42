@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:57:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/06 11:45:20 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:08:21 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	fill_words(char const *s, char c, size_t nb_words, char **split)
 		end_word++;
 		split[i] = ft_substr(s, start_word, end_word - start_word);
 		if (split[i] == NULL)
-			return (ft_free_tab_str(split), -1);
+			return (free_tab(split), -1);
 		start_word = end_word + 1;
 		i++;
 		// c = 32;
@@ -90,7 +90,7 @@ size_t	word_count(char const *s, char c)
 	return (nb_words);
 }
 
-void	ft_free_tab_str(char **split)
+void	free_tab(char **split)
 {
 	size_t	i;
 

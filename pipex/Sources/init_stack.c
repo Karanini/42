@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/06 11:19:38 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/06 15:17:23 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_cmd	*ft_init_stack(char **argv)
 		elt = ft_lstnew(argv[i]);
 		if (!elt)
 			return (ft_lstclear(&begin), NULL);
-		ft_lstadd_front(&begin, elt);
+		ft_lstadd_back(&begin, elt);
 		i++;
 	}
 	return (begin);
@@ -42,12 +42,12 @@ t_cmd	*ft_lstnew(char	*cmd_with_args)
 		return (NULL);
 	ft_printf("cmd with args : %s\n", cmd_with_args);
 	args = ft_split(cmd_with_args, 32);
-	int i = 0;
-	while (args[i])
-	{
-		ft_printf("args[%d] : %s\n", i, args[i]);
-		i++;
-	}
+	// int i = 0;
+	// while (args[i])
+	// {
+	// 	ft_printf("args[%d] : %s\n", i, args[i]);
+	// 	i++;
+	// }
 	if (!args)
 		return (NULL);
 	new_element->cmd = args[0];
@@ -55,25 +55,33 @@ t_cmd	*ft_lstnew(char	*cmd_with_args)
 	new_element->fd[0] = -1;
 	new_element->fd[1] = -1;
 	new_element->next = NULL;
-	// ft_free_tab_str(args);
+	// free_tab(args);
 	return (new_element);
 }
 
-void	ft_lstadd_front(t_cmd **lst, t_cmd *new)
+/* ************************************************************************** *
+* No security check if !lst or !new
+* If the list is empty, we add new as the first element of the list
+* ************************************************************************** */
+void	ft_lstadd_back(t_cmd **lst, t_cmd *new)
 {
-	if (*lst)
-		new->next = *lst;
-	*lst = new;
+	t_cmd	*last_node;
+
+	last_node = ft_lstlast(*lst);
+	if (last_node == NULL)
+		*lst = new;
+	else
+		last_node->next = new;
 }
 
-void	ft_lstclear(t_cmd **lst)
+t_cmd	*ft_lstlast(t_cmd *lst)
 {
-	t_cmd	*temp;
+	t_cmd	*res;
 
-	while (*lst)
-	{
-		temp = (*lst)->next;
-		free(*lst);
-		*lst = temp;
-	}
+	if (lst == NULL)
+		return (NULL);
+	res = lst;
+	while (res->next)
+		res = res->next;
+	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 17:36:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/05 11:32:58 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/06 14:32:40 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int		ft_atoi(const char *nptr);
 void	*ft_calloc(size_t nmemb, size_t size);
 char	*ft_strdup(const char *s);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*ft_strjoin(char const *s1, char const *s2, int push_swap);
+char	*ft_strjoin(char const *s1, char const *s2, char c);
 char	*ft_strtrim(char const *s1, char const *set);
 
 char	**ft_split(char const *s, char c);
 size_t	word_count(char const *s, char c);
 int		ft_strcmp(char *str1, char *str2);
-void	ft_free_tab_str(char **split);
+void	free_tab(char **split);
 
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));

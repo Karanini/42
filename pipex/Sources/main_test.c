@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 17:37:50 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/04 17:55:17 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/06 13:41:15 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,9 @@ int	main(int argc, char *argv[])
 	perror("Error");
 	return(0);
 }
+
+// int	main(int argc, char *argv[])
+// {
+// 	(void)argc;
+
+// }

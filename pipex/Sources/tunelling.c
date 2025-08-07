@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 12:05:36 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/06 18:32:54 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/07 10:40:27 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static void	ft_exec_child(int fd_infile, int fd_outfile, t_cmd *head,
 		ft_lstclear(&head);
 		exit(127);
 	}
+	ft_putstr_fd("on arrive la chez le child ?\n", 2);
 	ft_lstclear(&head);
 	exit(EXIT_SUCCESS);
 }
@@ -86,7 +87,7 @@ static void	ft_exec_parent(int fd_infile, int fd_outfile, t_cmd *head,
 		exit(127);
 	}
 	// it seems like code is not read anymore after execve()
-	ft_putstr_fd("on arrive la ?\n", 2);
+	ft_putstr_fd("on arrive la chez le parent ?\n", 2);
 	ft_lstclear(&head);
 	exit(EXIT_SUCCESS);
 }

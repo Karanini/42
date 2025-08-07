@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:05:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/06 18:25:07 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/07 10:41:05 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char *argv[], char *env[])
 		ft_putstr_fd("on arrive ici tunelling == -1\n", 1);
 		return (ft_lstclear(&head), 1);
 	}
+	ft_putstr_fd("on arrive ici au main ?\n", 1);
 	ft_lstclear(&head);
-	ft_putstr_fd("on arrive ici ?\n", 1);
 	return (0);
 }

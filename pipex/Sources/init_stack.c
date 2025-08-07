@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/06 18:13:03 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/07 11:10:42 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,14 @@ t_cmd	*ft_lstnew(char	*cmd_with_args)
 	new_element = malloc(sizeof(t_cmd));
 	if (new_element == NULL)
 		return (NULL);
-	ft_printf("cmd with args : %s\n", cmd_with_args);
 	args = ft_split(cmd_with_args, 32);
-	// int i = 0;
-	// while (args[i])
-	// {
-	// 	ft_printf("args[%d] : %s\n", i, args[i]);
-	// 	i++;
-	// }
 	if (!args)
 		return (NULL);
 	new_element->cmd = args[0];
 	new_element->argv = args;
 	new_element->pid = -1;
-	new_element->fd[0] = -1;
-	new_element->fd[1] = -1;
+	new_element->pipe_fd[0] = -1;
+	new_element->pipe_fd[1] = -1;
 	new_element->next = NULL;
 	// free_tab(args);
 	return (new_element);

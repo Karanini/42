@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 13:01:12 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/06 18:12:18 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/07 11:10:26 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_cmd
 {
 	char			*cmd;
 	char			**argv;
-	int				fd[2];
+	int				pipe_fd[2];
 	int				pid;
 	struct s_cmd	*next;
 }					t_cmd;

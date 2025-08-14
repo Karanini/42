@@ -1,7 +1,1 @@
-fd_infile 3
-fd_outfile 4
-cmd node /usr/bin/grep
-pfd[0] : 5
-pfd[1] : 6
-cmd->cmd : /usr/bin/wc
-   argv[0] : wc        11     423    2919
+401

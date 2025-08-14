@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/14 15:14:19 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/14 15:18:41 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ int	ft_fork(int fd_infile, int fd_outfile, t_cmd *cmd)
 		}
 		cmd = cmd->next;
 	}
-	ft_lstclear(&cmd);
 	return (0);
 }
 

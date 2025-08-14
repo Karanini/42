@@ -6,13 +6,13 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/14 15:08:02 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/14 15:16:56 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-t_cmd	*ft_init_stack(char **argv)
+t_cmd	*ft_init_stack(char **argv, int nb_cmds)
 {
 	t_cmd	*begin;
 	t_cmd	*elt;
@@ -20,8 +20,8 @@ t_cmd	*ft_init_stack(char **argv)
 
 	begin = NULL;
 	elt = NULL;
-	i = 2;
-	while (i < 4)
+	i = 0;
+	while (i < nb_cmds)
 	{
 		elt = ft_lstnew(argv[i]);
 		if (!elt)

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 12:05:36 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/14 13:21:45 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/14 15:08:00 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ static void	ft_exec_child(int fd_infile, int fd_outfile, t_cmd *head,
 		ft_lstclear(&head);
 		exit(127);
 	}
-	ft_putstr_fd("on arrive la chez le child ?\n", 2);
 	ft_lstclear(&head);
 	exit(EXIT_SUCCESS);
 }

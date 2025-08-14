@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/14 13:22:53 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/14 15:08:02 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ t_cmd	*ft_lstnew(char	*cmd_with_args)
 	new_element->pfd[1] = -1;
 	new_element->fd_in = -1;
 	new_element->fd_out = -1;
+	new_element->first = 0;
 	new_element->next = NULL;
 	// free_tab(args);
 	return (new_element);

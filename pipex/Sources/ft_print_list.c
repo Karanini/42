@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:08:19 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/06 11:23:59 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/14 15:21:30 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,10 @@ void	ft_print_list_complete(t_cmd *lst)
 			i++;
 		}
 		ft_printf("\n");
-		ft_printf("   fd[0] : %d   fd[1] :   %d", print_node->fd[0],
-			print_node->fd[1]);
+		ft_printf("   fd[0] : %d   fd[1] :   %d", print_node->pfd[0],
+			print_node->pfd[1]);
+		ft_printf("   fd_in : %d", print_node->fd_in);
+		ft_printf("   fd_out : %d", print_node->fd_out);
 		ft_printf("   next node : %p\n", print_node->next);
 		ft_printf("***********************\n");
 		print_node = print_node->next;

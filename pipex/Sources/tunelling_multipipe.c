@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/15 17:18:55 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:46:49 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head,
 	// 		i++;
 	// 	}
 	execve(cmd->cmd, cmd->argv, env);
-	if (errno == ENOENT)
-		ft_putstr_fd("pipex: tunelling: command not found\n", 2);
-	else
-		perror("pipex: tunelling");
+	// if (errno == ENOENT)
+	// 	ft_putstr_fd("pipex: ft_exec_child: command not found\n", 2);
+	// else
+	perror("pipex: ft_exec_child");
 	ft_lstclear(&cmd);
 	exit(127);
 }

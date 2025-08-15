@@ -6,14 +6,14 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/15 12:11:16 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/15 14:32:35 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 static void	ft_exec_child(int fd_infile, int fd_outfile, t_cmd *cmd,
-				t_cmd *head);
+				t_cmd *head, char *env[]);
 static int	ft_close_unused_fdes(int fd_infile, int fd_outfile, t_cmd *cmd);
 
 int	ft_create_pipes(t_cmd *cmd, int argc)
@@ -39,7 +39,7 @@ int	ft_create_pipes(t_cmd *cmd, int argc)
 	return (0);
 }
 
-int	ft_fork(int fd_infile, int fd_outfile, t_cmd *cmd)
+int	ft_fork(int fd_infile, int fd_outfile, t_cmd *cmd, char *env[])
 {
 	t_cmd	*head;
 
@@ -50,7 +50,7 @@ int	ft_fork(int fd_infile, int fd_outfile, t_cmd *cmd)
 		if (cmd->pid == -1)
 			return (perror("pipex: ft_fork_exec"), -1);
 		if (cmd->pid == 0)
-			ft_exec_child(fd_infile, fd_outfile, cmd, head);
+			ft_exec_child(fd_infile, fd_outfile, cmd, head, env);
 		// printf("pid %d finished\n", cmd->pid);
 		cmd = cmd->next;
 	}
@@ -66,7 +66,7 @@ int	ft_fork(int fd_infile, int fd_outfile, t_cmd *cmd)
 }
 
 static void	ft_exec_child(int fd_infile, int fd_outfile, t_cmd *cmd,
-		t_cmd *head)
+		t_cmd *head, char *env[])
 {
 	if (cmd->first)
 	{
@@ -94,7 +94,7 @@ static void	ft_exec_child(int fd_infile, int fd_outfile, t_cmd *cmd,
 	// 		ft_printf("   argv[%d] : %s   ", i, cmd->argv[i]);
 	// 		i++;
 	// 	}
-	execve(cmd->cmd, cmd->argv, NULL);
+	execve(cmd->cmd, cmd->argv, env);
 	if (errno == ENOENT)
 		ft_putstr_fd("pipex: tunelling: command not found\n", 2);
 	else

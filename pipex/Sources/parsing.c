@@ -6,22 +6,29 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:07:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/14 15:22:56 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:18:55 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void	ft_check_files(char *argv[], int *fd_infile, int *fd_outfile)
+
+t_fdes	*ft_check_files(char *argv[])
 {
-	*fd_infile = open(argv[1], O_RDONLY);
-	if (*fd_infile == -1)
+	t_fdes	*fdes;
+
+	fdes = malloc(sizeof(t_fdes));
+	if (!fdes)
+		return (NULL);
+	fdes->fd_infile = open(argv[1], O_RDONLY);
+	if (fdes->fd_infile == -1)
 		perror("pipex: infile");
-	*fd_outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 777);
-	if (*fd_outfile == -1)
+	fdes->fd_outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 777);
+	if (fdes->fd_outfile == -1)
 		perror("pipex: outfile");
-	if (*fd_outfile == -1 || *fd_infile == -1)
-		exit(EXIT_FAILURE);
+	if (fdes->fd_outfile == -1 || fdes->fd_infile == -1)
+		return (NULL);
+	return (fdes);
 }
 
 int	ft_check_path(char **cmd, char **env)

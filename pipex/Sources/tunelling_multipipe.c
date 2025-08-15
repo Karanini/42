@@ -6,15 +6,15 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/15 14:32:35 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:18:55 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	ft_exec_child(int fd_infile, int fd_outfile, t_cmd *cmd,
-				t_cmd *head, char *env[]);
-static int	ft_close_unused_fdes(int fd_infile, int fd_outfile, t_cmd *cmd);
+static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head,
+				char *env[]);
+static int	ft_close_unused_fdes(t_fdes *fdes, t_cmd *cmd);
 
 int	ft_create_pipes(t_cmd *cmd, int argc)
 {
@@ -39,7 +39,7 @@ int	ft_create_pipes(t_cmd *cmd, int argc)
 	return (0);
 }
 
-int	ft_fork(int fd_infile, int fd_outfile, t_cmd *cmd, char *env[])
+int	ft_fork(t_fdes *fdes, t_cmd *cmd, char *env[])
 {
 	t_cmd	*head;
 
@@ -50,11 +50,11 @@ int	ft_fork(int fd_infile, int fd_outfile, t_cmd *cmd, char *env[])
 		if (cmd->pid == -1)
 			return (perror("pipex: ft_fork_exec"), -1);
 		if (cmd->pid == 0)
-			ft_exec_child(fd_infile, fd_outfile, cmd, head, env);
+			ft_exec_child(fdes, cmd, head, env);
 		// printf("pid %d finished\n", cmd->pid);
 		cmd = cmd->next;
 	}
-	ft_close_unused_fdes(fd_infile, fd_outfile, head);
+	ft_close_unused_fdes(fdes, head);
 	while (head)
 	{
 		// printf("waiting for pid %d\n", head->pid);
@@ -65,19 +65,19 @@ int	ft_fork(int fd_infile, int fd_outfile, t_cmd *cmd, char *env[])
 	return (0);
 }
 
-static void	ft_exec_child(int fd_infile, int fd_outfile, t_cmd *cmd,
-		t_cmd *head, char *env[])
+static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head,
+		char *env[])
 {
 	if (cmd->first)
 	{
 		// printf("cmd %s is first\n", cmd->cmd);
-		dup2(fd_infile, STDIN_FILENO); // protect the dup2 ?
+		dup2(fdes->fd_infile, STDIN_FILENO); // protect the dup2 ?
 		dup2(cmd->fd_out, STDOUT_FILENO);
 	}
 	else if (cmd->next == NULL)
 	{
 		// printf("cmd %s is last\n", cmd->cmd);
-		dup2(fd_outfile, STDOUT_FILENO);
+		dup2(fdes->fd_outfile, STDOUT_FILENO);
 		dup2(cmd->fd_in, STDIN_FILENO);
 	}
 	else
@@ -85,7 +85,7 @@ static void	ft_exec_child(int fd_infile, int fd_outfile, t_cmd *cmd,
 		dup2(cmd->fd_in, STDIN_FILENO);
 		dup2(cmd->fd_out, STDOUT_FILENO);
 	}
-	if (ft_close_unused_fdes(fd_infile, fd_outfile, head) == -1)
+	if (ft_close_unused_fdes(fdes, head) == -1)
 		exit(EXIT_FAILURE);
 	// printf("cmd->cmd : %s\n", cmd->cmd);
 	// int i = 0;
@@ -113,20 +113,20 @@ static void	ft_exec_child(int fd_infile, int fd_outfile, t_cmd *cmd,
 // 	}
 // }
 
-static int	ft_close_unused_fdes(int fd_infile, int fd_outfile, t_cmd *cmd)
+static int	ft_close_unused_fdes(t_fdes *fdes, t_cmd *cmd)
 {
 	// ft_printf("fd_infile %d\n", fd_infile);
 	// ft_printf("fd_outfile %d\n", fd_outfile);
-	if ((fd_infile >= 0 && close(fd_infile) == -1) ||
-		(fd_outfile >= 0 && close(fd_outfile) == -1))
+	if ((fdes->fd_infile >= 0 && close(fdes->fd_infile) == -1)
+		|| (fdes->fd_outfile >= 0 && close(fdes->fd_outfile) == -1))
 		return (perror("pipex: close fd_files"), -1);
 	while (cmd->next)
 	{
 		// ft_printf("cmd node %s\n", cmd->cmd);
 		// ft_printf("pfd[0] : %d\n", cmd->pfd[0]);
 		// ft_printf("pfd[1] : %d\n", cmd->pfd[1]);
-		if ((cmd->pfd[0] >= 0 && close(cmd->pfd[0]) == -1) ||
-			(cmd->pfd[1] >= 0 && close(cmd->pfd[1]) == -1))
+		if ((cmd->pfd[0] >= 0 && close(cmd->pfd[0]) == -1) || (cmd->pfd[1] >= 0
+				&& close(cmd->pfd[1]) == -1))
 			return (perror("pipex: close pfd"), -1);
 		cmd = cmd->next;
 	}

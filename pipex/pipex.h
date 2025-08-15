@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 13:01:12 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/15 14:29:16 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:18:55 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,13 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
-void				ft_check_files(char *argv[], int *fd_infile,
-						int *fd_outfile);
+typedef struct s_fdes
+{
+	int				fd_infile;
+	int				fd_outfile;
+}					t_fdes;
+
+t_fdes			*ft_check_files(char *argv[]);
 int					ft_check_path(char **cmd, char **env);
 
 t_cmd				*ft_init_stack(char **argv, int nb_cmds);
@@ -44,8 +49,7 @@ t_cmd				*ft_lstlast(t_cmd *lst);
 void				ft_print_list_complete(t_cmd *lst);
 
 int					ft_create_pipes(t_cmd *cmd, int argc);
-int					ft_fork(int fd_infile, int fd_outfile, t_cmd *cmd,
-						char *env[]);
+int					ft_fork(t_fdes *fdes, t_cmd *cmd, char *env[]);
 void				ft_lstclear(t_cmd **lst);
 
 #endif

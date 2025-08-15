@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/14 15:24:58 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/15 14:49:31 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ t_cmd	*ft_init_stack(char **argv, int nb_cmds)
 
 	begin = NULL;
 	elt = NULL;
-	i = 2;
-	while (i < nb_cmds + 2)
+	i = 0;
+	while (i < nb_cmds)
 	{
-		elt = ft_lstnew(argv[i]);
+		elt = ft_lstnew(argv[i + 2]);
 		if (!elt)
 			return (ft_lstclear(&begin), NULL);
 		ft_lstadd_back(&begin, elt);

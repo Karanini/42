@@ -6,14 +6,13 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:07:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/15 17:18:55 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/15 17:24:52 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-
-t_fdes	*ft_check_files(char *argv[])
+t_fdes	*ft_check_files(char *argv[], int argc)
 {
 	t_fdes	*fdes;
 
@@ -23,7 +22,7 @@ t_fdes	*ft_check_files(char *argv[])
 	fdes->fd_infile = open(argv[1], O_RDONLY);
 	if (fdes->fd_infile == -1)
 		perror("pipex: infile");
-	fdes->fd_outfile = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 777);
+	fdes->fd_outfile = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 777);
 	if (fdes->fd_outfile == -1)
 		perror("pipex: outfile");
 	if (fdes->fd_outfile == -1 || fdes->fd_infile == -1)
@@ -52,8 +51,7 @@ int	ft_check_path(char **cmd, char **env)
 		if (!path)
 			return (free_tab(path_tab), -1);
 		if (!access(path, X_OK))
-			return (*cmd = ft_strdup(path), free(path),
-				free_tab(path_tab), 1);
+			return (*cmd = ft_strdup(path), free(path), free_tab(path_tab), 1);
 		if (!access(path, F_OK))
 			return (perror("parsing: "), free(path), free_tab(path_tab), -1);
 		free(path);

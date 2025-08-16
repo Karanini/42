@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:05:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 17:00:13 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 18:00:51 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,12 @@ int	main(int argc, char *argv[], char *env[])
 			return (ft_lstclear(&head), free(fdes), 1);
 		cmd = cmd->next;
 	}
-	// if (ft_check_path(head, env) == -1 || )
-	ft_print_list_complete(head);
+	// ft_print_list_complete(head);
 	if (ft_create_pipes(head) == -1)
 		return (ft_lstclear(&head), free(fdes), 1);
-	ft_printf("\nAfter creating pipes:\n");
-	ft_print_list_complete(head);
-	// if (ft_fork(fdes, head, env) == -1)
-	// 	return (ft_lstclear(&head), free(fdes), 1);
+	// ft_printf("\nAfter creating pipes:\n");
+	// ft_print_list_complete(head);
+	if (ft_fork(fdes, head, env) == -1)
+		return (ft_lstclear(&head), free(fdes), 1);
 	return (ft_lstclear(&head), free(fdes), 0);
 }

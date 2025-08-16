@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 17:00:18 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 18:00:12 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_fork(t_fdes *fdes, t_cmd *cmd, char *env[])
 	{
 		cmd->pid = fork();
 		if (cmd->pid == -1)
-			return (perror("pipex: ft_fork_exec"), -1);
+			return (perror("pipex: ft_fork"), -1);
 		if (cmd->pid == 0)
 			ft_exec_child(fdes, cmd, head, env);
 		// fprintf(stderr, "pid %d finished\n", cmd->pid);
@@ -57,9 +57,9 @@ int	ft_fork(t_fdes *fdes, t_cmd *cmd, char *env[])
 	ft_close_unused_fdes(fdes, head);
 	while (head)
 	{
-		// printf("waiting for pid %d\n", head->pid);
+		// fprintf(stderr, "waiting for pid %d\n", head->pid);
 		waitpid(head->pid, NULL, 0);
-		// printf("finished waiting\n");
+		// fprintf(stderr, "finished waiting\n");
 		head = head->next;
 	}
 	return (0);
@@ -68,24 +68,29 @@ int	ft_fork(t_fdes *fdes, t_cmd *cmd, char *env[])
 static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head,
 		char *env[])
 {
-	if (cmd->first)
+	if (ft_lstsize(head) > 1)
 	{
-		// printf("cmd %s is first\n", cmd->cmd_name);
-		if (fdes->fd_infile >= 0) // if no problem on opening infile
-			dup2(fdes->fd_infile, STDIN_FILENO); // protect the dup2 ?
-		dup2(cmd->fd_out, STDOUT_FILENO);
-	}
-	else if (cmd->next == NULL)
-	{
-		// printf("cmd %s is last\n", cmd->cmd_name);
-		if (fdes->fd_outfile >= 0) // if no problem on opening outfile
-			dup2(fdes->fd_outfile, STDOUT_FILENO);
-		dup2(cmd->fd_in, STDIN_FILENO);
-	}
-	else
-	{
-		dup2(cmd->fd_in, STDIN_FILENO);
-		dup2(cmd->fd_out, STDOUT_FILENO);
+		if (cmd->first)
+		{
+			// fprintf(stderr, "first cmd dups fd_infile %d\n", fdes->fd_infile);
+			// printf("cmd %s is first\n", cmd->cmd_name);
+			if (fdes->fd_infile >= 0) // if no problem on opening infile
+				dup2(fdes->fd_infile, STDIN_FILENO); // protect the dup2 ?
+			dup2(cmd->fd_out, STDOUT_FILENO);
+		}
+		else if (cmd->next == NULL)
+		{
+			// fprintf(stderr, "last cmd dups fd_outfile %d\n", fdes->fd_outfile);
+			// printf("cmd %s is last\n", cmd->cmd_name);
+			if (fdes->fd_outfile >= 0) // if no problem on opening outfile
+				dup2(fdes->fd_outfile, STDOUT_FILENO);
+			dup2(cmd->fd_in, STDIN_FILENO);
+		}
+		else
+		{
+			dup2(cmd->fd_in, STDIN_FILENO);
+			dup2(cmd->fd_out, STDOUT_FILENO);
+		}
 	}
 	if (ft_close_unused_fdes(fdes, head) == -1)
 		exit(EXIT_FAILURE);
@@ -123,7 +128,7 @@ static int	ft_close_unused_fdes(t_fdes *fdes, t_cmd *cmd)
 	if ((fdes->fd_infile >= 0 && close(fdes->fd_infile) == -1)
 		|| (fdes->fd_outfile >= 0 && close(fdes->fd_outfile) == -1))
 		return (perror("pipex: close fd_files"), -1);
-	while (cmd->next)
+	while (cmd)
 	{
 		// ft_printf("cmd node %s\n", cmd->cmd_name);
 		// ft_printf("pfd[0] : %d\n", cmd->pfd[0]);

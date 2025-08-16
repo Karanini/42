@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:05:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 13:47:14 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 16:45:15 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ the nodes if updated with absolute path, (4) a t_fdes node
 * to do :
 * ft_check_path : comment prendre en compte les binaires a executer dans
 * le dossier courant ?
+* maj parsing
+* "filename: no such file or directory" : comment recuperer le filename ?
 * modifier le ft_split pour prendre en compte ' '
 */
 int	main(int argc, char *argv[], char *env[])
@@ -32,7 +34,7 @@ int	main(int argc, char *argv[], char *env[])
 	fdes = ft_check_files(argv, argc);
 	if (!fdes)
 		return (1);
-	head = ft_init_stack(argv, argc - 3);
+	head = ft_init_cmd_list(argv, argc - 3, fdes);
 	if (!head)
 		return (free(fdes), 1);
 	// we check if !head->cmd in case the ft_strdup in the ft_check_path fails
@@ -46,11 +48,11 @@ int	main(int argc, char *argv[], char *env[])
 	// if (ft_check_path(head, env) == -1 || )
 	ft_print_list_complete(head);
 	// ft_putstr_fd("on arrive ici ?\n", 1);
-	if (ft_create_pipes(head, argc) == -1)
-		return (ft_lstclear(&head), free(fdes), 1);
-	// ft_printf("\nAfter creating pipes:\n");
-	// ft_print_list_complete(head);
-	if (ft_fork(fdes, head, env) == -1)
-		return (ft_lstclear(&head), free(fdes), 1);
+	// if (ft_create_pipes(head, argc) == -1)
+	// 	return (ft_lstclear(&head), free(fdes), 1);
+	// // ft_printf("\nAfter creating pipes:\n");
+	// // ft_print_list_complete(head);
+	// if (ft_fork(fdes, head, env) == -1)
+	// 	return (ft_lstclear(&head), free(fdes), 1);
 	return (ft_lstclear(&head), free(fdes), 0);
 }

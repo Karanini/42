@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:07:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 13:45:16 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 16:48:49 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ t_fdes	*ft_check_files(char *argv[], int argc)
 		return (NULL);
 	fdes->fd_infile = open(argv[1], O_RDONLY);
 	if (fdes->fd_infile == -1)
-		return (free(fdes), perror("pipex: infile"), NULL);
+		perror("pipex: file1");
 	fdes->fd_outfile = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 777);
 	if (fdes->fd_outfile == -1)
-		return (free(fdes), perror("pipex: outfile"), NULL);
-	if (fdes->fd_outfile == -1 || fdes->fd_infile == -1)
-		return (NULL);
+		perror("pipex: file2");
+	if (fdes->fd_outfile == -1 && fdes->fd_infile == -1 && argc == 5)
+		return (free(fdes), NULL);
 	return (fdes);
 }
 
@@ -37,15 +37,7 @@ int	ft_check_path(t_cmd *cmd, char **env)
 	int		i;
 
 	if (ft_strchr(cmd->cmd_name, '/'))
-	{
-		ft_printf("on arrive ici avec %s", cmd->cmd_name);
-		if (!access(cmd->cmd_name, X_OK))
-			return (0);
-		else if (!access(cmd->cmd_name, F_OK))
-			return (perror("pipex: parsing: "), -1);
-		else
-			return (perror("pipex: parsing: "), -1);
-	}
+		return (0);
 	i = 0;
 	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
 		i++;

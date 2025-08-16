@@ -6,13 +6,19 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 13:29:57 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 16:43:24 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-t_cmd	*ft_init_stack(char **argv, int nb_cmds)
+/*
+* initializes the commands list. Stores the command name and its arguments
+* respectively in cmd->cmd_name and cmd->argv.
+*
+* If there is a problem on the infile, the first command is ignored.
+* If there is a problem on the outfile, the last command is ignored.
+*/
+t_cmd	*ft_init_cmd_list(char **argv, int nb_cmds, t_fdes *fdes)
 {
 	t_cmd	*begin;
 	t_cmd	*elt;
@@ -21,6 +27,10 @@ t_cmd	*ft_init_stack(char **argv, int nb_cmds)
 	begin = NULL;
 	elt = NULL;
 	i = 0;
+	if (fdes->fd_infile == -1)
+		i++;
+	if (fdes->fd_outfile == -1)
+		nb_cmds--;
 	while (i < nb_cmds)
 	{
 		elt = ft_lstnew(argv[i + 2]);

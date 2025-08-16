@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 13:25:40 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 16:11:25 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,15 @@ static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head,
 	if (cmd->first)
 	{
 		// printf("cmd %s is first\n", cmd->cmd_name);
-		dup2(fdes->fd_infile, STDIN_FILENO); // protect the dup2 ?
+		if (fdes->fd_infile >= 0) // if no problem on opening infile
+			dup2(fdes->fd_infile, STDIN_FILENO); // protect the dup2 ?
 		dup2(cmd->fd_out, STDOUT_FILENO);
 	}
 	else if (cmd->next == NULL)
 	{
 		// printf("cmd %s is last\n", cmd->cmd_name);
-		dup2(fdes->fd_outfile, STDOUT_FILENO);
+		if (fdes->fd_outfile >= 0) // if no problem on opening outfile
+			dup2(fdes->fd_outfile, STDOUT_FILENO);
 		dup2(cmd->fd_in, STDIN_FILENO);
 	}
 	else

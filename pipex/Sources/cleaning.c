@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 15:17:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/06 15:22:31 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 13:31:08 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	ft_lstclear(t_cmd **lst)
 	while (*lst)
 	{
 		temp = (*lst)->next;
-		if (ft_strcmp((*lst)->argv[0], (*lst)->cmd))
-			free((*lst)->cmd);
+		if (ft_strcmp((*lst)->argv[0], (*lst)->cmd_name))
+			free((*lst)->cmd_name);
 		free_tab((*lst)->argv);
 		free(*lst);
 		*lst = temp;

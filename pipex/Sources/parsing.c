@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:07:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/15 17:24:52 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 13:45:16 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,23 +21,31 @@ t_fdes	*ft_check_files(char *argv[], int argc)
 		return (NULL);
 	fdes->fd_infile = open(argv[1], O_RDONLY);
 	if (fdes->fd_infile == -1)
-		perror("pipex: infile");
+		return (free(fdes), perror("pipex: infile"), NULL);
 	fdes->fd_outfile = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 777);
 	if (fdes->fd_outfile == -1)
-		perror("pipex: outfile");
+		return (free(fdes), perror("pipex: outfile"), NULL);
 	if (fdes->fd_outfile == -1 || fdes->fd_infile == -1)
 		return (NULL);
 	return (fdes);
 }
 
-int	ft_check_path(char **cmd, char **env)
+int	ft_check_path(t_cmd *cmd, char **env)
 {
 	char	**path_tab;
 	char	*path;
 	int		i;
 
-	if (ft_strchr(*cmd, '/'))
-		return (0);
+	if (ft_strchr(cmd->cmd_name, '/'))
+	{
+		ft_printf("on arrive ici avec %s", cmd->cmd_name);
+		if (!access(cmd->cmd_name, X_OK))
+			return (0);
+		else if (!access(cmd->cmd_name, F_OK))
+			return (perror("pipex: parsing: "), -1);
+		else
+			return (perror("pipex: parsing: "), -1);
+	}
 	i = 0;
 	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
 		i++;
@@ -47,14 +55,15 @@ int	ft_check_path(char **cmd, char **env)
 	i = 0;
 	while (path_tab[i])
 	{
-		path = ft_strjoin(path_tab[i++], *cmd, '/');
+		path = ft_strjoin(path_tab[i++], cmd->cmd_name, '/');
 		if (!path)
 			return (free_tab(path_tab), -1);
 		if (!access(path, X_OK))
-			return (*cmd = ft_strdup(path), free(path), free_tab(path_tab), 1);
+			return (cmd->cmd_name = ft_strdup(path), free(path),
+				free_tab(path_tab), 0);
 		if (!access(path, F_OK))
 			return (perror("parsing: "), free(path), free_tab(path_tab), -1);
 		free(path);
 	}
-	return (free_tab(path_tab), 0);
+	return (perror("pipex: parsing: "), free_tab(path_tab), -1);
 }

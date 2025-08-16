@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:05:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/15 17:32:23 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 13:47:14 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,9 @@
 the nodes if updated with absolute path, (4) a t_fdes node
 *
 * to do :
-* create a structure for the fd files OK
-* update functions for multipiping :
-* (1) ft_check_files OK
-* (2) ft_check_path
+* ft_check_path : comment prendre en compte les binaires a executer dans
+* le dossier courant ?
+* modifier le ft_split pour prendre en compte ' '
 */
 int	main(int argc, char *argv[], char *env[])
 {
@@ -40,12 +39,12 @@ int	main(int argc, char *argv[], char *env[])
 	cmd = head;
 	while (cmd)
 	{
-		if (ft_check_path(&(cmd->cmd), env) == -1 || !cmd->cmd)
+		if (ft_check_path(cmd, env) == -1 || !cmd->cmd_name)
 			return (ft_lstclear(&head), free(fdes), 1);
 		cmd = cmd->next;
 	}
 	// if (ft_check_path(head, env) == -1 || )
-	// ft_print_list_complete(head);
+	ft_print_list_complete(head);
 	// ft_putstr_fd("on arrive ici ?\n", 1);
 	if (ft_create_pipes(head, argc) == -1)
 		return (ft_lstclear(&head), free(fdes), 1);

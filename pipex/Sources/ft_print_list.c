@@ -6,15 +6,15 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 14:08:19 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/14 15:21:30 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 13:30:30 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 /*Prints each node of a t_cmd list, detailed mode : each variable of the node
-* is printed.
-* @param lst pointer to the first node of the list. */
+ * is printed.
+ * @param lst pointer to the first node of the list. */
 void	ft_print_list_complete(t_cmd *lst)
 {
 	t_cmd	*print_node;
@@ -29,7 +29,8 @@ void	ft_print_list_complete(t_cmd *lst)
 	i = 0;
 	while (print_node)
 	{
-		ft_printf("node num %p :\n   cmd : %s\n", print_node, print_node->cmd);
+		ft_printf("node num %p :\n   cmd : %s\n", print_node,
+			print_node->cmd_name);
 		while (print_node->argv[i])
 		{
 			ft_printf("   argv[%d] : %s   ", i, print_node->argv[i]);

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/15 14:49:31 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 13:29:57 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_cmd	*ft_lstnew(char	*cmd_with_args)
 	args = ft_split(cmd_with_args, 32);
 	if (!args)
 		return (NULL);
-	new_element->cmd = args[0];
+	new_element->cmd_name = args[0];
 	new_element->argv = args;
 	new_element->pid = -1;
 	new_element->pfd[0] = -1;

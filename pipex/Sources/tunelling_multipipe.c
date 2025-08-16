@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/15 17:46:49 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 13:25:40 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_fork(t_fdes *fdes, t_cmd *cmd, char *env[])
 			return (perror("pipex: ft_fork_exec"), -1);
 		if (cmd->pid == 0)
 			ft_exec_child(fdes, cmd, head, env);
-		// printf("pid %d finished\n", cmd->pid);
+		// fprintf(stderr, "pid %d finished\n", cmd->pid);
 		cmd = cmd->next;
 	}
 	ft_close_unused_fdes(fdes, head);
@@ -70,13 +70,13 @@ static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head,
 {
 	if (cmd->first)
 	{
-		// printf("cmd %s is first\n", cmd->cmd);
+		// printf("cmd %s is first\n", cmd->cmd_name);
 		dup2(fdes->fd_infile, STDIN_FILENO); // protect the dup2 ?
 		dup2(cmd->fd_out, STDOUT_FILENO);
 	}
 	else if (cmd->next == NULL)
 	{
-		// printf("cmd %s is last\n", cmd->cmd);
+		// printf("cmd %s is last\n", cmd->cmd_name);
 		dup2(fdes->fd_outfile, STDOUT_FILENO);
 		dup2(cmd->fd_in, STDIN_FILENO);
 	}
@@ -87,19 +87,20 @@ static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head,
 	}
 	if (ft_close_unused_fdes(fdes, head) == -1)
 		exit(EXIT_FAILURE);
-	// printf("cmd->cmd : %s\n", cmd->cmd);
+	// printf("cmd->cmd_name : %s\n", cmd->cmd_name);
 	// int i = 0;
 	// while (cmd->argv[i])
 	// 	{
 	// 		ft_printf("   argv[%d] : %s   ", i, cmd->argv[i]);
 	// 		i++;
 	// 	}
-	execve(cmd->cmd, cmd->argv, env);
+	execve(cmd->cmd_name, cmd->argv, env);
 	// if (errno == ENOENT)
 	// 	ft_putstr_fd("pipex: ft_exec_child: command not found\n", 2);
 	// else
 	perror("pipex: ft_exec_child");
-	ft_lstclear(&cmd);
+	ft_lstclear(&head);
+	free(fdes);
 	exit(127);
 }
 
@@ -122,7 +123,7 @@ static int	ft_close_unused_fdes(t_fdes *fdes, t_cmd *cmd)
 		return (perror("pipex: close fd_files"), -1);
 	while (cmd->next)
 	{
-		// ft_printf("cmd node %s\n", cmd->cmd);
+		// ft_printf("cmd node %s\n", cmd->cmd_name);
 		// ft_printf("pfd[0] : %d\n", cmd->pfd[0]);
 		// ft_printf("pfd[1] : %d\n", cmd->pfd[1]);
 		if ((cmd->pfd[0] >= 0 && close(cmd->pfd[0]) == -1) || (cmd->pfd[1] >= 0

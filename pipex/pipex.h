@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 13:01:12 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/15 17:25:33 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 13:29:36 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 typedef struct s_cmd
 {
-	char			*cmd;
+	char			*cmd_name;
 	char			**argv;
 	int				pfd[2];
 	int				fd_in;
@@ -40,7 +40,7 @@ typedef struct s_fdes
 }					t_fdes;
 
 t_fdes				*ft_check_files(char *argv[], int argc);
-int					ft_check_path(char **cmd, char **env);
+int					ft_check_path(t_cmd *cmd, char **env);
 
 t_cmd				*ft_init_stack(char **argv, int nb_cmds);
 t_cmd				*ft_lstnew(char *cmd_with_args);

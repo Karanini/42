@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 13:01:12 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 16:41:19 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 17:00:11 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,10 @@ t_cmd				*ft_init_cmd_list(char **argv, int nb_cmds, t_fdes *fdes);
 t_cmd				*ft_lstnew(char *cmd_with_args);
 void				ft_lstadd_back(t_cmd **lst, t_cmd *new);
 t_cmd				*ft_lstlast(t_cmd *lst);
+int					ft_lstsize(t_cmd *lst);
 void				ft_print_list_complete(t_cmd *lst);
 
-int					ft_create_pipes(t_cmd *cmd, int argc);
+int					ft_create_pipes(t_cmd *cmd);
 int					ft_fork(t_fdes *fdes, t_cmd *cmd, char *env[]);
 void				ft_lstclear(t_cmd **lst);
 

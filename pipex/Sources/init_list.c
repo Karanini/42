@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_stack.c                                       :+:      :+:    :+:   */
+/*   init_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 16:43:24 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 16:56:45 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,19 @@ t_cmd	*ft_lstlast(t_cmd *lst)
 	while (res->next)
 		res = res->next;
 	return (res);
+}
+
+int	ft_lstsize(t_cmd *lst)
+{
+	int		i;
+	t_cmd	*next_elt;
+
+	i = 0;
+	next_elt = lst;
+	while (next_elt != NULL)
+	{
+		next_elt = next_elt->next;
+		i++;
+	}
+	return (i);
 }

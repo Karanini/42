@@ -6,7 +6,7 @@
 #    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/16 14:08:56 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/08/14 15:12:32 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/08/16 16:55:12 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ NAME = pipex
 SRC_DIR = Sources
 SRC_FILES = tunelling_multipipe.c \
 			parsing.c \
-			init_stack.c \
+			init_list.c \
 			ft_print_list.c \
 			cleaning.c \
 			main.c

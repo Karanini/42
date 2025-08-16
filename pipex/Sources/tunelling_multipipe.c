@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 16:11:25 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/16 17:00:18 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head,
 				char *env[]);
 static int	ft_close_unused_fdes(t_fdes *fdes, t_cmd *cmd);
 
-int	ft_create_pipes(t_cmd *cmd, int argc)
+int	ft_create_pipes(t_cmd *cmd)
 {
-	int	nb_cmds;
+	int	nb_pipes;
 	int	first;
 
-	nb_cmds = argc - 3;
+	nb_pipes = ft_lstsize(cmd) - 1;
 	first = 1;
-	while (nb_cmds - 1)
+	while (nb_pipes)
 	// or while (cmd->next->next) less lines but less readable
 	{
 		if (pipe(cmd->pfd) == -1)
@@ -34,7 +34,7 @@ int	ft_create_pipes(t_cmd *cmd, int argc)
 			cmd->first = 1;
 		first = 0;
 		cmd = cmd->next;
-		nb_cmds--;
+		nb_pipes--;
 	}
 	return (0);
 }

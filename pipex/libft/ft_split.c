@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:57:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/06 14:08:21 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/18 15:46:58 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,27 +35,31 @@ static int	fill_words(char const *s, char c, size_t nb_words, char **split)
 	size_t	i;
 	size_t	start_word;
 	size_t	end_word;
+	char	og_separator;
 
 	i = 0;
+	og_separator = c;
 	start_word = 0;
 	while (i < nb_words)
 	{
-		while (s[start_word] == c)
+		while (s[start_word] && s[start_word] == c)
 			start_word++;
 		end_word = start_word + 1;
-		// if (s[start_word] == '\'')
-		// 	c = '\'';
+		if (s[start_word] == '\'')
+			c = '\'';
 		while (s[end_word] && s[end_word] != c)
-		end_word++;
-		split[i] = ft_substr(s, start_word, end_word - start_word);
+			end_word++;
+		if (c == '\'')
+			split[i] = ft_substr(s, start_word, end_word - start_word + 1);
+		else
+			split[i] = ft_substr(s, start_word, end_word - start_word);
 		if (split[i] == NULL)
 			return (free_tab(split), -1);
 		start_word = end_word + 1;
 		i++;
-		// c = 32;
+		c = og_separator;
 	}
-	split[i] = NULL;
-	return (0);
+	return (split[i] = NULL, 0);
 }
 
 	// if (s[start_word] == '\'')

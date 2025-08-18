@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:07:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 16:48:49 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/18 15:14:31 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,16 @@ t_fdes	*ft_check_files(char *argv[], int argc)
 		return (NULL);
 	fdes->fd_infile = open(argv[1], O_RDONLY);
 	if (fdes->fd_infile == -1)
-		perror("pipex: file1");
+	{
+		ft_putstr_fd(argv[1], 2);
+		ft_putstr_fd(": no such file or directory\n", 2);
+	}
 	fdes->fd_outfile = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 777);
 	if (fdes->fd_outfile == -1)
-		perror("pipex: file2");
+	{
+		ft_putstr_fd(argv[argc - 1], 2);
+		ft_putstr_fd(": permission denied\n", 2);
+	}
 	if (fdes->fd_outfile == -1 && fdes->fd_infile == -1 && argc == 5)
 		return (free(fdes), NULL);
 	return (fdes);

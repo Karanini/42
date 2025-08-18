@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 13:01:12 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 17:00:11 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/18 13:35:12 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_fdes
 t_fdes				*ft_check_files(char *argv[], int argc);
 int					ft_check_path(t_cmd *cmd, char **env);
 
-t_cmd				*ft_init_cmd_list(char **argv, int nb_cmds, t_fdes *fdes);
+t_cmd				*ft_init_cmd_list(char **argv, int nb_cmds);
 t_cmd				*ft_lstnew(char *cmd_with_args);
 void				ft_lstadd_back(t_cmd **lst, t_cmd *new);
 t_cmd				*ft_lstlast(t_cmd *lst);

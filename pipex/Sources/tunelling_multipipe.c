@@ -6,15 +6,15 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 18:00:12 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/18 14:50:02 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head,
-				char *env[]);
+static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head, char *env[]);
 static int	ft_close_unused_fdes(t_fdes *fdes, t_cmd *cmd);
+static int	ft_dup2_null(int new_fd);
 
 int	ft_create_pipes(t_cmd *cmd)
 {
@@ -30,9 +30,8 @@ int	ft_create_pipes(t_cmd *cmd)
 			return (perror("pipex: ft_create_pipes"), -1);
 		cmd->fd_out = cmd->pfd[1];
 		cmd->next->fd_in = cmd->pfd[0];
-		if (first)
+		if (first-- == 1)
 			cmd->first = 1;
-		first = 0;
 		cmd = cmd->next;
 		nb_pipes--;
 	}
@@ -65,61 +64,53 @@ int	ft_fork(t_fdes *fdes, t_cmd *cmd, char *env[])
 	return (0);
 }
 
-static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head,
-		char *env[])
+static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head, char *env[])
 {
-	if (ft_lstsize(head) > 1)
+	if (cmd->first)
 	{
-		if (cmd->first)
-		{
-			// fprintf(stderr, "first cmd dups fd_infile %d\n", fdes->fd_infile);
-			// printf("cmd %s is first\n", cmd->cmd_name);
-			if (fdes->fd_infile >= 0) // if no problem on opening infile
-				dup2(fdes->fd_infile, STDIN_FILENO); // protect the dup2 ?
-			dup2(cmd->fd_out, STDOUT_FILENO);
-		}
-		else if (cmd->next == NULL)
-		{
-			// fprintf(stderr, "last cmd dups fd_outfile %d\n", fdes->fd_outfile);
-			// printf("cmd %s is last\n", cmd->cmd_name);
-			if (fdes->fd_outfile >= 0) // if no problem on opening outfile
-				dup2(fdes->fd_outfile, STDOUT_FILENO);
-			dup2(cmd->fd_in, STDIN_FILENO);
-		}
+		if (fdes->fd_infile >= 0)
+			dup2(fdes->fd_infile, STDIN_FILENO); // protect the dup2 ?
 		else
 		{
-			dup2(cmd->fd_in, STDIN_FILENO);
-			dup2(cmd->fd_out, STDOUT_FILENO);
+			if (ft_dup2_null(STDIN_FILENO) == -1)
+				exit(EXIT_FAILURE);
+			// fprintf(stderr, "dup2 null successfully executed for %s\n", cmd->cmd_name);
 		}
+		dup2(cmd->fd_out, STDOUT_FILENO);
+	}
+	else if (cmd->next == NULL)
+	{
+		if (fdes->fd_outfile >= 0)
+			dup2(fdes->fd_outfile, STDOUT_FILENO);
+		else
+		{
+			if (ft_dup2_null(STDOUT_FILENO) == -1)
+				exit(EXIT_FAILURE);
+		}
+		dup2(cmd->fd_in, STDIN_FILENO);
+		// fprintf(stderr, "dup2 successfully executed for %s\n", cmd->cmd_name);
+		// fprintf(stderr, "cmd->fd_in : %d\n", cmd->fd_in);
+	}
+	else
+	{
+		dup2(cmd->fd_in, STDIN_FILENO);
+		dup2(cmd->fd_out, STDOUT_FILENO);
 	}
 	if (ft_close_unused_fdes(fdes, head) == -1)
 		exit(EXIT_FAILURE);
-	// printf("cmd->cmd_name : %s\n", cmd->cmd_name);
-	// int i = 0;
-	// while (cmd->argv[i])
-	// 	{
-	// 		ft_printf("   argv[%d] : %s   ", i, cmd->argv[i]);
-	// 		i++;
-	// 	}
-	execve(cmd->cmd_name, cmd->argv, env);
-	// if (errno == ENOENT)
-	// 	ft_putstr_fd("pipex: ft_exec_child: command not found\n", 2);
-	// else
+	if ((cmd->first && fdes->fd_infile == -1) || (cmd->next == NULL
+			&& fdes->fd_outfile == -1))
+	{
+		fprintf(stderr, "process %s not executed\n", cmd->cmd_name);
+		exit(EXIT_FAILURE);
+	}
+	else
+		execve(cmd->cmd_name, cmd->argv, env);
 	perror("pipex: ft_exec_child");
 	ft_lstclear(&head);
 	free(fdes);
 	exit(127);
 }
-
-// void	ft_exec_parent(int fd_infile, int fd_outfile, t_cmd *head)
-// {
-// 	ft_close_unused_fdes(fd_infile, fd_outfile, head);
-// 	while (head)
-// 	{
-// 		waitpid(head->pid, NULL, 0);
-// 		head = head->next;
-// 	}
-// }
 
 static int	ft_close_unused_fdes(t_fdes *fdes, t_cmd *cmd)
 {
@@ -138,5 +129,18 @@ static int	ft_close_unused_fdes(t_fdes *fdes, t_cmd *cmd)
 			return (perror("pipex: close pfd"), -1);
 		cmd = cmd->next;
 	}
+	return (0);
+}
+
+static int	ft_dup2_null(int new_fd)
+{
+	int	fd_null;
+
+	fd_null = open("/dev/null", O_RDONLY);
+	if (fd_null == -1)
+		return (-1);
+	dup2(fd_null, new_fd);
+	if (close(fd_null) == -1)
+		return (-1);
 	return (0);
 }

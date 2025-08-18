@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/16 16:56:45 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/18 13:34:56 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 * If there is a problem on the infile, the first command is ignored.
 * If there is a problem on the outfile, the last command is ignored.
 */
-t_cmd	*ft_init_cmd_list(char **argv, int nb_cmds, t_fdes *fdes)
+t_cmd	*ft_init_cmd_list(char **argv, int nb_cmds)
 {
 	t_cmd	*begin;
 	t_cmd	*elt;
@@ -27,10 +27,10 @@ t_cmd	*ft_init_cmd_list(char **argv, int nb_cmds, t_fdes *fdes)
 	begin = NULL;
 	elt = NULL;
 	i = 0;
-	if (fdes->fd_infile == -1)
-		i++;
-	if (fdes->fd_outfile == -1)
-		nb_cmds--;
+	// if (fdes->fd_infile == -1)
+	// 	i++;
+	// if (fdes->fd_outfile == -1)
+	// 	nb_cmds--;
 	while (i < nb_cmds)
 	{
 		elt = ft_lstnew(argv[i + 2]);

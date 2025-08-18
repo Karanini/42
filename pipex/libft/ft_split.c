@@ -6,15 +6,18 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:57:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/18 15:46:58 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/18 17:30:32 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 static int		fill_words(char const *s, char c, size_t nb_words,
 					char **split);
-
+/*
+* MODIFIED VERSION to take into account the '  ' argument as one word
+*/
 char	**ft_split(char const *s, char c)
 {
 	size_t	nb_words;
@@ -69,7 +72,12 @@ static int	fill_words(char const *s, char c, size_t nb_words, char **split)
 	// 	}
 	// 	else
 	// 	{
-
+/*
+* MODIFIED VERSION to take into account the '  ' argument as one word
+* edge case not working at the moment : when a non-32 char directly
+* follows the '  ' the following word is not counted. For example '  'abc
+* the word abc would not be counted.
+*/
 size_t	word_count(char const *s, char c)
 {
 	size_t	i;
@@ -81,10 +89,21 @@ size_t	word_count(char const *s, char c)
 		return (nb_words);
 	while (s[i])
 	{
-		if (s[i] != c)
+		if (s[i] != c && s[i] != '\'')
 		{
 			nb_words++;
 			i++;
+		}
+		else if (s[i] == '\'')
+		{
+			while (s[i] == '\'')
+			{
+				i++;
+				while (s[i] != '\'')
+					i++;
+				i++;
+				nb_words++;
+			}
 		}
 		while (s[i] && s[i] != c)
 			i++;
@@ -108,3 +127,20 @@ void	free_tab(char **split)
 	}
 	free(split);
 }
+
+// int	main(int argc, char *argv[])
+// {
+// 	(void)argc;
+// 	char **tab_split;
+// 	int	i;
+
+// 	printf("word count : %zu\n", word_count(argv[1], 32));
+// 	tab_split = ft_split(argv[1], 32);
+// 	i = 0;
+// 	while (tab_split[i])
+// 	{
+// 		printf("word number %d : %s\n", i, tab_split[i]);
+// 		i++;
+// 	}
+// 	return (0);
+// }

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:05:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/18 15:20:32 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/18 17:34:09 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ the nodes if updated with absolute path, (4) a t_fdes node
 * ft_check_path : comment prendre en compte les binaires a executer dans
 * le dossier courant ?
 * maj parsing
-* "filename: no such file or directory" : recuperer le filename avec argv
-* modifier le ft_split pour prendre en compte ' '
+* "filename: no such file or directory" : recuperer le filename avec argv OK
+* modifier le ft_split pour prendre en compte ' ' OK
 */
 int	main(int argc, char *argv[], char *env[])
 {

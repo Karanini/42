@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/18 14:50:02 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/18 17:54:51 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head, char *env[]);
 static int	ft_close_unused_fdes(t_fdes *fdes, t_cmd *cmd);
 static int	ft_dup2_null(int new_fd);
+static void	ft_cmd_err_handling(t_cmd *cmd, t_cmd *head, t_fdes *fdes);
 
 int	ft_create_pipes(t_cmd *cmd)
 {
@@ -101,15 +102,41 @@ static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head, char *env[])
 	if ((cmd->first && fdes->fd_infile == -1) || (cmd->next == NULL
 			&& fdes->fd_outfile == -1))
 	{
-		fprintf(stderr, "process %s not executed\n", cmd->cmd_name);
+		// fprintf(stderr, "process %s not executed\n", cmd->cmd_name);
 		exit(EXIT_FAILURE);
 	}
 	else
 		execve(cmd->cmd_name, cmd->argv, env);
-	perror("pipex: ft_exec_child");
-	ft_lstclear(&head);
-	free(fdes);
-	exit(127);
+	ft_cmd_err_handling(cmd, head, fdes);
+}
+
+static void	ft_cmd_err_handling(t_cmd *cmd, t_cmd *head, t_fdes *fdes)
+{
+	if (errno == ENOENT)
+	{
+		ft_putstr_fd("pipex: ", STDERR_FILENO);
+		ft_putstr_fd(cmd->argv[0], STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		ft_lstclear(&head);
+		free(fdes);
+		exit(127);
+	}
+	else if (errno == EACCES)
+	{
+		ft_putstr_fd("pipex: ", STDERR_FILENO);
+		ft_putstr_fd(cmd->argv[0], STDERR_FILENO);
+		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+		ft_lstclear(&head);
+		free(fdes);
+		exit(126);
+	}
+	else
+	{
+		perror("pipex: ft_exec_child");
+		ft_lstclear(&head);
+		free(fdes);
+		exit(127);
+	}
 }
 
 static int	ft_close_unused_fdes(t_fdes *fdes, t_cmd *cmd)

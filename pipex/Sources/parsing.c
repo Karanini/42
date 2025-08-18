@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:07:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/18 15:44:13 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/18 17:46:23 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,5 +63,5 @@ int	ft_check_path(t_cmd *cmd, char **env)
 			return (perror("parsing: "), free(path), free_tab(path_tab), -1);
 		free(path);
 	}
-	return (perror("pipex: parsing: "), free_tab(path_tab), -1);
+	return (free_tab(path_tab), 0);
 }

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/18 13:34:56 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/19 12:36:23 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,20 @@ t_cmd	*ft_init_cmd_list(char **argv, int nb_cmds)
 	begin = NULL;
 	elt = NULL;
 	i = 0;
-	// if (fdes->fd_infile == -1)
-	// 	i++;
-	// if (fdes->fd_outfile == -1)
-	// 	nb_cmds--;
 	while (i < nb_cmds)
 	{
-		elt = ft_lstnew(argv[i + 2]);
-		if (!elt)
-			return (ft_lstclear(&begin), NULL);
-		ft_lstadd_back(&begin, elt);
+		if (!ft_strcmp(" ", argv[i + 2]))
+		{
+			ft_putstr_fd(argv[0], 2);
+			ft_putstr_fd(": command not found\n", 2);
+		}
+		else
+		{
+			elt = ft_lstnew(argv[i + 2]);
+			if (!elt)
+				return (ft_lstclear(&begin), NULL);
+			ft_lstadd_back(&begin, elt);
+		}
 		i++;
 	}
 	return (begin);

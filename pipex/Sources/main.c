@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:05:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/18 17:41:16 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/19 12:36:44 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	main(int argc, char *argv[], char *env[])
 	head = ft_init_cmd_list(argv, argc - 3);
 	// ft_print_list_complete(head);
 	if (!head)
-		return (free(fdes), 1);
+		return (free(fdes), 127);
 	// we check if !head->cmd in case the ft_strdup in the ft_check_path fails
 	cmd = head;
 	while (cmd)

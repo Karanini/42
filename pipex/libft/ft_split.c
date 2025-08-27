@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 15:57:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/18 17:30:32 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/27 16:37:38 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ void	free_tab(char **split)
 // 	printf("word count : %zu\n", word_count(argv[1], 32));
 // 	tab_split = ft_split(argv[1], 32);
 // 	i = 0;
+// 	printf("%s\n", tab_split[i]);
 // 	while (tab_split[i])
 // 	{
 // 		printf("word number %d : %s\n", i, tab_split[i]);

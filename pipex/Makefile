@@ -6,7 +6,7 @@
 #    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/16 14:08:56 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/08/16 16:55:12 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/08/27 14:15:33 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC_FILES = tunelling_multipipe.c \
 			init_list.c \
 			ft_print_list.c \
 			cleaning.c \
+			utils.c \
 			main.c
 
 SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
@@ -27,7 +28,7 @@ SRC = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 RM = rm -f
 OBJ := $(patsubst %.c, %.o, $(SRC))
 CC = cc
-FLAGS = -Wall -Wextra -Werror -ggdb
+FLAGS = -Wall -Wextra -Werror -ggdb -g
 LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 HEADER = pipex.h

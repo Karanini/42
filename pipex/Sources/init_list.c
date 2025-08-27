@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/19 12:36:23 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/27 17:37:38 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 * initializes the commands list. Stores the command name and its arguments
 * respectively in cmd->cmd_name and cmd->argv.
 *
-* If there is a problem on the infile, the first command is ignored.
-* If there is a problem on the outfile, the last command is ignored.
 */
 t_cmd	*ft_init_cmd_list(char **argv, int nb_cmds)
 {
@@ -29,18 +27,15 @@ t_cmd	*ft_init_cmd_list(char **argv, int nb_cmds)
 	i = 0;
 	while (i < nb_cmds)
 	{
-		if (!ft_strcmp(" ", argv[i + 2]))
+		if (!argv[i + 2][0] || ft_cmd_name_not_valid(argv[i + 2]))
 		{
 			ft_putstr_fd(argv[0], 2);
 			ft_putstr_fd(": command not found\n", 2);
 		}
-		else
-		{
-			elt = ft_lstnew(argv[i + 2]);
-			if (!elt)
-				return (ft_lstclear(&begin), NULL);
-			ft_lstadd_back(&begin, elt);
-		}
+		elt = ft_lstnew(argv[i + 2]);
+		if (!elt)
+			return (ft_lstclear(&begin), NULL);
+		ft_lstadd_back(&begin, elt);
 		i++;
 	}
 	return (begin);

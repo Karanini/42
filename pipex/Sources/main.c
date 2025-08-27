@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:05:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/19 12:36:44 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/27 17:50:57 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,33 +17,34 @@
 the nodes if updated with absolute path, (4) a t_fdes node
 *
 * to do :
-* ft_check_path : comment prendre en compte les binaires a executer dans
-* le dossier courant ?
-* maj parsing
-* "filename: no such file or directory" : recuperer le filename avec argv OK
-* modifier le ft_split pour prendre en compte ' ' OK
+* exit codes
+* memleaks on tests
+* Protect the fdes closings : what happens if close(fd) fails ?
+* Is everything stopped ? What is the exit status ?
 */
 int	main(int argc, char *argv[], char *env[])
 {
 	t_fdes	*fdes;
 	t_cmd	*head;
 	t_cmd	*cmd;
+	int		main_ret;
 
 	if (argc < 5)
 		return (1);
+	main_ret = 0;
 	fdes = ft_check_files(argv, argc);
 	if (!fdes)
 		return (1);
 	head = ft_init_cmd_list(argv, argc - 3);
 	// ft_print_list_complete(head);
 	if (!head)
-		return (free(fdes), 127);
-	// we check if !head->cmd in case the ft_strdup in the ft_check_path fails
+		return (free(fdes), 127); //check why 127 here
+	// we check if !cmd->cmd_name in case the ft_strdup in the ft_check_path fails
 	cmd = head;
 	while (cmd)
 	{
 		if (ft_check_path(cmd, env) == -1 || !cmd->cmd_name)
-			return (ft_lstclear(&head), free(fdes), 1);
+			return (ft_lstclear(&head), free(fdes), 1); // close fdes before freeing them
 		cmd = cmd->next;
 	}
 
@@ -51,7 +52,8 @@ int	main(int argc, char *argv[], char *env[])
 		return (ft_lstclear(&head), free(fdes), 1);
 	// ft_printf("\nAfter creating pipes:\n");
 	// ft_print_list_complete(head);
-	if (ft_fork(fdes, head, env) == -1)
+	main_ret = ft_fork(fdes, head, env);
+	if (main_ret == -1)
 		return (ft_lstclear(&head), free(fdes), 1);
-	return (ft_lstclear(&head), free(fdes), 0);
+	return (ft_lstclear(&head), free(fdes), main_ret);
 }

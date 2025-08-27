@@ -43,8 +43,11 @@ int	main(int argc, char *argv[], char *env[])
 	cmd = head;
 	while (cmd)
 	{
-		if (ft_check_path(cmd, env) == -1 || !cmd->cmd_name)
+		if (ft_check_path(cmd, env) == -1)
+		{
+			ft_printf("cmd check path error\n");
 			return (ft_lstclear(&head), free(fdes), 1); // close fdes before freeing them
+		}
 		cmd = cmd->next;
 	}
 

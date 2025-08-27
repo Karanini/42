@@ -74,8 +74,13 @@ int	ft_check_path(t_cmd *cmd, char **env)
 		if (!path)
 			return (free_tab(path_tab), -1);
 		if (!access(path, X_OK))
-			return (cmd->cmd_name = ft_strdup(path), free(path),
-				free_tab(path_tab), 0);
+		{
+			cmd->cmd_name = ft_strdup(path);
+			if (!cmd->cmd_name)
+				return (free(path), free_tab(path_tab), -1);
+			else
+				return (free(path), free_tab(path_tab), 0);
+		}
 		if (!access(path, F_OK))
 			return (perror("parsing: "), free(path), free_tab(path_tab), -1);
 		free(path);

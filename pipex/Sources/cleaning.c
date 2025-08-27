@@ -15,8 +15,8 @@
 * @brief frees all the nodes of a t_cmd list with 2 steps : (1) Frees the
 * allocated variables in a node, (2) then frees the node.
 *
-* If the cmd variable has been updated with the absolute path with ft_check_path,
-* we free also cmd. If not, it's enough to free argv since argv[0] == cmd.
+* If the cmd_name variable has been updated with the absolute path with ft_check_path,
+* we free also cmd_name. If not, it's enough to free argv since argv[0] == cmd_name.
 */
 void	ft_lstclear(t_cmd **lst)
 {

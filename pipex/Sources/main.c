@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:05:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/28 17:30:17 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/28 18:07:17 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char *argv[], char *env[])
 {
 	t_fdes	*fdes;
 	t_cmd	*head;
-	t_cmd	*cmd;
 	int		main_ret;
 
 	if (argc < 5)
@@ -38,14 +37,9 @@ int	main(int argc, char *argv[], char *env[])
 	head = ft_init_cmd_list(argv, argc - 3);
 	if (!head)
 		return (ft_close_unused_fdes(fdes, NULL), free(fdes), 1);
-	cmd = head;
-	while (cmd)
-	{
-		if (ft_check_path(cmd, env) == -1)
-			return (ft_lstclear(&head), ft_close_unused_fdes(fdes, NULL),
-				free(fdes), 1);
-		cmd = cmd->next;
-	}
+	if (ft_check_path(head, env) == -1)
+		return (ft_lstclear(&head), ft_close_unused_fdes(fdes, NULL),
+			free(fdes), 1);
 	if (ft_create_pipes(head) == -1)
 		return (ft_close_unused_fdes(fdes, head), ft_lstclear(&head),
 			free(fdes), 1);

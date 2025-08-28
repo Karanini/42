@@ -6,21 +6,25 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:07:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/28 17:35:44 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/28 18:10:40 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
+static int	ft_check_paths_access(char *path_tab[], t_cmd *cmd);
+
 /**
- * @brief Checks and processes input and output files from command-line arguments.
+
+	* @brief Checks and processes input and output files from command-line arguments.
  *
  * This function analyzes the provided command-line arguments to determine
  * the input and output files required for the program's operation. It performs
  * necessary validation and returns a pointer to a structure containing file
  * descriptor information.
  *
- * Mandatory part (argc == 5) : if problem on both infile and outfile, the program
+ * Mandatory part (argc == 5) : if problem on both infile and outfile,
+	the program
  * exits after printing both error messages (and returning exit code 1
  * in the main function).
  *
@@ -59,12 +63,13 @@ t_fdes	*ft_check_files(char *argv[], int argc)
 int	ft_check_path(t_cmd *cmd, char **env)
 {
 	char	**path_tab;
-	char	*path;
+	int		ret;
 	int		i;
 
-	if (ft_strchr(cmd->cmd_name, '/') || !cmd->cmd_name || !env[0])
+	if (!env[0]) // move this check to main()
 		return (0);
 	i = 0;
+	ret = 0;
 	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
 		i++;
 	if (!env[i])
@@ -72,25 +77,17 @@ int	ft_check_path(t_cmd *cmd, char **env)
 	path_tab = ft_split(env[i] + 5, ':');
 	if (!path_tab)
 		return (-1);
-	i = 0;
-	while (path_tab[i])
+	while (cmd)
 	{
-		path = ft_strjoin(path_tab[i++], cmd->cmd_name, '/');
-		if (!path)
-			return (free_tab(path_tab), -1);
-		if (!access(path, X_OK))
+		if (!ft_strchr(cmd->cmd_name, '/') && cmd->cmd_name)
 		{
-			cmd->cmd_name = ft_strdup(path);
-			if (!cmd->cmd_name)
-				return (free(path), free_tab(path_tab), -1);
-			else
-				return (free(path), free_tab(path_tab), 0);
+			ret = ft_check_paths_access(path_tab, cmd);
+			if (ret == -1)
+				return (free_tab(path_tab), -1);
 		}
-		if (!access(path, F_OK))
-			return (perror("parsing: "), free(path), free_tab(path_tab), -1);
-		free(path);
+		cmd = cmd->next;
 	}
-	return (free_tab(path_tab), 0);
+	return (free_tab(path_tab), ret);
 }
 
 static int	ft_check_paths_access(char *path_tab[], t_cmd *cmd)
@@ -103,17 +100,17 @@ static int	ft_check_paths_access(char *path_tab[], t_cmd *cmd)
 	{
 		path = ft_strjoin(path_tab[i++], cmd->cmd_name, '/');
 		if (!path)
-			return (free_tab(path_tab), -1);
+			return (perror("parsing: "), -1);
 		if (!access(path, X_OK))
 		{
 			cmd->cmd_name = ft_strdup(path);
 			if (!cmd->cmd_name)
-				return (free(path), free_tab(path_tab), -1);
+				return (perror("parsing: "), free(path),
+					-1);
 			else
-				return (free(path), free_tab(path_tab), 0);
+				return (free(path), 0);
 		}
-		if (!access(path, F_OK))
-			return (perror("parsing: "), free(path), free_tab(path_tab), -1);
 		free(path);
 	}
+	return (0);
 }

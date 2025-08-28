@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/27 17:51:05 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:18:23 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,27 +77,14 @@ int	ft_fork(t_fdes *fdes, t_cmd *cmd, char *env[])
 
 static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head, char *env[])
 {
-	// fprintf(stderr, "cmd name : %s\n", cmd->cmd_name);
-	// fflush(stderr);
 	if (!cmd->cmd_name)
-	{
-		// fprintf(stderr, "cmd not executed\n");
-		// fflush(stderr);
 		ft_cleanup_and_exit_child(fdes, head);
-	}
 	if (cmd->first)
 	{
 		if (fdes->fd_infile >= 0)
 			dup2(fdes->fd_infile, STDIN_FILENO); // protect the dup2 ?
 		else
-		{
 			ft_cleanup_and_exit_child(fdes, head);
-			// ft_close_unused_fdes(fdes, head);
-			// exit(EXIT_FAILURE);
-			// if (ft_dup2_null(STDIN_FILENO) == -1)
-			// 	exit(EXIT_FAILURE);
-			// fprintf(stderr, "dup2 null successfully executed for %s\n", cmd->cmd_name);
-		}
 		dup2(cmd->fd_out, STDOUT_FILENO);
 	}
 	else if (cmd->next == NULL)
@@ -105,16 +92,8 @@ static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head, char *env[])
 		if (fdes->fd_outfile >= 0)
 			dup2(fdes->fd_outfile, STDOUT_FILENO);
 		else
-		{
 			ft_cleanup_and_exit_child(fdes, head);
-			// ft_close_unused_fdes(fdes, head);
-			// exit(EXIT_FAILURE);
-			// if (ft_dup2_null(STDOUT_FILENO) == -1)
-			// 	exit(EXIT_FAILURE);
-		}
 		dup2(cmd->fd_in, STDIN_FILENO);
-		// fprintf(stderr, "dup2 successfully executed for %s\n", cmd->cmd_name);
-		// fprintf(stderr, "cmd->fd_in : %d\n", cmd->fd_in);
 	}
 	else
 	{
@@ -123,12 +102,6 @@ static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head, char *env[])
 	}
 	if (ft_close_unused_fdes(fdes, head) == -1)
 		exit(EXIT_FAILURE);
-	// if ((cmd->first && fdes->fd_infile == -1) || (cmd->next == NULL
-	// 		&& fdes->fd_outfile == -1))
-	// {
-	// 	// fprintf(stderr, "process %s not executed\n", cmd->cmd_name);
-	// 	exit(EXIT_FAILURE);
-	// }
 	else
 		execve(cmd->cmd_name, cmd->argv, env);
 	ft_cmd_err_handling(cmd, head, fdes);
@@ -136,31 +109,25 @@ static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head, char *env[])
 
 static void	ft_cmd_err_handling(t_cmd *cmd, t_cmd *head, t_fdes *fdes)
 {
-	if (errno == ENOENT)
-	{
-		ft_putstr_fd("pipex: ", STDERR_FILENO);
-		ft_putstr_fd(cmd->argv[0], STDERR_FILENO);
-		ft_putstr_fd(": command not found\n", STDERR_FILENO);
-		ft_lstclear(&head);
-		free(fdes);
-		exit(127);
-	}
-	else if (errno == EACCES)
-	{
-		ft_putstr_fd("pipex: ", STDERR_FILENO);
-		ft_putstr_fd(cmd->argv[0], STDERR_FILENO);
-		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
-		ft_lstclear(&head);
-		free(fdes);
-		exit(126);
-	}
+	// fprintf(stderr, "errno for cmd %s : %d", cmd->cmd_name, errno);
+	ft_putstr_fd("pipex: ", 2);
+	ft_putstr_fd(cmd->argv[0], 2);
+	if (errno == EACCES)
+		{
+			ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+			ft_lstclear(&head);
+			free(fdes);
+			exit(126);
+		}
+	else if (errno == ENOENT && ft_strchr(cmd->cmd_name, '/'))
+		ft_putstr_fd(": no such file or directory", STDERR_FILENO);
+	else if (errno == ENOENT)
+			ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	else
-	{
-		perror("pipex: ft_exec_child");
-		ft_lstclear(&head);
-		free(fdes);
-		exit(127);
-	}
+		perror(NULL);
+	ft_lstclear(&head);
+	free(fdes);
+	exit(127);
 }
 
 // static int	ft_dup2_null(int new_fd)

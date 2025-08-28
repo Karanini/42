@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:07:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/27 17:40:02 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:35:44 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,16 @@ t_fdes	*ft_check_files(char *argv[], int argc)
 	if (fdes->fd_infile == -1)
 	{
 		ft_putstr_fd(argv[1], 2);
-		ft_putstr_fd(": no such file or directory\n", 2);
+		if (access(argv[1], F_OK) == 0 && access(argv[1], R_OK) == -1)
+			ft_putstr_fd(": Permission denied", 2);
+		else
+			ft_putstr_fd(": No such file or directory\n", 2);
 	}
 	fdes->fd_outfile = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 777);
 	if (fdes->fd_outfile == -1)
 	{
 		ft_putstr_fd(argv[argc - 1], 2);
-		ft_putstr_fd(": permission denied\n", 2);
+		ft_putstr_fd(": Permission denied\n", 2);
 	}
 	if (fdes->fd_outfile == -1 && fdes->fd_infile == -1 && argc == 5)
 		return (free(fdes), NULL);
@@ -59,11 +62,13 @@ int	ft_check_path(t_cmd *cmd, char **env)
 	char	*path;
 	int		i;
 
-	if (ft_strchr(cmd->cmd_name, '/') || !cmd->cmd_name)
+	if (ft_strchr(cmd->cmd_name, '/') || !cmd->cmd_name || !env[0])
 		return (0);
 	i = 0;
 	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
 		i++;
+	if (!env[i])
+		return (0);
 	path_tab = ft_split(env[i] + 5, ':');
 	if (!path_tab)
 		return (-1);
@@ -86,4 +91,29 @@ int	ft_check_path(t_cmd *cmd, char **env)
 		free(path);
 	}
 	return (free_tab(path_tab), 0);
+}
+
+static int	ft_check_paths_access(char *path_tab[], t_cmd *cmd)
+{
+	int		i;
+	char	*path;
+
+	i = 0;
+	while (path_tab[i])
+	{
+		path = ft_strjoin(path_tab[i++], cmd->cmd_name, '/');
+		if (!path)
+			return (free_tab(path_tab), -1);
+		if (!access(path, X_OK))
+		{
+			cmd->cmd_name = ft_strdup(path);
+			if (!cmd->cmd_name)
+				return (free(path), free_tab(path_tab), -1);
+			else
+				return (free(path), free_tab(path_tab), 0);
+		}
+		if (!access(path, F_OK))
+			return (perror("parsing: "), free(path), free_tab(path_tab), -1);
+		free(path);
+	}
 }

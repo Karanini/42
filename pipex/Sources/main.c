@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:05:57 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/27 17:50:57 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/28 17:30:17 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,27 +36,21 @@ int	main(int argc, char *argv[], char *env[])
 	if (!fdes)
 		return (1);
 	head = ft_init_cmd_list(argv, argc - 3);
-	// ft_print_list_complete(head);
 	if (!head)
-		return (free(fdes), 127); //check why 127 here
-	// we check if !cmd->cmd_name in case the ft_strdup in the ft_check_path fails
+		return (ft_close_unused_fdes(fdes, NULL), free(fdes), 1);
 	cmd = head;
 	while (cmd)
 	{
 		if (ft_check_path(cmd, env) == -1)
-		{
-			ft_printf("cmd check path error\n");
-			return (ft_lstclear(&head), free(fdes), 1); // close fdes before freeing them
-		}
+			return (ft_lstclear(&head), ft_close_unused_fdes(fdes, NULL),
+				free(fdes), 1);
 		cmd = cmd->next;
 	}
-
 	if (ft_create_pipes(head) == -1)
-		return (ft_lstclear(&head), free(fdes), 1);
-	// ft_printf("\nAfter creating pipes:\n");
-	// ft_print_list_complete(head);
+		return (ft_close_unused_fdes(fdes, head), ft_lstclear(&head),
+			free(fdes), 1);
 	main_ret = ft_fork(fdes, head, env);
-	if (main_ret == -1)
+	if (main_ret == -1 || fdes->fd_outfile == -1)
 		return (ft_lstclear(&head), free(fdes), 1);
 	return (ft_lstclear(&head), free(fdes), main_ret);
 }

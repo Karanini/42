@@ -1,4 +1,0 @@
-USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-bkaras-g 1341726  0.0  0.0      0     0 pts/0    Z+   11:18   0:00 [date] <defunct>
-bkaras-g 1341727  0.0  0.0      0     0 pts/0    Z+   11:18   0:00 [env] <defunct>
-bkaras-g 1341728  0.0  0.0      0     0 pts/0    Z+   11:18   0:00 [ls] <defunct>

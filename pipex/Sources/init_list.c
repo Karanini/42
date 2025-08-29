@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/29 13:23:24 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:35:18 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_cmd	*ft_lstnew(char *cmd_with_args)
 	new_element->fd_in = -1;
 	new_element->fd_out = -1;
 	new_element->first = 0;
+	new_element->exit_status = 0;
 	new_element->next = NULL;
 	return (new_element);
 }

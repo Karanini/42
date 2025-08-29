@@ -6,15 +6,15 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/28 17:18:23 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:51:26 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
 static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head, char *env[]);
-// static int	ft_dup2_null(int new_fd);
 static void	ft_cmd_err_handling(t_cmd *cmd, t_cmd *head, t_fdes *fdes);
+static int	ft_wait_children(t_cmd *head);
 
 int	ft_create_pipes(t_cmd *cmd)
 {
@@ -24,7 +24,6 @@ int	ft_create_pipes(t_cmd *cmd)
 	nb_pipes = ft_lstsize(cmd) - 1;
 	first = 1;
 	while (nb_pipes)
-	// or while (cmd->next->next) less lines but less readable
 	{
 		if (pipe(cmd->pfd) == -1)
 			return (perror("pipex: ft_create_pipes"), -1);
@@ -56,18 +55,26 @@ int	ft_fork(t_fdes *fdes, t_cmd *cmd, char *env[])
 			return (perror("pipex: ft_fork"), -1);
 		if (cmd->pid == 0)
 			ft_exec_child(fdes, cmd, head, env);
-		// fprintf(stderr, "pid %d finished\n", cmd->pid);
 		cmd = cmd->next;
 	}
 	ft_close_unused_fdes(fdes, head);
+	return (ft_wait_children(head));
+}
+
+static int	ft_wait_children(t_cmd *head)
+{
+	pid_t	pid;
+	int		status;
+	int		last_status;
+
+	pid = 0;
+	status = 0;
+	last_status = 0;
 	while (pid != -1)
 	{
-		// fprintf(stderr, "waiting for pid %d\n", head->pid);
-		// waitpid(head->pid, NULL, 0);
 		pid = wait(&status);
 		if (pid == ft_lstlast(head)->pid)
 			last_status = status;
-		// fprintf(stderr, "finished waiting\n");
 	}
 	if (WIFEXITED(last_status))
 		return (WEXITSTATUS(status));
@@ -109,7 +116,6 @@ static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head, char *env[])
 
 static void	ft_cmd_err_handling(t_cmd *cmd, t_cmd *head, t_fdes *fdes)
 {
-	// fprintf(stderr, "errno for cmd %s : %d", cmd->cmd_name, errno);
 	ft_putstr_fd("pipex: ", 2);
 	ft_putstr_fd(cmd->argv[0], 2);
 	if (errno == EACCES)
@@ -129,17 +135,3 @@ static void	ft_cmd_err_handling(t_cmd *cmd, t_cmd *head, t_fdes *fdes)
 	free(fdes);
 	exit(127);
 }
-
-// static int	ft_dup2_null(int new_fd)
-// {
-// 	int	fd_null;
-
-// 	fd_null = open("/dev/null", O_RDONLY);
-// 	if (fd_null == -1)
-// 		return (-1);
-// 	fprintf(stderr, "fd_null : %d\n", fd_null);
-// 	dup2(fd_null, new_fd);
-// 	if (close(fd_null) == -1)
-// 		return (-1);
-// 	return (0);
-// }

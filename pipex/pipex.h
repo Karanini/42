@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 13:01:12 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/27 17:12:08 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:35:00 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_cmd
 	int				fd_out;
 	int				first;
 	pid_t			pid;
+	int				exit_status;
 	struct s_cmd	*next;
 }					t_cmd;
 

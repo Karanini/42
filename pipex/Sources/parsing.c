@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:07:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/28 18:10:40 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/29 12:46:23 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,11 @@ t_fdes	*ft_check_files(char *argv[], int argc)
 int	ft_check_path(t_cmd *cmd, char **env)
 {
 	char	**path_tab;
-	int		ret;
 	int		i;
 
 	if (!env[0]) // move this check to main()
 		return (0);
 	i = 0;
-	ret = 0;
 	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
 		i++;
 	if (!env[i])
@@ -81,13 +79,12 @@ int	ft_check_path(t_cmd *cmd, char **env)
 	{
 		if (!ft_strchr(cmd->cmd_name, '/') && cmd->cmd_name)
 		{
-			ret = ft_check_paths_access(path_tab, cmd);
-			if (ret == -1)
+			if (ft_check_paths_access(path_tab, cmd) == -1)
 				return (free_tab(path_tab), -1);
 		}
 		cmd = cmd->next;
 	}
-	return (free_tab(path_tab), ret);
+	return (free_tab(path_tab), 0);
 }
 
 static int	ft_check_paths_access(char *path_tab[], t_cmd *cmd)

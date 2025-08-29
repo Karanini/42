@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/06 15:17:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/28 17:24:10 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:26:40 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,11 @@
 * @brief frees all the nodes of a t_cmd list with 2 steps : (1) Frees the
 * allocated variables in a node, (2) then frees the node.
 *
-* If the cmd_name variable has been updated with the absolute path with ft_check_path,
-* we free also cmd_name. If not, it's enough to free argv since argv[0] == cmd_name.
+* If the cmd_name variable has been updated with the absolute path with
+* ft_check_path, we free also cmd_name. If not, it's enough to free argv
+* since argv[0] == cmd_name.
+*
+* @param **lst double pointer to the t_cmd list to be freed
 */
 void	ft_lstclear(t_cmd **lst)
 {
@@ -25,7 +28,7 @@ void	ft_lstclear(t_cmd **lst)
 	while (*lst)
 	{
 		temp = (*lst)->next;
-		if ( (*lst)->argv[0] && (*lst)->cmd_name
+		if ((*lst)->argv[0] && (*lst)->cmd_name
 			&& ft_strcmp((*lst)->argv[0], (*lst)->cmd_name))
 			free((*lst)->cmd_name);
 		free_tab((*lst)->argv);

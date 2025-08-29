@@ -6,16 +6,30 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:43:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/27 17:37:38 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:23:24 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-/*
-* initializes the commands list. Stores the command name and its arguments
-* respectively in cmd->cmd_name and cmd->argv.
-*
-*/
+
+/**
+* @brief Initializes a linked list of command structures from the given
+* arguments.
+ *
+ * This function creates and initializes a linked list of t_cmd structures,
+ * each representing a command to be executed. The commands are parsed from
+ * the provided argv array, starting from the appropriate index, and the number
+ * of commands to initialize is specified by nb_cmds.
+ *
+ * If the cmd name is not valid (empty command, or only whitespaces 32 and/or
+ * single quotes)
+ *
+ * @param argv     The array of the program's arguments ("./pipex infile cmd_1
+ * --- cmd_n outfile")
+ * @param nb_cmds  The number of commands to initialize in the list == argc - 3
+ * @return         A pointer to the head of the initialized t_cmd linked list,
+ *                 or NULL if initialization fails.
+ */
 t_cmd	*ft_init_cmd_list(char **argv, int nb_cmds)
 {
 	t_cmd	*begin;
@@ -41,7 +55,7 @@ t_cmd	*ft_init_cmd_list(char **argv, int nb_cmds)
 	return (begin);
 }
 
-t_cmd	*ft_lstnew(char	*cmd_with_args)
+t_cmd	*ft_lstnew(char *cmd_with_args)
 {
 	t_cmd	*new_element;
 	char	**args;
@@ -61,14 +75,13 @@ t_cmd	*ft_lstnew(char	*cmd_with_args)
 	new_element->fd_out = -1;
 	new_element->first = 0;
 	new_element->next = NULL;
-	// free_tab(args);
 	return (new_element);
 }
 
 /* ************************************************************************** *
-* No security check if !lst or !new
-* If the list is empty, we add new as the first element of the list
-* ************************************************************************** */
+ * No security check if !lst or !new
+ * If the list is empty, we add new as the first element of the list
+ * ***************************************************************************/
 void	ft_lstadd_back(t_cmd **lst, t_cmd *new)
 {
 	t_cmd	*last_node;

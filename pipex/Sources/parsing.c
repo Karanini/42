@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:07:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/29 12:46:23 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/29 13:09:10 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	ft_check_paths_access(char *path_tab[], t_cmd *cmd);
 
 /**
 
-	* @brief Checks and processes input and output files from command-line arguments.
+* @brief Checks and processes input and output files from command-line arguments.
  *
  * This function analyzes the provided command-line arguments to determine
  * the input and output files required for the program's operation. It performs
@@ -60,12 +60,25 @@ t_fdes	*ft_check_files(char *argv[], int argc)
 	return (fdes);
 }
 
+/**
+ * Checks and sets the executable path for the given command structure
+ * with $PATH. For example 'ls' becomes '/usr/bin/ls'
+ *
+ * If env is empty (!env[0]) nothing to be done -> the function stops.
+ * If a cmd_name contains at leat one '/' a path is already given so
+ * no path is set with $PATH.
+ *
+ * @param cmd Pointer to the t_cmd structure containing command information.
+ * @param env Array of environment variable strings.
+ * @return 0 if nothing to be done or if one or several valid paths are
+ * found and set, -1 if a malloc error is found.
+ */
 int	ft_check_path(t_cmd *cmd, char **env)
 {
 	char	**path_tab;
 	int		i;
 
-	if (!env[0]) // move this check to main()
+	if (!env[0])
 		return (0);
 	i = 0;
 	while (env[i] && ft_strncmp(env[i], "PATH=", 5))
@@ -87,6 +100,17 @@ int	ft_check_path(t_cmd *cmd, char **env)
 	return (free_tab(path_tab), 0);
 }
 
+/**
+ * @brief Checks the accessibility of the given paths for the specified command.
+ *
+ * This function iterates through the array of paths (`path_tab`) and determines
+ * if any of the paths provide access to the executable specified in `cmd`.
+ *
+ * @param path_tab An array of strings representing possible executable paths.
+ * @param cmd Pointer to a t_cmd structure containing command information.
+ * @return int Returns -1 on a malloc error, 0 otherwise (whether an accessible
+ * path is found or not).
+ */
 static int	ft_check_paths_access(char *path_tab[], t_cmd *cmd)
 {
 	int		i;
@@ -102,8 +126,7 @@ static int	ft_check_paths_access(char *path_tab[], t_cmd *cmd)
 		{
 			cmd->cmd_name = ft_strdup(path);
 			if (!cmd->cmd_name)
-				return (perror("parsing: "), free(path),
-					-1);
+				return (perror("parsing: "), free(path), -1);
 			else
 				return (free(path), 0);
 		}

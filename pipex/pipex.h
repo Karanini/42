@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 13:01:12 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/29 13:35:00 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/29 15:13:15 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void				ft_print_list_complete(t_cmd *lst);
 
 int					ft_create_pipes(t_cmd *cmd);
 int					ft_fork(t_fdes *fdes, t_cmd *cmd, char *env[]);
+void				ft_dup2_first_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head);
+void				ft_dup2_last_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head);
 
 void				ft_lstclear(t_cmd **lst);
 int					ft_close_unused_fdes(t_fdes *fdes, t_cmd *cmd);

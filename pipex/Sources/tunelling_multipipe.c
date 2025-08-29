@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/14 13:16:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/29 13:51:26 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/08/29 15:21:05 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,28 +87,21 @@ static void	ft_exec_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head, char *env[])
 	if (!cmd->cmd_name)
 		ft_cleanup_and_exit_child(fdes, head);
 	if (cmd->first)
-	{
-		if (fdes->fd_infile >= 0)
-			dup2(fdes->fd_infile, STDIN_FILENO); // protect the dup2 ?
-		else
-			ft_cleanup_and_exit_child(fdes, head);
-		dup2(cmd->fd_out, STDOUT_FILENO);
-	}
+		ft_dup2_first_child(fdes, cmd, head);
 	else if (cmd->next == NULL)
-	{
-		if (fdes->fd_outfile >= 0)
-			dup2(fdes->fd_outfile, STDOUT_FILENO);
-		else
-			ft_cleanup_and_exit_child(fdes, head);
-		dup2(cmd->fd_in, STDIN_FILENO);
-	}
+		ft_dup2_last_child(fdes, cmd, head);
 	else
 	{
-		dup2(cmd->fd_in, STDIN_FILENO);
-		dup2(cmd->fd_out, STDOUT_FILENO);
+		if (dup2(cmd->fd_in, STDIN_FILENO) == -1 || dup2(cmd->fd_out,
+				STDOUT_FILENO) == -1)
+			ft_cleanup_and_exit_child(fdes, head);
 	}
 	if (ft_close_unused_fdes(fdes, head) == -1)
+	{
+		ft_lstclear(&head);
+		free(fdes);
 		exit(EXIT_FAILURE);
+	}
 	else
 		execve(cmd->cmd_name, cmd->argv, env);
 	ft_cmd_err_handling(cmd, head, fdes);
@@ -119,16 +112,16 @@ static void	ft_cmd_err_handling(t_cmd *cmd, t_cmd *head, t_fdes *fdes)
 	ft_putstr_fd("pipex: ", 2);
 	ft_putstr_fd(cmd->argv[0], 2);
 	if (errno == EACCES)
-		{
-			ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
-			ft_lstclear(&head);
-			free(fdes);
-			exit(126);
-		}
+	{
+		ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+		ft_lstclear(&head);
+		free(fdes);
+		exit(126);
+	}
 	else if (errno == ENOENT && ft_strchr(cmd->cmd_name, '/'))
 		ft_putstr_fd(": no such file or directory", STDERR_FILENO);
 	else if (errno == ENOENT)
-			ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		ft_putstr_fd(": command not found\n", STDERR_FILENO);
 	else
 		perror(NULL);
 	ft_lstclear(&head);

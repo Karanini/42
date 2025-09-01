@@ -8,16 +8,16 @@
 */
 void	word_count_single_quotes(char const *s, size_t *i, size_t *nb_words)
 {
+	(*i)++;
+	while (s[*i] && s[*i] != '\'')
 		(*i)++;
-		while (s[*i] && s[*i] != '\'')
-			(*i)++;
-		if (s[*i] == '\'')
-			(*i)++;
-		(*nb_words)++;
+	if (s[*i] == '\'')
+		(*i)++;
+	(*nb_words)++;
 }
 
-void    ft_change_sep_to_single_quote(char *c, size_t *start_word)
+void	ft_change_sep_to_single_quote(char *c, size_t *start_word)
 {
-    *c = '\'';
-    (*start_word)++;
+	*c = '\'';
+	(*start_word)++;
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 void	ft_dup2_first_child(t_fdes *fdes, t_cmd *cmd, t_cmd *head)
 {

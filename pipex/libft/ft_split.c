@@ -56,7 +56,7 @@ static int	fill_words(char const *s, char c, size_t nb_words, char **split)
 		while (s[start_word] && s[start_word] == c)
 			start_word++;
 		end_word = start_word + 1;
-		if (s[start_word] == '\'') //move lines following condition to another function ?
+		if (s[start_word] == '\'')
 			ft_change_sep_to_single_quote(&c, &start_word);
 		while (s[end_word] && s[end_word] != c)
 			end_word++;

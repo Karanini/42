@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 /*
 * mallocs inventory : (1) A t_cmd list, (2) **argv in the nodes, (3) *cmd in

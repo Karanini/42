@@ -56,7 +56,7 @@ size_t	word_count(char const *s, char c);
 int		ft_strcmp(char *str1, char *str2);
 void	free_tab(char **split);
 void	word_count_single_quotes(char const *s, size_t *i, size_t *nb_words);
-void    ft_change_sep_to_single_quote(char *c, size_t *start_word);
+void	ft_change_sep_to_single_quote(char *c, size_t *start_word);
 
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));

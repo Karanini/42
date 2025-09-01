@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 /*
 * @brief frees all the nodes of a t_cmd list with 2 steps : (1) Frees the
 * allocated variables in a node, (2) then frees the node.

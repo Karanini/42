@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 /*Prints each node of a t_cmd list, detailed mode : each variable of the node
  * is printed.

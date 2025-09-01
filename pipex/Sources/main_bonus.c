@@ -28,7 +28,7 @@ int	main(int argc, char *argv[], char *env[])
 	t_cmd	*head;
 	int		main_ret;
 
-	if (argc != 5)
+	if (argc < 5)
 		return (1);
 	main_ret = 0;
 	fdes = ft_check_files(argv, argc);

@@ -14,8 +14,7 @@
 #include <stdio.h>
 
 static int	fill_words(char const *s, char c, size_t nb_words, char **split);
-static void	word_count_single_quotes(char const *s, size_t *i,
-				size_t *nb_words);
+
 /*
  * MODIFIED VERSION to take into account arguments between single quotes
  * as one word.
@@ -58,10 +57,7 @@ static int	fill_words(char const *s, char c, size_t nb_words, char **split)
 			start_word++;
 		end_word = start_word + 1;
 		if (s[start_word] == '\'') //move lines following condition to another function ?
-		{
-			c = '\'';
-			start_word++;
-		}
+			ft_change_sep_to_single_quote(&c, &start_word);
 		while (s[end_word] && s[end_word] != c)
 			end_word++;
 		split[i] = ft_substr(s, start_word, end_word - start_word);
@@ -105,20 +101,6 @@ size_t	word_count(char const *s, char c)
 			i++;
 	}
 	return (nb_words);
-}
-/*
-* @brief counts a word delimited by single quotes. UNSPECIFIED BEHAVIOR if a
-* single quote is not closed by another single quote (not to be treated in the
-* minishell project)
-*/
-static void	word_count_single_quotes(char const *s, size_t *i, size_t *nb_words)
-{
-		(*i)++;
-		while (s[*i] && s[*i] != '\'')
-			(*i)++;
-		if (s[*i] == '\'')
-			(*i)++;
-		(*nb_words)++;
 }
 
 void	free_tab(char **split)

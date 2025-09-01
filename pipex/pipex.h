@@ -18,7 +18,9 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <string.h>
+#ifdef __unix__
 # include <sys/wait.h>
+#endif
 # include <unistd.h>
 
 typedef struct s_cmd

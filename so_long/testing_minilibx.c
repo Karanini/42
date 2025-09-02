@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 10:34:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/02 12:27:32 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/02 18:24:45 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 #define SIZE_X 800
 #define SIZE_Y 600
+#define SPRITES_PATH "Sprites"
 
 typedef struct s_mlx_data
 {
@@ -25,10 +26,12 @@ typedef struct s_mlx_data
 }			t_mlx_data;
 
 int			handle_key_input(int keycode, t_mlx_data *mlx_data);
+t_img	*ft_convert_xpm_to_images(void *mlx_connection, char *path);
 
 int	main(void)
 {
 	t_mlx_data	*mlx_data;
+	t_img		*harry;
 
 	srand(time(NULL));
 	mlx_data = malloc(sizeof(t_mlx_data));
@@ -46,8 +49,28 @@ int	main(void)
 		return (1);
 	}
 	mlx_key_hook(mlx_data->win, handle_key_input, mlx_data);
+	harry = ft_convert_xpm_to_images(mlx_data->mlx_connection, SPRITES_PATH "/Harry_horizontal_1.xpm");
+	printf("harry: %p\n", harry);
+	if (!harry)
+		return (1);
+	mlx_put_image_to_window(mlx_data->mlx_connection, mlx_data->win, harry, 432, 332);
 	mlx_loop(mlx_data->mlx_connection);
 	return (0);
+}
+
+t_img	*ft_convert_xpm_to_images(void *mlx_connection, char *path)
+{
+	t_img	*harry;
+	int		width;
+	int		height;
+
+	width = 30;
+	height = 31;
+	harry = mlx_xpm_file_to_image(mlx_connection,
+			path, &width, &height);
+	if (!harry)
+		return (NULL);
+	return (harry);
 }
 
 /**
@@ -66,6 +89,9 @@ int	main(void)
  */
 int	handle_key_input(int keycode, t_mlx_data *mlx_data)
 {
+	int	x_pos;
+	int	y_pos;
+
 	printf("You pressed the key %d\n", keycode);
 	if (keycode == XK_Escape)
 	{
@@ -77,8 +103,9 @@ int	handle_key_input(int keycode, t_mlx_data *mlx_data)
 		printf("KTHXBYYYEEE\n");
 		exit(0);
 	}
-	int	x_pos = rand() % SIZE_X;
-	int y_pos = rand() % SIZE_Y;
-	mlx_pixel_put(mlx_data->mlx_connection, mlx_data->win, x_pos, y_pos, 0x9932FF);
+	x_pos = rand() % SIZE_X;
+	y_pos = rand() % SIZE_Y;
+	mlx_pixel_put(mlx_data->mlx_connection, mlx_data->win, x_pos, y_pos,
+		0x9932FF);
 	return (0);
 }

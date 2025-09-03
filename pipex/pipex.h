@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/04 13:01:12 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/29 15:13:15 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/03 14:26:23 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <string.h>
-#ifdef __unix__
-# include <sys/wait.h>
-#endif
+# ifdef __unix__
+#  include <sys/wait.h>
+# endif
 # include <unistd.h>
 
 typedef struct s_cmd

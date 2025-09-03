@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:39:02 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/02 21:53:37 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/03 15:25:54 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_generate_images(t_mlx_data *data)
 	data->background = ft_convert_xpm_to_images(data->mlx_connection,
 			SPRITES_PATH "/background.xpm");
 	if (!data->background)
-		return (ft_destroy_images(data), 1);
+		return (ft_destroy_images(data), -1);
 	data->wall = ft_convert_xpm_to_images(data->mlx_connection,
 			SPRITES_PATH "/wall.xpm");
 	if (!data->wall)
@@ -65,10 +65,10 @@ void	ft_generate_map(char **map, size_t width, size_t height,
 	{
 		while (y < height)
 		{
-			if (map[y][x] == 0)
+			if (map[y][x] == '0')
 				mlx_put_image_to_window(data->mlx_connection, data->win,
 					data->background, x * 32, y * 32);
-			else if (map[y][x] == 1)
+			else if (map[y][x] == '1')
 				mlx_put_image_to_window(data->mlx_connection, data->win,
 					data->wall, x * 32, y * 32);
 			else if (map[y][x] == 'P')

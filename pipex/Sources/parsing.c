@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/05 11:07:21 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/29 13:09:10 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/04 14:36:34 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ t_fdes	*ft_check_files(char *argv[], int argc)
 		else
 			ft_putstr_fd(": No such file or directory\n", 2);
 	}
-	fdes->fd_outfile = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 777);
+	fdes->fd_outfile = open(argv[argc - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fdes->fd_outfile == -1)
 	{
 		ft_putstr_fd(argv[argc - 1], 2);

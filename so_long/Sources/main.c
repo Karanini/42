@@ -6,14 +6,15 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:19:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/04 10:49:01 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:36:22 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 /*
-* malloc list : data structure, data->mlx_connection, display to free with
-* mlx_destroy_display(), images to free with ft_destroy_images()
+* malloc list : data structure, data->map to free with free_tab(),
+* data->mlx_connection, display to free with mlx_destroy_display(),
+* images to free with ft_destroy_images()
 */
 int	main(int argc, char *argv[])
 {
@@ -37,11 +38,13 @@ int	main(int argc, char *argv[])
 	if (!data)
 		return (1);
 	if (ft_init_data_map(data, argv[1]) == -1)
-		return (1);
+		return (free(data), 1);
 	for (int i = 0; data->map[i] != NULL; i++)
 	{
 		ft_printf("%s", data->map[i]);
 	}
+	if (ft_check_map(data) == -1)
+		return (free_tab(data->map), free(data), 1);
 	win_width = 10 * 32;
 	win_height = 10 * 32; // to generalize in ft_init_data_map() : y_size * 32
 
@@ -49,16 +52,7 @@ int	main(int argc, char *argv[])
 		return (1); //free everything that has been malloced
 	data->player_pos.x = 2;
 	data->player_pos.y = 2;
-	// data->map = {"1111111111",
-	// 			"1P000000C1",
-	// 			"10000C0001",
-	// 			"1C000000E1",
-	// 			"1000000001",
-	// 			"1000000001",
-	// 			"100C000001",
-	// 			"1000000001",
-	// 			"10000C0001",
-	// 			"1111111111"};
+
 	if (!data)
 		return (1);
 	if (ft_generate_images(data) == -1)
@@ -68,7 +62,7 @@ int	main(int argc, char *argv[])
 		free(data);
 		return (1);
 	}
-	ft_generate_map(map, 10, 10, data);
+	ft_generate_map(map, 10, 10, data); //update with data->map
 	mlx_key_hook(data->win, ft_handle_key, data);
 	mlx_loop(data->mlx_connection);
 }

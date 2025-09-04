@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:44:26 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/04 10:20:50 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/04 17:57:01 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,9 @@ int				ft_init_mlx_data(t_mlx_data *data, char *win_title,
 					int win_width, int win_height);
 int				ft_init_data_map(t_mlx_data *data, char *filename);
 
+int				ft_check_map(t_mlx_data *data);
+int				ft_check_init_width(t_mlx_data *data);
+
 int				ft_generate_images(t_mlx_data *data);
 void			ft_generate_map(char **map, size_t width, size_t height,
 					t_mlx_data *data);
@@ -52,3 +55,5 @@ void			ft_generate_map(char **map, size_t width, size_t height,
 int				ft_handle_key(int keycode, t_mlx_data *data);
 
 void			ft_destroy_images(t_mlx_data *data);
+
+void			ft_print_err(char *err_msg);

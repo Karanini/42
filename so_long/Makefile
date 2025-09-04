@@ -6,7 +6,7 @@
 #    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/16 14:08:56 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/09/03 17:33:32 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/09/04 15:31:57 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ BONUS_NAME = so_long
 SRC_DIR = Sources
 BONUS_DIR = Bonus
 SRC_FILES = init_mlx_data.c \
+			parsing.c \
 			generate_map.c \
 			event_handlers.c \
 			cleaning.c \

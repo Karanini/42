@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:53:25 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/04 17:57:12 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/04 19:35:15 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ int	ft_check_map(t_mlx_data *data)
 	if (ft_check_EPC(data, 'E') == -1 || ft_check_EPC(data, 'P') == -1
 		|| ft_check_EPC(data, 'C') == -1)
 		return (-1);
-	//check init width
+	if (ft_check_init_width(data) == -1)
+		return (ft_print_err("The map is not rectangular."), -1);
+	else if (ft_check_init_width(data) == 1)
+		return (perror("tab_width malloc failed"), -1);
 	return (0);
 }
 /*
@@ -52,7 +55,7 @@ static int	ft_check_EPC(t_mlx_data *data, char to_check)
 			}
 			x++;
 		}
-		ft_printf("\n");
+		// ft_printf("\n");
 		x = 0;
 		y++;
 	}
@@ -65,6 +68,9 @@ static int	ft_check_EPC(t_mlx_data *data, char to_check)
 	return (0);
 }
 
+/*
+* leak check if width not valid OK
+*/
 int	ft_check_init_width(t_mlx_data *data)
 {
 	int	i;
@@ -73,11 +79,14 @@ int	ft_check_init_width(t_mlx_data *data)
 
 	tab_width = malloc(sizeof(int) * data->map_height);
 	if (!tab_width)
-		return (perror("tab_width malloc failed"), 1);
+		return (1);
 			// catch the 1 return to free the rest and exit
 	i = 0;
+	// printf("map height: %d\n", data->map_height);
 	while (i < data->map_height)
 	{
+		// printf("i == %d\n", i);
+		// printf("map[i]: %s\n", data->map[i]);
 		tab_width[i] = ft_strlen(data->map[i]);
 		i++;
 	}
@@ -94,7 +103,9 @@ int	ft_check_init_width(t_mlx_data *data)
 		j = i + 1;
 		i++;
 	}
-	return (0);
+	printf("map width: %d\n", i);
+	data->map_width = i;
+	return (free(tab_width), 0); //return width if success
 }
 
 void	ft_print_err(char *err_msg)

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 17:08:01 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/04 10:20:33 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/04 19:37:03 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_handle_key(int keycode, t_mlx_data *data)
 		mlx_destroy_window(data->mlx_connection, data->win);
 		mlx_destroy_display(data->mlx_connection);
 		free(data->mlx_connection);
+		free_tab(data->map);
 		free(data);
 		printf("KTHXBYYYEEE\n");
 		exit(0);

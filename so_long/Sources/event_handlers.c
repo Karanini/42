@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 17:08:01 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/03 17:48:15 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/04 10:20:33 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int	ft_handle_key(int keycode, t_mlx_data *data)
 		printf("KTHXBYYYEEE\n");
 		exit(0);
 	}
-	if (keycode == 119 | keycode == 97 || keycode == 115 || keycode == 100
-		|| keycode == 65361 || keycode == 65362 || keycode == 65363
-		|| keycode == 65364)
-		ft_move_player(keycode, data);
+	// if (keycode == 119 | keycode == 97 || keycode == 115 || keycode == 100
+	// 	|| keycode == 65361 || keycode == 65362 || keycode == 65363
+	// 	|| keycode == 65364)
+	// 	ft_move_player(keycode, data);
 	return (0);
 }

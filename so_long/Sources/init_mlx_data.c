@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:36:59 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/03 19:30:41 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/04 11:07:44 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,24 @@ int	ft_init_data_map(t_mlx_data *data, char *filename)
 	line = get_next_line(fd);
 	if (!line)
 		return (-1);
-	data->map_height++;
+	data->map_height = 1;
+	tmp = NULL;
 	while (line)
 	{
-		tmp = ft_strdup(line);
-		if (!tmp)
-			return (free(line), -1);
-		free(line);
-		line = get_next_line(fd);
-		if (!line)
-			return (free(tmp), -1);
-				// on entre ici si on arrive a la fin du fichier ?
 		res = ft_strjoin(tmp, line, ' ');
 		if (!res)
-			return (free(tmp), free(line), -1);
-		free(tmp);
+			return (free(tmp), free(line), close(fd), -1);
+		if (tmp)
+			free(tmp);
+		tmp = ft_strdup(res);
+		if (!tmp)
+			return (free(line), close(fd), -1);
+		free(line);
+		line = get_next_line(fd);
 		data->map_height++;
 	}
 	data->map = ft_split(res, ' ');
 	if (!data->map)
+		return (free(line), free(res), -1);
+	return (free(line), free(res), 0);
 }

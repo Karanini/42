@@ -6,13 +6,13 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:44:26 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/03 19:13:00 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/04 10:20:50 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "mlx.h"
 #include "mlx_int.h"
-#include "libft.h"
 
 #define SIZE_X 800
 #define SIZE_Y 600
@@ -43,6 +43,7 @@ typedef struct s_mlx_data
 
 int				ft_init_mlx_data(t_mlx_data *data, char *win_title,
 					int win_width, int win_height);
+int				ft_init_data_map(t_mlx_data *data, char *filename);
 
 int				ft_generate_images(t_mlx_data *data);
 void			ft_generate_map(char **map, size_t width, size_t height,

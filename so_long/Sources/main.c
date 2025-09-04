@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:19:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/03 19:01:53 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/04 10:49:01 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,13 @@ int	main(int argc, char *argv[])
 		return (1);
 	data = malloc(sizeof(t_mlx_data));
 	if (!data)
-		return (NULL);
+		return (1);
 	if (ft_init_data_map(data, argv[1]) == -1)
 		return (1);
+	for (int i = 0; data->map[i] != NULL; i++)
+	{
+		ft_printf("%s", data->map[i]);
+	}
 	win_width = 10 * 32;
 	win_height = 10 * 32; // to generalize in ft_init_data_map() : y_size * 32
 

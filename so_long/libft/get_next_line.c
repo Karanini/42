@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:13:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/01 13:41:33 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/04 10:12:53 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,18 @@ static char	*cooking_stash(int fd, char *buff, char *stash,
 static char	*extract_and_clean(char **stash);
 static int	ft_find_the_nl(char *str);
 
+/**
+ * Reads a line from the given file descriptor.
+ *
+ * This function reads characters from the file descriptor `fd` until a newline
+ * character is encountered or the end of file is reached. The returned string
+ * includes the newline character if one was read. Memory for the returned string
+ * is dynamically allocated and should be freed by the caller.
+ *
+ * @param fd The file descriptor to read from.
+ * @return A pointer to the newly allocated string containing the line read,
+ *         or NULL if there is nothing more to read or an error occurs.
+ */
 /* ************************************************************************** *
 * 1. on verifie que fd et BUFFER_SIZE sont valides
 2. on malloc buff

@@ -6,11 +6,40 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:36:59 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/04 19:28:52 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/05 12:03:41 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+static int	ft_delete_newlines(char **map);
+/*
+* Creates the data structure and initializes each variable at 0 or NULL. It allows
+* to check in the further functions if the variables have been successfully
+* initialized or not.
+*/
+t_mlx_data	*ft_init_data_struct()
+{
+	t_mlx_data	*data;
+
+	data = malloc(sizeof(t_mlx_data));
+	if (!data)
+		return (NULL);
+	data->map = NULL;
+	data->map_width = 0;
+	data->map_height = 0;
+	data->mlx_connection = NULL;
+	data->win = NULL;
+	data->win_width = 0;
+	data->win_height = 0;
+	data->player_pos = NULL;
+	data->player = NULL;
+	data->background = NULL;
+	data->wall = NULL;
+	data->collectible = NULL;
+	data->exit = NULL;
+	return (data);
+}
 
 int	ft_init_mlx_data(t_mlx_data *data, char *win_title, int win_width,
 		int win_height)
@@ -23,11 +52,6 @@ int	ft_init_mlx_data(t_mlx_data *data, char *win_title, int win_width,
 	if (!data->win)
 		return (mlx_destroy_display(data->mlx_connection),
 			free(data->mlx_connection), free(data), -1);
-	data->player = NULL;
-	data->background = NULL;
-	data->wall = NULL;
-	data->collectible = NULL;
-	data->exit = NULL;
 	return (0);
 }
 
@@ -66,5 +90,26 @@ int	ft_init_data_map(t_mlx_data *data, char *filename)
 	data->map = ft_split(res, ' ');
 	if (!data->map)
 		return (free(tmp), free(line), free(res), close(fd), -1);
+	if (ft_delete_newlines(data->map) == -1)
+		return (free_tab(data->map), free(tmp), free(line), free(res),
+			close(fd), -1);
 	return (free(tmp), free(line), free(res), close(fd), 0);
+}
+
+static int	ft_delete_newlines(char **map)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (map[i])
+	{
+		tmp = ft_strtrim(map[i], "\n");
+		if (!tmp)
+			return (-1);
+		free(map[i]);
+		map[i] = tmp;
+		i++;
+	}
+	return (0);
 }

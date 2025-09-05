@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:19:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/04 19:22:01 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/05 12:05:36 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		return (1);
-	data = malloc(sizeof(t_mlx_data));
+	data = ft_init_data_struct();
 	if (!data)
 		return (1);
 	if (ft_init_data_map(data, argv[1]) == -1)
 		return (free(data), 1);
-	// for (int i = 0; data->map[i] != NULL; i++)
-	// {
-	// 	ft_printf("%s", data->map[i]);
-	// }
+	for (int i = 0; data->map[i] != NULL; i++)
+	{
+		ft_printf("%s\n", data->map[i]);
+	}
 	if (ft_check_map(data) == -1)
 		return (free_tab(data->map), free(data), 1);
 	win_width = 10 * 32;
@@ -50,8 +50,8 @@ int	main(int argc, char *argv[])
 
 	if (ft_init_mlx_data(data, "ARRI POTTAIRE", win_width, win_height) == -1)
 		return (1); //free everything that has been malloced
-	data->player_pos.x = 2;
-	data->player_pos.y = 2;
+	data->player_pos->x = 2;
+	data->player_pos->y = 2;
 
 	if (!data)
 		return (1);

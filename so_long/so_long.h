@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:44:26 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/04 19:47:53 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/05 12:05:13 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef struct s_mlx_data
 	void		*win;
 	int			win_width;
 	int			win_height;
-	t_player	player_pos;
+	t_player	*player_pos;
 	t_img		*player;
 	t_img		*background;
 	t_img		*wall;
@@ -41,11 +41,13 @@ typedef struct s_mlx_data
 	t_img		*exit;
 }				t_mlx_data;
 
+t_mlx_data		*ft_init_data_struct();
 int				ft_init_mlx_data(t_mlx_data *data, char *win_title,
 					int win_width, int win_height);
 int				ft_init_data_map(t_mlx_data *data, char *filename);
 
 int				ft_check_map(t_mlx_data *data);
+int				ft_check_walls(t_mlx_data *data);
 
 int				ft_generate_images(t_mlx_data *data);
 void			ft_generate_map(char **map, size_t width, size_t height,

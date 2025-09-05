@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:39:02 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/03 15:25:54 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:22:03 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,31 +53,30 @@ static t_img	*ft_convert_xpm_to_images(void *mlx_connection, char *path)
 	return (player);
 }
 
-void	ft_generate_map(char **map, size_t width, size_t height,
-		t_mlx_data *data)
+void	ft_generate_map(t_mlx_data *data)
 {
-	size_t	x;
-	size_t	y;
+	int	x;
+	int	y;
 
 	x = 0;
 	y = 0;
-	while (x < width)
+	while (x < data->map_width)
 	{
-		while (y < height)
+		while (y < data->map_height)
 		{
-			if (map[y][x] == '0')
+			if (data->map[y][x] == '0')
 				mlx_put_image_to_window(data->mlx_connection, data->win,
 					data->background, x * 32, y * 32);
-			else if (map[y][x] == '1')
+			else if (data->map[y][x] == '1')
 				mlx_put_image_to_window(data->mlx_connection, data->win,
 					data->wall, x * 32, y * 32);
-			else if (map[y][x] == 'P')
+			else if (data->map[y][x] == 'P')
 				mlx_put_image_to_window(data->mlx_connection, data->win,
 					data->player, x * 32, y * 32);
-			else if (map[y][x] == 'C')
+			else if (data->map[y][x] == 'C')
 				mlx_put_image_to_window(data->mlx_connection, data->win,
 					data->collectible, x * 32, y * 32);
-			else if (map[y][x] == 'E')
+			else if (data->map[y][x] == 'E')
 				mlx_put_image_to_window(data->mlx_connection, data->win,
 					data->exit, x * 32, y * 32);
 			y++;

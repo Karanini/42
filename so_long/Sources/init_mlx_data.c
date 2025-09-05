@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:36:59 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/05 12:03:41 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:26:26 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,12 @@
 
 static int	ft_delete_newlines(char **map);
 /*
-* Creates the data structure and initializes each variable at 0 or NULL. It allows
-* to check in the further functions if the variables have been successfully
-* initialized or not.
-*/
-t_mlx_data	*ft_init_data_struct()
+
+	* Creates the data structure and initializes each variable at 0 or NULL. It allows
+ * to check in the further functions if the variables have been successfully
+ * initialized or not.
+ */
+t_mlx_data	*ft_init_data_struct(void)
 {
 	t_mlx_data	*data;
 
@@ -32,7 +33,11 @@ t_mlx_data	*ft_init_data_struct()
 	data->win = NULL;
 	data->win_width = 0;
 	data->win_height = 0;
-	data->player_pos = NULL;
+	data->player_pos = malloc(sizeof(t_player));
+	if (!data->player_pos)
+		return (free(data), NULL);
+	data->player_pos->x = 0;
+	data->player_pos->y = 0;
 	data->player = NULL;
 	data->background = NULL;
 	data->wall = NULL;
@@ -41,17 +46,19 @@ t_mlx_data	*ft_init_data_struct()
 	return (data);
 }
 
-int	ft_init_mlx_data(t_mlx_data *data, char *win_title, int win_width,
-		int win_height)
+int	ft_init_mlx_data(t_mlx_data *data, char *win_title)
 {
 	data->mlx_connection = mlx_init();
 	if (!data->mlx_connection)
-		return (free(data), -1);
-	data->win = mlx_new_window(data->mlx_connection, win_width, win_height,
-			win_title);
+		return (-1);
+	if (ft_check_screen_size(data) == -1)
+		return (mlx_destroy_display(data->mlx_connection),
+			free(data->mlx_connection), -1);
+	data->win = mlx_new_window(data->mlx_connection, data->win_width,
+			data->win_height, win_title);
 	if (!data->win)
 		return (mlx_destroy_display(data->mlx_connection),
-			free(data->mlx_connection), free(data), -1);
+			free(data->mlx_connection), -1);
 	return (0);
 }
 
@@ -112,4 +119,28 @@ static int	ft_delete_newlines(char **map)
 		i++;
 	}
 	return (0);
+}
+
+void	ft_init_player_pos(t_mlx_data *data)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	while (data->map[y])
+	{
+		while (data->map[y][x])
+		{
+			if (data->map[y][x] == 'P')
+			{
+				data->player_pos->x = x;
+				data->player_pos->y = y;
+				return ;
+			}
+			x++;
+		}
+		x = 0;
+		y++;
+	}
 }

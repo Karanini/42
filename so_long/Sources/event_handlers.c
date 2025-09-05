@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 17:08:01 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/04 19:37:03 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/05 17:23:01 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	ft_handle_key(int keycode, t_mlx_data *data)
 		mlx_destroy_display(data->mlx_connection);
 		free(data->mlx_connection);
 		free_tab(data->map);
+		free(data->player_pos);
 		free(data);
 		printf("KTHXBYYYEEE\n");
 		exit(0);
@@ -33,3 +34,8 @@ int	ft_handle_key(int keycode, t_mlx_data *data)
 	// 	ft_move_player(keycode, data);
 	return (0);
 }
+
+// void	ft_move_player(int keycode, t_mlx_data *data)
+// {
+
+// }

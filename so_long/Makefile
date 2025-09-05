@@ -6,7 +6,7 @@
 #    By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/07/16 14:08:56 by bkaras-g          #+#    #+#              #
-#    Updated: 2025/09/05 12:07:15 by bkaras-g         ###   ########.fr        #
+#    Updated: 2025/09/05 14:47:57 by bkaras-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC_FILES = init_mlx_data.c \
 			parsing_2.c \
 			generate_map.c \
 			event_handlers.c \
+			screen_utils.c \
 			print_utils.c \
 			cleaning.c \
 			main.c

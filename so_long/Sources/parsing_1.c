@@ -47,9 +47,9 @@ static int	ft_check_valid_chars(t_mlx_data *data)
 		{
 			if (data->map[y][x] != 'E' && data->map[y][x] != 'P'
 				&& data->map[y][x] != 'C' && data->map[y][x] != '0'
-				&& data->map[y][x] != '1' && data->map[y][x] != '\n') //clear the '\n' ?
+				&& data->map[y][x] != '1')
 				return (ft_printf("char %c\n", data->map[y][x]),
-					ft_print_err("Unauthorized characters detected."), -1);
+					ft_print_err("Unauthorized character detected."), -1);
 			x++;
 		}
 		x = 0;
@@ -100,6 +100,8 @@ static int	ft_check_EPC(t_mlx_data *data, char to_check)
 		return (ft_print_err("No player no game byeeee"), -1);
 	else if (!count && to_check == 'C')
 		return (ft_print_err("No collectibles no game byeeee"), -1);
+	if (count && to_check == 'C')
+		data->game_data->nb_collectibles_left = count;
 	return (0);
 }
 

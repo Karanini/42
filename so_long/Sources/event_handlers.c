@@ -12,9 +12,11 @@
 
 #include "so_long.h"
 
+static void	ft_increment_and_print_nb_moves(t_game *player);
+
 int	ft_handle_key(int keycode, t_mlx_data *data)
 {
-	printf("You pressed the key %d\n", keycode);
+	//printf("You pressed the key %d\n", keycode);
 	if (keycode == XK_Escape)
 	{
 		printf("ESC key pressed. Cleaning up and exiting program...\n");
@@ -23,15 +25,11 @@ int	ft_handle_key(int keycode, t_mlx_data *data)
 		mlx_destroy_display(data->mlx_connection);
 		free(data->mlx_connection);
 		free_tab(data->map);
-		free(data->player_pos);
+		free(data->game_data);
 		free(data);
 		printf("KTHXBYYYEEE\n");
 		exit(0);
 	}
-	// if (keycode == 119 | keycode == 97 || keycode == 115 || keycode == 100
-	// 	|| keycode == 65361 || keycode == 65362 || keycode == 65363
-	// 	|| keycode == 65364)
-	// 	ft_move_player(keycode, data);
 	if (keycode == 119 || keycode == 65362 || keycode == 115
 		|| keycode == 65364)
 		ft_move_player_y(keycode, data);
@@ -46,8 +44,8 @@ void	ft_move_player_y(int keycode, t_mlx_data *data)
 	int	y;
 	int	move_dir;
 
-	x = data->player_pos->x;
-	y = data->player_pos->y;
+	x = data->game_data->x;
+	y = data->game_data->y;
 	if (keycode == 119 || keycode == 65362)
 		move_dir = -1;
 	else
@@ -58,7 +56,8 @@ void	ft_move_player_y(int keycode, t_mlx_data *data)
 		* 32, (y + move_dir) * 32);
 	mlx_put_image_to_window(data->mlx_connection, data->win, data->background, x
 		* 32, y * 32);
-	data->player_pos->y += move_dir;
+	data->game_data->y += move_dir;
+	ft_increment_and_print_nb_moves(data->game_data);
 }
 
 void	ft_move_player_x(int keycode, t_mlx_data *data)
@@ -67,8 +66,8 @@ void	ft_move_player_x(int keycode, t_mlx_data *data)
 	int	y;
 	int	move_dir;
 
-	x = data->player_pos->x;
-	y = data->player_pos->y;
+	x = data->game_data->x;
+	y = data->game_data->y;
 	if (keycode == 97 || keycode == 65361)
 		move_dir = -1;
 	else
@@ -79,5 +78,12 @@ void	ft_move_player_x(int keycode, t_mlx_data *data)
 			+ move_dir) * 32, y * 32);
 	mlx_put_image_to_window(data->mlx_connection, data->win, data->background, x
 		* 32, y * 32);
-	data->player_pos->x += move_dir;
+	data->game_data->x += move_dir;
+	ft_increment_and_print_nb_moves(data->game_data);
+}
+
+static void	ft_increment_and_print_nb_moves(t_game *player)
+{
+	player->nb_moves++;
+	ft_printf("Player moved %d times\n", player->nb_moves);
 }

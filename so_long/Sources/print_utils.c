@@ -39,7 +39,7 @@ void	ft_print_map(t_mlx_data *data)
 	ft_printf("map height: %d\n", data->map_height);
 }
 
-void	ft_print_player_pos(t_player *player_pos)
+void	ft_print_player_pos(t_game game_data)
 {
 	ft_printf("Player x position: %d\n", player_pos->x);
 	ft_printf("Player y position: %d\n", player_pos->y);

@@ -16,7 +16,7 @@
 * data->mlx_connection, display to free with mlx_destroy_display(),
 * images to free with ft_destroy_images()
 */
-int	main(int argc, char *argv[])
+int	main(int argc, char *argv[]) 
 {
 	t_mlx_data	*data;
 

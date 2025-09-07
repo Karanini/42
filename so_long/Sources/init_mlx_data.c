@@ -33,11 +33,13 @@ t_mlx_data	*ft_init_data_struct(void)
 	data->win = NULL;
 	data->win_width = 0;
 	data->win_height = 0;
-	data->player_pos = malloc(sizeof(t_player));
-	if (!data->player_pos)
+	data->game_data = malloc(sizeof(t_game));
+	if (!data->game_data)
 		return (free(data), NULL);
-	data->player_pos->x = 0;
-	data->player_pos->y = 0;
+	data->game_data->x = 0;
+	data->game_data->y = 0;
+	data->game_data->nb_moves = 0;
+	data->game_data->nb_collectibles_left = 0;
 	data->player = NULL;
 	data->background = NULL;
 	data->wall = NULL;
@@ -134,8 +136,8 @@ void	ft_init_player_pos(t_mlx_data *data)
 		{
 			if (data->map[y][x] == 'P')
 			{
-				data->player_pos->x = x;
-				data->player_pos->y = y;
+				data->game_data->x = x;
+				data->game_data->y = y;
 				return ;
 			}
 			x++;

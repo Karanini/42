@@ -18,11 +18,13 @@
 #define SIZE_Y 600
 #define SPRITES_PATH "Sprites"
 
-typedef struct s_player
+typedef struct s_game_data
 {
 	int			x;
 	int			y;
-}				t_player;
+	int			nb_moves;
+	int			nb_collectibles_left;
+}				t_game;
 
 typedef struct s_mlx_data
 {
@@ -33,7 +35,7 @@ typedef struct s_mlx_data
 	void		*win;
 	int			win_width;
 	int			win_height;
-	t_player	*player_pos;
+	t_game		*game_data;
 	t_img		*player;
 	t_img		*background;
 	t_img		*wall;
@@ -63,4 +65,4 @@ void			ft_destroy_images(t_mlx_data *data);
 
 void			ft_print_err(char *err_msg);
 void			ft_print_map(t_mlx_data *data);
-void			ft_print_player_pos(t_player *player_pos);
+void			ft_print_player_pos(t_game game_data);

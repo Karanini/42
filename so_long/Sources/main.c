@@ -6,19 +6,21 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:19:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 13:38:08 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:24:23 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
 /*
-* malloc list : data structure, data->map to free with free_tab(),
-* data->mlx_connection, display to free with mlx_destroy_display(),
-* images to free with ft_destroy_images()
-*/
+ * malloc list : data structure, data->map to free with free_tab(),
+ * data->mlx_connection, display to free with mlx_destroy_display(),
+ * images to free with ft_destroy_images()
+ */
 int	main(int argc, char *argv[])
 {
 	t_mlx_data	*data;
+	int			ft_check_map_ret;
 
 	if (argc != 2)
 		return (1);
@@ -27,11 +29,13 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (ft_init_data_map(data, argv[1]) == -1)
 		return (ft_cleanup(data, "CRITICAL_ERR"));
-	if (ft_check_map(data) == -1)
+	ft_check_map_ret = ft_check_map(data);
+	if (ft_check_map_ret == -1)
+		return (ft_cleanup(data, "WRONG_MAP"));
+	else if (ft_check_map_ret == 1)
 		return (ft_cleanup(data, "CRITICAL_ERR"));
-	if (ft_init_mlx_data(data, "ARRI POTTAIRE") == -1)
-		return (ft_cleanup(data, "CRITICAL_ERR"));
-	if (ft_generate_images(data) == -1)
+	if (ft_init_mlx_ptr_and_win(data, "ARRI POTTAIRE") == -1
+		|| ft_generate_images(data) == -1)
 		return (ft_cleanup(data, "CRITICAL_ERR"));
 	ft_generate_map(data);
 	ft_init_player_and_exit_pos(data);

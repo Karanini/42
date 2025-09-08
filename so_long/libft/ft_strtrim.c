@@ -6,11 +6,13 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 16:05:23 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/07/30 16:55:09 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 15:41:55 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+static char	*ft_strtrim_one_char(char const *s1, char const *set);
 
 static int	ft_char_in_set(char c, char const *set)
 {
@@ -34,6 +36,8 @@ static int	ft_char_in_set(char c, char const *set)
  * This function allocates and returns a copy of 's1' with the characters
  * specified in 'set' removed from the start and end of the string.
  *
+ * Update 09/08/25 : handles correctly the `strlen(s1) == 1` edge case
+ *
  * @param s1  The string to be trimmed.
  * @param set The set of characters to trim from 's1'.
  * @return A new trimmed string, or NULL if the allocation fails.
@@ -51,6 +55,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (ft_strdup(s1));
 	if (ft_strlen(s1) == 0)
 		return (ft_strdup(""));
+	else if (ft_strlen(s1) == 1)
+		return (ft_strtrim_one_char(s1, set));
 	start_trim = 0;
 	end_trim = ft_strlen(s1) - 1;
 	while (ft_char_in_set(s1[start_trim], set) == 1)
@@ -62,4 +68,12 @@ char	*ft_strtrim(char const *s1, char const *set)
 	trim_len = end_trim - start_trim + 1;
 	str_trim = ft_substr(s1, start_trim, trim_len);
 	return (str_trim);
+}
+
+static char	*ft_strtrim_one_char(char const *s1, char const *set)
+{
+	if (ft_char_in_set(s1[0], set))
+		return (ft_strdup(""));
+	else
+		return (ft_strdup(s1));
 }

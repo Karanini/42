@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:44:26 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 13:31:55 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:24:23 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ typedef struct s_mlx_data
 
 t_mlx_data	*ft_init_t_mlx_data(void);
 t_game		*ft_init_t_game_data(void);
-int			ft_init_mlx_data(t_mlx_data *data, char *win_title);
+int			ft_init_mlx_ptr_and_win(t_mlx_data *data, char *win_title);
 void		ft_init_player_and_exit_pos(t_mlx_data *data);
 
 int			ft_init_data_map(t_mlx_data *data, char *filename);

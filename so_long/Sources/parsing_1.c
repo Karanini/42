@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:53:25 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 13:42:05 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 14:14:16 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_check_map(t_mlx_data *data)
 	if (check_width_ret == -1)
 		return (ft_print_err("The map is not rectangular."), -1);
 	else if (check_width_ret == 1)
-		return (perror("tab_width malloc failed"), -1);
+		return (perror("tab_width malloc failed"), 1);
 	if (ft_check_walls(data) == -1)
 		return (ft_print_err("You need to build more walls !!!"), -1);
 	return (0);

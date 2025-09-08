@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:11:01 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 14:28:50 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 16:02:38 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,10 @@ int	ft_cleanup(t_mlx_data *data, char *exit_reason)
 		return (ft_putendl_fd("KTHXBYYYEEE", 2), 1);
 	else
 		return (ft_putendl_fd("KTHXBYYYEEE", 1), 0);
+}
+
+int	ft_exit_on_destroy(t_mlx_data *data)
+{
+	ft_cleanup(data, "DESTROY_WIN");
+	exit (0);
 }

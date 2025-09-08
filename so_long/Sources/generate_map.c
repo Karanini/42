@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:39:02 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 11:41:41 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 15:49:47 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,6 @@ void	ft_generate_map(t_mlx_data *data)
 			else if (data->map[y][x] == 'C')
 				mlx_put_image_to_window(data->mlx_connection, data->win,
 					data->collectible, x * 32, y * 32);
-			// else if (data->map[y][x] == 'E')
-			// 	mlx_put_image_to_window(data->mlx_connection, data->win,
-			// 		data->exit, x * 32, y * 32);
 			y++;
 		}
 		y = 0;

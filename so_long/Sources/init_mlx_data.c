@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:36:59 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/05 17:26:26 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 09:04:40 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ t_mlx_data	*ft_init_data_struct(void)
 	data->game_data = malloc(sizeof(t_game));
 	if (!data->game_data)
 		return (free(data), NULL);
-	data->game_data->x = 0;
-	data->game_data->y = 0;
+	data->game_data->player_x = 0;
+	data->game_data->player_y = 0;
 	data->game_data->nb_moves = 0;
 	data->game_data->nb_collectibles_left = 0;
 	data->player = NULL;
@@ -136,8 +136,8 @@ void	ft_init_player_pos(t_mlx_data *data)
 		{
 			if (data->map[y][x] == 'P')
 			{
-				data->game_data->x = x;
-				data->game_data->y = y;
+				data->game_data->player_x = x;
+				data->game_data->player_y = y;
 				return ;
 			}
 			x++;

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:44:26 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/05 18:04:16 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 09:34:48 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 
 typedef struct s_game_data
 {
-	int			x;
-	int			y;
+	int			player_x;
+	int			player_y;
 	int			nb_moves;
 	int			nb_collectibles_left;
 }				t_game;
@@ -65,4 +65,4 @@ void			ft_destroy_images(t_mlx_data *data);
 
 void			ft_print_err(char *err_msg);
 void			ft_print_map(t_mlx_data *data);
-void			ft_print_player_pos(t_game game_data);
+void			ft_print_player_pos(t_game *game_data);

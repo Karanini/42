@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:36:59 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 09:04:40 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 11:15:21 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	ft_delete_newlines(char **map);
  * to check in the further functions if the variables have been successfully
  * initialized or not.
  */
-t_mlx_data	*ft_init_data_struct(void)
+t_mlx_data	*ft_init_t_mlx_data(void)
 {
 	t_mlx_data	*data;
 
@@ -33,13 +33,9 @@ t_mlx_data	*ft_init_data_struct(void)
 	data->win = NULL;
 	data->win_width = 0;
 	data->win_height = 0;
-	data->game_data = malloc(sizeof(t_game));
+	data->game_data = ft_init_t_game_data();
 	if (!data->game_data)
 		return (free(data), NULL);
-	data->game_data->player_x = 0;
-	data->game_data->player_y = 0;
-	data->game_data->nb_moves = 0;
-	data->game_data->nb_collectibles_left = 0;
 	data->player = NULL;
 	data->background = NULL;
 	data->wall = NULL;
@@ -121,28 +117,4 @@ static int	ft_delete_newlines(char **map)
 		i++;
 	}
 	return (0);
-}
-
-void	ft_init_player_pos(t_mlx_data *data)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	y = 0;
-	while (data->map[y])
-	{
-		while (data->map[y][x])
-		{
-			if (data->map[y][x] == 'P')
-			{
-				data->game_data->player_x = x;
-				data->game_data->player_y = y;
-				return ;
-			}
-			x++;
-		}
-		x = 0;
-		y++;
-	}
 }

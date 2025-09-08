@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:19:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 09:35:24 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 11:13:16 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		return (1);
-	data = ft_init_data_struct();
+	data = ft_init_t_mlx_data();
 	if (!data)
 		return (1);
 	if (ft_init_data_map(data, argv[1]) == -1)
@@ -42,7 +42,7 @@ int	main(int argc, char *argv[])
 		return (1);
 	}
 	ft_generate_map(data);
-	ft_init_player_pos(data);
+	ft_init_player_and_exit_pos(data);
 	ft_print_map(data);
 	ft_print_player_pos(data->game_data);
 	mlx_key_hook(data->win, ft_handle_key, data);

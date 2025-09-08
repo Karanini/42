@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 17:08:01 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 09:59:34 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 11:22:07 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,17 @@ int	ft_handle_key(int keycode, t_mlx_data *data)
 		printf("KTHXBYYYEEE\n");
 		exit(0);
 	}
-	ft_print_player_pos(data->game_data);
 	if (keycode == 119 || keycode == 65362 || keycode == 115
 		|| keycode == 65364)
 		ft_move_player_y(keycode, data);
 	if (keycode == 97 || keycode == 65361 || keycode == 100 || keycode == 65363)
 		ft_move_player_x(keycode, data);
-	ft_print_player_pos(data->game_data);
+	if (data->game_data->nb_collectibles_left == 0)
+		mlx_put_image_to_window(data->mlx_connection, data->win, data->exit,
+			data->game_data->exit_x * 32, data->game_data->exit_y * 32);
+	// if (data->game_data->exit_x == data->game_data->player_x
+	// 		&& data->game_data->exit_y == data->game_data->player_y)
+	// 		ft_cleanup_and_exit();
 	return (0);
 }
 
@@ -86,8 +90,6 @@ void	ft_move_player_x(int keycode, t_mlx_data *data)
 	data->game_data->player_x += move_dir;
 	if (data->map[y][x + move_dir] == 'C')
 		ft_grab_collectible(data);
-	ft_putendl_fd("map in ft_move_player:", 1);
-	ft_print_map(data);
 	ft_increment_and_print_nb_moves(data->game_data);
 }
 
@@ -104,15 +106,11 @@ static void	ft_grab_collectible(t_mlx_data *data)
 
 	x = data->game_data->player_x;
 	y = data->game_data->player_y;
-	ft_printf("x pos to change to 0: %d\n", x);
-	ft_printf("y pos to change to 0: %d\n", y);
 	data->map[y][x] = '0';
-	ft_print_player_pos(data->game_data);
-	// ft_putendl_fd("map in ft_grab_collectible:", 1);
-	// ft_print_map(data);
 	data->game_data->nb_collectibles_left--;
 	if (data->game_data->nb_collectibles_left != 0)
 		ft_printf("Collectible grabbed! You have %d left.",
 			data->game_data->nb_collectibles_left);
-	else ft_putendl_fd("You grabbed all the collectibles! Go to the exit", 1);
+	else
+		ft_putendl_fd("You grabbed all the collectibles! Go to the exit", 1);
 }

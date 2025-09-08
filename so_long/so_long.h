@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:44:26 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 11:13:16 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 13:31:55 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void		ft_move_player_y(int keycode, t_mlx_data *data);
 void		ft_move_player_x(int keycode, t_mlx_data *data);
 
 void		ft_destroy_images(t_mlx_data *data);
+int			ft_cleanup(t_mlx_data *data, char *exit_reason);
 
 void		ft_print_err(char *err_msg);
 void		ft_print_map(t_mlx_data *data);

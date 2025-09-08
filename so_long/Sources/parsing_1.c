@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:53:25 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/05 15:58:14 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 13:42:05 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,13 +128,9 @@ static int	ft_check_init_width(t_mlx_data *data)
 	tab_width = malloc(sizeof(int) * data->map_height);
 	if (!tab_width)
 		return (1);
-	// catch the 1 return to free the rest and exit
 	i = 0;
-	// printf("map height: %d\n", data->map_height);
 	while (i < data->map_height)
 	{
-		// printf("i == %d\n", i);
-		// printf("map[i]: %s\n", data->map[i]);
 		tab_width[i] = ft_strlen(data->map[i]);
 		i++;
 	}
@@ -151,7 +147,6 @@ static int	ft_check_init_width(t_mlx_data *data)
 		j = i + 1;
 		i++;
 	}
-	// printf("map width: %d\n", i);
 	data->map_width = ft_strlen(data->map[0]);
 	return (free(tab_width), 0);
 }

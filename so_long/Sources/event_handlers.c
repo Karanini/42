@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 17:08:01 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 11:22:07 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 13:45:25 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,12 @@ static void	ft_grab_collectible(t_mlx_data *data);
 
 int	ft_handle_key(int keycode, t_mlx_data *data)
 {
-	printf("You pressed the key %d\n", keycode);
+	int	put_exit_img;
+
+	put_exit_img == 0;
 	if (keycode == XK_Escape)
 	{
-		printf("ESC key pressed. Cleaning up and exiting program...\n");
-		ft_destroy_images(data);
-		mlx_destroy_window(data->mlx_connection, data->win);
-		mlx_destroy_display(data->mlx_connection);
-		free(data->mlx_connection);
-		free_tab(data->map);
-		free(data->game_data);
-		free(data);
-		printf("KTHXBYYYEEE\n");
+		ft_cleanup(data, "ESC");
 		exit(0);
 	}
 	if (keycode == 119 || keycode == 65362 || keycode == 115
@@ -37,11 +31,17 @@ int	ft_handle_key(int keycode, t_mlx_data *data)
 	if (keycode == 97 || keycode == 65361 || keycode == 100 || keycode == 65363)
 		ft_move_player_x(keycode, data);
 	if (data->game_data->nb_collectibles_left == 0)
-		mlx_put_image_to_window(data->mlx_connection, data->win, data->exit,
-			data->game_data->exit_x * 32, data->game_data->exit_y * 32);
-	// if (data->game_data->exit_x == data->game_data->player_x
-	// 		&& data->game_data->exit_y == data->game_data->player_y)
-	// 		ft_cleanup_and_exit();
+	{
+		if (!put_exit_img)
+		{
+			mlx_put_image_to_window(data->mlx_connection, data->win, data->exit,
+				data->game_data->exit_x * 32, data->game_data->exit_y * 32);
+			put_exit_img++;
+		}
+		if (data->game_data->exit_x == data->game_data->player_x
+			&& data->game_data->exit_y == data->game_data->player_y)
+			ft_cleanup_and_exit();
+	}
 	return (0);
 }
 

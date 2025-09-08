@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:39:02 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 11:23:45 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/08 11:41:41 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,15 @@ int	ft_generate_images(t_mlx_data *data)
 	data->wall = ft_convert_xpm_to_images(data->mlx_connection,
 			SPRITES_PATH "/wall.xpm");
 	if (!data->wall)
-		return (-1);
+		return (ft_destroy_images(data), -1);
 	data->collectible = ft_convert_xpm_to_images(data->mlx_connection,
 			SPRITES_PATH "/collectible1.xpm");
 	if (!data->collectible)
-		return (-1);
+		return (ft_destroy_images(data), -1);
 	data->exit = ft_convert_xpm_to_images(data->mlx_connection,
 			SPRITES_PATH "/exit.xpm");
 	if (!data->exit)
-		return (-1);
+		return (ft_destroy_images(data), -1);
 	return (0);
 }
 

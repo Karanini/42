@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:53:25 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 15:46:37 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/09 10:49:28 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ static int	ft_check_valid_chars(t_mlx_data *data)
 			if (data->map[y][x] != 'E' && data->map[y][x] != 'P'
 				&& data->map[y][x] != 'C' && data->map[y][x] != '0'
 				&& data->map[y][x] != '1')
-				return (ft_printf("char %c\n", data->map[y][x]),
-					ft_print_err("Unauthorized character detected."), -1);
+				return (ft_print_err("Unauthorized character detected:"),
+					ft_printf("char %c\n", data->map[y][x]), -1);
 			x++;
 		}
 		x = 0;

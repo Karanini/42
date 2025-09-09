@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:19:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 16:11:40 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/09 12:52:12 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	main(int argc, char *argv[])
 		|| ft_generate_images(data) == -1)
 		return (ft_cleanup(data, "CRITICAL_ERR"));
 	ft_generate_map(data);
-	ft_init_player_and_exit_pos(data);
 	mlx_key_hook(data->win, ft_handle_key, data);
 	// mlx_hook(mlx_win_list_t *win_ptr, int x_event, int x_mask, int (*f)(), void *param)
 	mlx_hook(data->win, DestroyNotify, StructureNotifyMask, ft_exit_on_destroy, data);

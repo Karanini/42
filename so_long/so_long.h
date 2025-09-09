@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:44:26 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 16:02:48 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/09 12:22:34 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int			ft_init_data_map(t_mlx_data *data, char *filename);
 int			ft_check_map(t_mlx_data *data);
 int			ft_check_walls(t_mlx_data *data);
 int			ft_check_screen_size(t_mlx_data *data);
+int			ft_check_reachable_items(t_mlx_data *data);
 
 int			ft_generate_images(t_mlx_data *data);
 void		ft_generate_map(t_mlx_data *data);

@@ -1,2 +1,4 @@
 libft/tests
 *.o
+so_long_invalidator
+so_long/so_long_tester

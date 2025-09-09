@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 10:56:54 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/09 12:57:05 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:36:10 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,16 @@ static void	ft_flood_fill(char ***map, int y, int x, t_mlx_data *data)
 	int	i;
 
 	i = 0;
-	ft_printf("y: %d\n", y);
-	ft_printf("x %d\n", x);
-	if (*map)
-	{
-		while ((*map)[i])
-		{
-			ft_printf("%s\n", (*map)[i]);
-			i++;
-		}
-	}
+	// ft_printf("y: %d\n", y);
+	// ft_printf("x %d\n", x);
+	// if (*map)
+	// {
+	// 	while ((*map)[i])
+	// 	{
+	// 		ft_printf("%s\n", (*map)[i]);
+	// 		i++;
+	// 	}
+	// }
 	ft_putstr_fd("\n", 1);
 	if ((*map)[y][x] == 'E')
 		(*map)[y][x] = 'e';
@@ -103,16 +103,16 @@ int	ft_check_reachable_items(t_mlx_data *data)
 	if (!dup_map)
 		return (1);
 	i = 0;
-	if (dup_map)
-	{
-		ft_printf("dup_map:\n\n");
-		while (dup_map[i])
-		{
-			ft_printf("%s\n", dup_map[i]);
-			i++;
-		}
-	}
-	ft_printf("\nend dup_map\n");
+	// if (dup_map)
+	// {
+	// 	ft_printf("dup_map:\n\n");
+	// 	while (dup_map[i])
+	// 	{
+	// 		ft_printf("%s\n", dup_map[i]);
+	// 		i++;
+	// 	}
+	// }
+	// ft_printf("\nend dup_map\n");
 	ft_flood_fill(&dup_map, data->game_data->player_y,
 		data->game_data->player_x, data);
 	while (dup_map[y])
@@ -120,7 +120,7 @@ int	ft_check_reachable_items(t_mlx_data *data)
 		while (dup_map[y][x])
 		{
 			if (dup_map[y][x] == 'E' || dup_map[y][x] == 'C')
-				return (-1);
+				return (free_tab(dup_map), -1);
 			x++;
 		}
 		x = 0;

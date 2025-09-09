@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 11:00:46 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 15:30:44 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/09 17:42:40 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,13 @@ int	ft_init_data_map(t_mlx_data *data, char *filename)
 
 	fd = open(filename, O_RDONLY); // other flags to put ?
 	if (fd == -1)
-		return (-1);
+		return (1);
 	line = get_next_line(fd);
 	if (!line)
-		return (-1);
+		return (close(fd), 1); //change to -1 : Error empty file detected
+		// and ft_print_err()
+	if (line && (!ft_strcmp(line, "\n") || !ft_strcmp(line, "\r\n")))
+		return (close(fd), -1);
 	data->map_height = 0;
 	tmp = NULL;
 	res = NULL;
@@ -63,22 +66,25 @@ int	ft_init_data_map(t_mlx_data *data, char *filename)
 			free(res);
 		res = ft_strjoin(tmp, line, ' ');
 		if (!res)
-			return (free(tmp), free(line), close(fd), -1);
+			return (free(tmp), free(line), close(fd), 1);
 		if (tmp)
 			free(tmp);
 		tmp = ft_strdup(res);
 		if (!tmp)
-			return (free(line), free(res), close(fd), -1);
+			return (free(line), free(res), close(fd), 1);
 		free(line);
 		line = get_next_line(fd);
+		ft_printf("%s", line);
+		if (line && (!ft_strcmp(line, "\n") || !ft_strcmp(line, "\r\n")))
+			return (free(tmp), free(line), free(res), close(fd), -1);
 		data->map_height++;
 	}
 	data->map = ft_split(res, ' ');
 	// ft_print_map(data);
 	if (!data->map)
-		return (free(tmp), free(line), free(res), close(fd), -1);
+		return (free(tmp), free(line), free(res), close(fd), 1);
 	if (ft_delete_newlines(data->map) == -1)
-		return (free(tmp), free(line), free(res), close(fd), -1);
+		return (free(tmp), free(line), free(res), close(fd), 1);
 	return (free(tmp), free(line), free(res), close(fd), 0);
 }
 
@@ -91,7 +97,7 @@ static int	ft_delete_newlines(char **map)
 	while (map[i])
 	{
 		// ft_printf("line %p:\n%s", map[i], map[i]);
-		tmp = ft_strtrim(map[i], "\n");
+		tmp = ft_strtrim(map[i], "\n\r");
 		if (!tmp)
 			return (-1);
 		free(map[i]);

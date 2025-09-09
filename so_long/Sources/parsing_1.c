@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:53:25 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/09 12:52:35 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:42:29 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ft_check_map(t_mlx_data *data)
 		return (-1);
 	ret = ft_check_init_width(data);
 	if (ret == -1)
-		return (ft_print_err("The map is not rectangular."), -1);
+		return (-1);
 	else if (ret == 1)
 		return (perror("tab_width malloc failed"), 1);
 	if (ft_check_walls(data) == -1)
@@ -138,6 +138,8 @@ static int	ft_check_init_width(t_mlx_data *data)
 	while (i < data->map_height)
 	{
 		tab_width[i] = ft_strlen(data->map[i]);
+		if (tab_width[i] < 3)
+			return (ft_print_err("The map is too small."), free(tab_width), -1);
 		i++;
 	}
 	i = 0;
@@ -147,7 +149,8 @@ static int	ft_check_init_width(t_mlx_data *data)
 		while (j < data->map_height)
 		{
 			if (tab_width[i] != tab_width[j])
-				return (free(tab_width), -1);
+				return (ft_print_err("The map is not rectangular."),
+					free(tab_width), -1);
 			j++;
 		}
 		j = i + 1;

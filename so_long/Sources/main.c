@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:19:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/09 12:52:12 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/09 16:43:21 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,32 @@
 int	main(int argc, char *argv[])
 {
 	t_mlx_data	*data;
-	int			ft_check_map_ret;
+	int			ret;
 
 	if (argc != 2)
 		return (1);
 	data = ft_init_t_mlx_data();
 	if (!data)
 		return (1);
-	if (ft_init_data_map(data, argv[1]) == -1)
+	ret = ft_init_data_map(data, argv[1]);
+	if (ret == 1)
 		return (ft_cleanup(data, "CRITICAL_ERR"));
-	ft_check_map_ret = ft_check_map(data);
-	if (ft_check_map_ret == -1)
+	else if (ret == -1)
+		return (ft_print_err("Empty line detected."), ft_cleanup(data,
+				"WRONG_MAP"));
+	ft_print_map(data);
+	ret = ft_check_map(data);
+	if (ret == -1)
 		return (ft_cleanup(data, "WRONG_MAP"));
-	else if (ft_check_map_ret == 1)
+	else if (ret == 1)
 		return (ft_cleanup(data, "CRITICAL_ERR"));
 	if (ft_init_mlx_ptr_and_win(data, "ARRI POTTAIRE") == -1
 		|| ft_generate_images(data) == -1)
 		return (ft_cleanup(data, "CRITICAL_ERR"));
 	ft_generate_map(data);
 	mlx_key_hook(data->win, ft_handle_key, data);
-	// mlx_hook(mlx_win_list_t *win_ptr, int x_event, int x_mask, int (*f)(), void *param)
-	mlx_hook(data->win, DestroyNotify, StructureNotifyMask, ft_exit_on_destroy, data);
+	mlx_hook(data->win, DestroyNotify, StructureNotifyMask, ft_exit_on_destroy,
+		data);
 	mlx_loop(data->mlx_connection);
 	return (0);
 }

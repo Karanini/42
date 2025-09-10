@@ -53,10 +53,8 @@ int	ft_init_data_map(t_mlx_data *data, char *filename)
 		return (1);
 	line = get_next_line(fd);
 	if (!line)
-		return (close(fd), 1); //change to -1 : Error empty file detected
-		// and ft_print_err()
-	if (line && (!ft_strcmp(line, "\n") || !ft_strcmp(line, "\r\n")))
-		return (close(fd), -1);
+		return (ft_print_err("Empty file! No map no game byyee"), close(fd),
+			-1);
 	data->map_height = 0;
 	tmp = NULL;
 	res = NULL;
@@ -75,17 +73,14 @@ int	ft_init_data_map(t_mlx_data *data, char *filename)
 		free(line);
 		line = get_next_line(fd);
 		ft_printf("%s", line);
-		if (line && (!ft_strcmp(line, "\n") || !ft_strcmp(line, "\r\n")))
-			return (free(tmp), free(line), free(res), close(fd), -1);
 		data->map_height++;
 	}
 	data->map = ft_split(res, ' ');
 	// ft_print_map(data);
 	if (!data->map)
 		return (free(tmp), free(line), free(res), close(fd), 1);
-	if (ft_delete_newlines(data->map) == -1)
-		return (free(tmp), free(line), free(res), close(fd), 1);
-	return (free(tmp), free(line), free(res), close(fd), 0);
+	return (free(tmp), free(line), free(res), close(fd),
+		ft_delete_newlines(data->map));
 }
 
 static int	ft_delete_newlines(char **map)
@@ -96,10 +91,12 @@ static int	ft_delete_newlines(char **map)
 	i = 0;
 	while (map[i])
 	{
+		if (!ft_strcmp(map[i], "\n") || !ft_strcmp(map[i], "\r\n"))
+			return (ft_print_err("Empty line detected."), -1);
 		// ft_printf("line %p:\n%s", map[i], map[i]);
 		tmp = ft_strtrim(map[i], "\n\r");
 		if (!tmp)
-			return (-1);
+			return (1);
 		free(map[i]);
 		map[i] = tmp;
 		i++;

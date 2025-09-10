@@ -31,8 +31,7 @@ int	main(int argc, char *argv[])
 	if (ret == 1)
 		return (ft_cleanup(data, "CRITICAL_ERR"));
 	else if (ret == -1)
-		return (ft_print_err("Empty line detected."), ft_cleanup(data,
-				"WRONG_MAP"));
+		return (ft_cleanup(data, "WRONG_MAP"));
 	ft_print_map(data);
 	ret = ft_check_map(data);
 	if (ret == -1)

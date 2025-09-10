@@ -36,10 +36,10 @@ int	ft_check_walls(t_mlx_data *data)
 
 static void	ft_flood_fill(char ***map, int y, int x, t_mlx_data *data)
 {
-	int	i;
+	// int	i;
 
-	i = 0;
-	// ft_printf("y: %d\n", y);
+	// i = 0;
+	// // ft_printf("y: %d\n", y);
 	// ft_printf("x %d\n", x);
 	// if (*map)
 	// {
@@ -95,14 +95,14 @@ int	ft_check_reachable_items(t_mlx_data *data)
 	char	**dup_map;
 	int		x;
 	int		y;
-	int		i;
+	// int		i;
 
 	x = 0;
 	y = 0;
 	dup_map = ft_dup_map(data);
 	if (!dup_map)
 		return (1);
-	i = 0;
+	// i = 0;
 	// if (dup_map)
 	// {
 	// 	ft_printf("dup_map:\n\n");

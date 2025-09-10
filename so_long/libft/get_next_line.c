@@ -22,7 +22,8 @@ static int	ft_find_the_nl(char *str);
  *
  * This function reads characters from the file descriptor `fd` until a newline
  * character is encountered or the end of file is reached. The returned string
- * includes the newline character if one was read. Memory for the returned string
+
+	* includes the newline character if one was read. Memory for the returned string
  * is dynamically allocated and should be freed by the caller.
  *
  * @param fd The file descriptor to read from.
@@ -127,9 +128,11 @@ static char	*extract_and_clean(char **stash)
 	if (i >= 0)
 	{
 		line = ft_substr(*stash, 0, i + 1);
-		tmp = ft_strdup(*stash + i + 1);
-		if (!line || !tmp)
+		if (!line)
 			return (free(*stash), *stash = NULL, NULL);
+		tmp = ft_strdup(*stash + i + 1);
+		if (!tmp)
+			return (free(line), free(*stash), *stash = NULL, NULL);
 		free(*stash);
 		*stash = tmp;
 	}

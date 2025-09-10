@@ -12,6 +12,8 @@
 
 #include "so_long.h"
 
+static void	ft_hook_and_loop(t_mlx_data *data);
+
 /*
  * malloc list : data structure, data->map to free with free_tab(),
  * data->mlx_connection, display to free with mlx_destroy_display(),
@@ -32,7 +34,6 @@ int	main(int argc, char *argv[])
 		return (ft_cleanup(data, "CRITICAL_ERR"));
 	else if (ret == -1)
 		return (ft_cleanup(data, "WRONG_MAP"));
-	ft_print_map(data);
 	ret = ft_check_map(data);
 	if (ret == -1)
 		return (ft_cleanup(data, "WRONG_MAP"));
@@ -42,9 +43,14 @@ int	main(int argc, char *argv[])
 		|| ft_generate_images(data) == -1)
 		return (ft_cleanup(data, "CRITICAL_ERR"));
 	ft_generate_map(data);
+	ft_hook_and_loop(data);
+	return (0);
+}
+
+static void	ft_hook_and_loop(t_mlx_data *data)
+{
 	mlx_key_hook(data->win, ft_handle_key, data);
 	mlx_hook(data->win, DestroyNotify, StructureNotifyMask, ft_exit_on_destroy,
 		data);
 	mlx_loop(data->mlx_connection);
-	return (0);
 }

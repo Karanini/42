@@ -31,9 +31,9 @@ void	ft_destroy_images(t_mlx_data *data)
 
 int	ft_cleanup(t_mlx_data *data, char *exit_reason)
 {
-	if (!ft_strcmp("ESC", exit_reason) || !ft_strcmp("DESTROY_WIN",
-			exit_reason) || !ft_strcmp("WRONG_MAP", exit_reason)
-			|| !ft_strcmp("SCREEN_SIZE", exit_reason) )
+	if (!ft_strcmp("ESC", exit_reason) || !ft_strcmp("DESTROY_WIN", exit_reason)
+		|| !ft_strcmp("WRONG_MAP", exit_reason) || !ft_strcmp("SCREEN_SIZE",
+			exit_reason))
 		ft_putendl_fd("Cleaning up and exiting...", 1);
 	else if (!ft_strcmp("END_GAME", exit_reason))
 		ft_putendl_fd("You win!", 1);
@@ -52,15 +52,14 @@ int	ft_cleanup(t_mlx_data *data, char *exit_reason)
 	free_tab(data->map); // if !data->map already checked in free_tab()
 	if (data->game_data)
 		free(data->game_data);
-	free(data);
 	if (!ft_strcmp("CRITICAL_ERR", exit_reason))
-		return (ft_putendl_fd("KTHXBYYYEEE", 2), 1);
+		return (free(data), ft_putendl_fd("KTHXBYYYEEE", 2), 1);
 	else
-		return (ft_putendl_fd("KTHXBYYYEEE", 1), 0);
+		return (free(data), ft_putendl_fd("KTHXBYYYEEE", 1), 0);
 }
 
 int	ft_exit_on_destroy(t_mlx_data *data)
 {
 	ft_cleanup(data, "DESTROY_WIN");
-	exit (0);
+	exit(0);
 }

@@ -18,6 +18,13 @@ static void	ft_hook_and_loop(t_mlx_data *data);
  * malloc list : data structure, data->map to free with free_tab(),
  * data->mlx_connection, display to free with mlx_destroy_display(),
  * images to free with ft_destroy_images()
+ * 
+ * Error codes: 
+ * -1 if a wrong map is detected (parsing error)
+ * 1 if a critical error is detected (open() or malloc() fail)
+ * 
+ * to do: spread love!! and the data->error_code
+ * return -1 and not 0 if a parsing error is detected
  */
 int	main(int argc, char *argv[])
 {
@@ -29,10 +36,10 @@ int	main(int argc, char *argv[])
 	data = ft_init_t_mlx_data();
 	if (!data)
 		return (1);
-	ret = ft_init_data_map(data, argv[1]);
-	if (ret == 1)
+	ft_init_data_map(data, argv[1]);
+	if (data->error_code == 1)
 		return (ft_cleanup(data, "CRITICAL_ERR"));
-	else if (ret == -1)
+	else if (data->error_code == -1)
 		return (ft_cleanup(data, "WRONG_MAP"));
 	ret = ft_check_map(data);
 	if (ret == -1)

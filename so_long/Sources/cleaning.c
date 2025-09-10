@@ -28,7 +28,9 @@ void	ft_destroy_images(t_mlx_data *data)
 			mlx_destroy_image(data->mlx_connection, data->exit);
 	}
 }
-
+/*
+* to reduce lines: modify the char messages by int error codes ?
+*/
 int	ft_cleanup(t_mlx_data *data, char *exit_reason)
 {
 	if (!ft_strcmp("ESC", exit_reason) || !ft_strcmp("DESTROY_WIN", exit_reason)
@@ -62,4 +64,17 @@ int	ft_exit_on_destroy(t_mlx_data *data)
 {
 	ft_cleanup(data, "DESTROY_WIN");
 	exit(0);
+}
+
+void	ft_cleanup_imap(t_init_data_map *imap)
+{
+	if (imap->fd != -1)
+		close(imap->fd);
+	if (imap->line)
+		free(imap->line);
+	if (imap->tmp)
+		free(imap->tmp);
+	if (imap->res)
+		free(imap->res);
+	free(imap);
 }

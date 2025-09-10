@@ -12,7 +12,8 @@
 
 #include "so_long.h"
 
-static int	ft_delete_newlines(char **map);
+static int				ft_delete_newlines(char **map);
+static t_init_data_map	*ft_init_struct(t_mlx_data *data, char *filename);
 
 t_game	*ft_init_t_game_data(void)
 {
@@ -43,44 +44,52 @@ t_game	*ft_init_t_game_data(void)
  */
 int	ft_init_data_map(t_mlx_data *data, char *filename)
 {
-	int		fd;
-	char	*line;
-	char	*tmp;
-	char	*res;
+	t_init_data_map	*imap;
 
-	fd = open(filename, O_RDONLY); // other flags to put ?
-	if (fd == -1)
-		return (1);
-	line = get_next_line(fd);
-	if (!line)
-		return (ft_print_err("Empty file! No map no game byyee"), close(fd),
-			-1);
-	data->map_height = 0;
-	tmp = NULL;
-	res = NULL;
-	while (line)
+	imap = ft_init_struct(data, filename);
+	if (!imap)
+		return (data->error_code);
+	while (imap->line)
 	{
-		if (res)
-			free(res);
-		res = ft_strjoin(tmp, line, ' ');
-		if (!res)
-			return (free(tmp), free(line), close(fd), 1);
-		if (tmp)
-			free(tmp);
-		tmp = ft_strdup(res);
-		if (!tmp)
-			return (free(line), free(res), close(fd), 1);
-		free(line);
-		line = get_next_line(fd);
-		ft_printf("%s", line);
+		if (imap->res)
+			free(imap->res);
+		imap->res = ft_strjoin(imap->tmp, imap->line, ' ');
+		if (!imap->res)
+			return (ft_cleanup_imap(imap), 1);
+		if (imap->tmp)
+			free(imap->tmp);
+		imap->tmp = ft_strdup(imap->res);
+		if (!imap->tmp)
+			return (ft_cleanup_imap(imap), 1);
+		free(imap->line);
+		imap->line = get_next_line(imap->fd);
 		data->map_height++;
 	}
-	data->map = ft_split(res, ' ');
-	// ft_print_map(data);
+	data->map = ft_split(imap->res, ' ');
 	if (!data->map)
-		return (free(tmp), free(line), free(res), close(fd), 1);
-	return (free(tmp), free(line), free(res), close(fd),
-		ft_delete_newlines(data->map));
+		return (ft_cleanup_imap(imap), 1);
+	return (ft_cleanup_imap(imap), ft_delete_newlines(data->map));
+}
+
+static t_init_data_map	*ft_init_struct(t_mlx_data *data, char *filename)
+{
+	t_init_data_map	*imap;
+
+	imap = malloc(sizeof(t_init_data_map));
+	if (!imap)
+		return (data->error_code = 1, NULL);
+	imap->tmp = NULL;
+	imap->res = NULL;
+	imap->fd = open(filename, O_RDONLY); // other flags to put ?
+	if (imap->fd == -1)
+		return (data->error_code = 1, free(imap), NULL);
+	imap->line = get_next_line(imap->fd);
+	if (!imap->line)
+		return (data->error_code = -1,
+			ft_print_err("Empty file! No map no game byyee"),
+			ft_cleanup_imap(imap), NULL);
+	data->map_height = 0;
+	return (imap);
 }
 
 static int	ft_delete_newlines(char **map)

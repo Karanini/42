@@ -18,6 +18,14 @@
 #define SIZE_Y 600
 #define SPRITES_PATH "Sprites"
 
+typedef struct s_init_data_map
+{
+	int		fd;
+	char	*line;
+	char	*tmp;
+	char	*res;
+}			t_init_data_map;
+
 typedef struct s_game_data
 {
 	int		player_x;
@@ -43,6 +51,7 @@ typedef struct s_mlx_data
 	t_img	*wall;
 	t_img	*collectible;
 	t_img	*exit;
+	int		error_code;
 }			t_mlx_data;
 
 t_mlx_data	*ft_init_t_mlx_data(void);
@@ -67,6 +76,7 @@ void		ft_move_player_x(int keycode, t_mlx_data *data);
 
 void		ft_destroy_images(t_mlx_data *data);
 int			ft_cleanup(t_mlx_data *data, char *exit_reason);
+void		ft_cleanup_imap(t_init_data_map *imap);
 int			ft_exit_on_destroy(t_mlx_data *data);
 
 void		ft_print_err(char *err_msg);

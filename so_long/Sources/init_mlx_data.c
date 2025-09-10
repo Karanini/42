@@ -40,6 +40,7 @@ t_mlx_data	*ft_init_t_mlx_data(void)
 	data->wall = NULL;
 	data->collectible = NULL;
 	data->exit = NULL;
+	data->error_code = 0;
 	return (data);
 }
 

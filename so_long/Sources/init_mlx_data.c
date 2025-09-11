@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:36:59 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 15:47:11 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 11:10:19 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,12 @@ int	ft_init_mlx_ptr_and_win(t_mlx_data *data, char *win_title)
 {
 	data->mlx_connection = mlx_init();
 	if (!data->mlx_connection)
-		return (-1);
+		return (1);
 	if (ft_check_screen_size(data) == -1)
-	{
-		ft_cleanup(data, "SCREEN_SIZE");
-		exit(1);
-	}
+		exit(ft_cleanup(data, -1));
 	data->win = mlx_new_window(data->mlx_connection, data->win_width,
 			data->win_height, win_title);
 	if (!data->win)
-		return (-1);
+		return (1);
 	return (0);
 }

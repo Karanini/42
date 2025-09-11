@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:11:01 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 16:02:38 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 11:14:19 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,11 @@ void	ft_destroy_images(t_mlx_data *data)
 /*
 * to reduce lines: modify the char messages by int error codes ?
 */
-int	ft_cleanup(t_mlx_data *data, char *exit_reason)
+int	ft_cleanup(t_mlx_data *data, int exit_code)
 {
-	if (!ft_strcmp("ESC", exit_reason) || !ft_strcmp("DESTROY_WIN", exit_reason)
-		|| !ft_strcmp("WRONG_MAP", exit_reason) || !ft_strcmp("SCREEN_SIZE",
-			exit_reason))
+	if (exit_code == 0)
 		ft_putendl_fd("Cleaning up and exiting...", 1);
-	else if (!ft_strcmp("END_GAME", exit_reason))
-		ft_putendl_fd("You win!", 1);
-	else if (!ft_strcmp("CRITICAL_ERR", exit_reason))
+	else if (exit_code == 1)
 		ft_putendl_fd("Critical error! Cleaning up and exiting...", 2);
 	if (data->mlx_connection)
 	{
@@ -51,18 +47,18 @@ int	ft_cleanup(t_mlx_data *data, char *exit_reason)
 		mlx_destroy_display(data->mlx_connection);
 		free(data->mlx_connection);
 	}
-	free_tab(data->map); // if !data->map already checked in free_tab()
+	free_tab(data->map);
 	if (data->game_data)
 		free(data->game_data);
-	if (!ft_strcmp("CRITICAL_ERR", exit_reason))
-		return (free(data), ft_putendl_fd("KTHXBYYYEEE", 2), 1);
+	if (exit_code != 0)
+		return (free(data), ft_putendl_fd("KTHXBYYYEEE", 2), exit_code);
 	else
 		return (free(data), ft_putendl_fd("KTHXBYYYEEE", 1), 0);
 }
 
 int	ft_exit_on_destroy(t_mlx_data *data)
 {
-	ft_cleanup(data, "DESTROY_WIN");
+	ft_cleanup(data, 0);
 	exit(0);
 }
 

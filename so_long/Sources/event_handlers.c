@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 17:08:01 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 14:09:10 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 11:14:58 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,7 @@ int	ft_handle_key(int keycode, t_mlx_data *data)
 
 	put_exit_img = 0;
 	if (keycode == XK_Escape)
-	{
-		ft_cleanup(data, "ESC");
-		exit(0);
-	}
+		exit(ft_cleanup(data, 0));
 	if (keycode == 119 || keycode == 65362 || keycode == 115
 		|| keycode == 65364)
 		ft_move_player_y(keycode, data);
@@ -41,8 +38,8 @@ int	ft_handle_key(int keycode, t_mlx_data *data)
 		if (data->game_data->exit_x == data->game_data->player_x
 			&& data->game_data->exit_y == data->game_data->player_y)
 		{
-			ft_cleanup(data, "END_GAME");
-			exit(0);
+			ft_putendl_fd("You win!", 1);
+			exit(ft_cleanup(data, 0));
 		}
 	}
 	return (0);

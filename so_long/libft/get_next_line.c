@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:13:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 14:37:12 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:48:18 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,6 @@ static char	*extract_and_clean(char **stash)
 	char	*line;
 	char	*tmp;
 
-	if (!stash || !*stash)
-		return (NULL);
 	i = ft_find_the_nl(*stash);
 	if (i >= 0)
 	{

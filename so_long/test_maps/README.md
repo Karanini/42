@@ -101,7 +101,7 @@ The validation should produce these specific error messages:
 ## Usage in Development
 
 These test maps are designed to:
-1. Verify the `ft_check_EPC()` function works correctly
+1. Verify the `ft_check_items()` function works correctly
 2. Test edge cases and boundary conditions
 3. Ensure error messages are properly displayed
 4. Validate that the parsing logic catches all invalid configurations

@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:11:01 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 14:50:30 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:35:22 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,7 @@ void	ft_destroy_images(t_mlx_data *data)
 			mlx_destroy_image(data->mlx_connection, data->exit);
 	}
 }
-/*
-*
-*/
+
 /**
  * @brief Cleans up resources associated with the given t_mlx_data structure
  * and exits the program.
@@ -76,22 +74,24 @@ int	ft_exit_on_destroy(t_mlx_data *data)
 }
 
 /**
- * @brief Cleans up and frees all resources associated with the given map data structure.
+ * @brief Cleans up and frees all resources associated with the given map
+ * data structure.
  *
  * This function is responsible for deallocating any memory and performing
  * necessary cleanup for the t_init_data_map structure pointed to by imap.
  *
  * If the function is called when get_next_line() has not reached the end
- * of the file being read, the stash variable is freed by calling get_next_line(-1).
+ * of the file being read, the stash variable is freed by calling
+ * get_next_line(-1).
  *
  * @param imap Pointer to the map data structure to be cleaned up.
  */
 void	ft_cleanup_imap(t_init_data_map *imap)
 {
-	int	GNL_exit_code;
+	int	gnl_exit_code;
 
-	GNL_exit_code = 0;
-	get_next_line(-1, &GNL_exit_code);
+	gnl_exit_code = 0;
+	get_next_line(-1, &gnl_exit_code);
 	if (imap->fd != -1)
 		close(imap->fd);
 	if (imap->line)

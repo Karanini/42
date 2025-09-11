@@ -6,21 +6,21 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:53:25 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 16:14:27 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:20:30 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static int	ft_check_EPC(t_mlx_data *data, char to_check);
+static int	ft_check_items(t_mlx_data *data, char to_check);
 static int	ft_check_init_width(t_mlx_data *data);
 static int	ft_check_valid_chars(t_mlx_data *data);
 static int	*ft_set_tab_width(t_mlx_data *data);
 
 int	ft_check_map(t_mlx_data *data)
 {
-	if (ft_check_valid_chars(data) == -1 || ft_check_EPC(data, 'E') == -1
-		|| ft_check_EPC(data, 'P') == -1 || ft_check_EPC(data, 'C') == -1)
+	if (ft_check_valid_chars(data) == -1 || ft_check_items(data, 'E') == -1
+		|| ft_check_items(data, 'P') == -1 || ft_check_items(data, 'C') == -1)
 		return (-1);
 	data->error_code = ft_check_init_width(data);
 	if (data->error_code != 0)
@@ -68,7 +68,7 @@ static int	ft_check_valid_chars(t_mlx_data *data)
 
 * leak checks if parsing fails: OK
 */
-static int	ft_check_EPC(t_mlx_data *data, char to_check)
+static int	ft_check_items(t_mlx_data *data, char to_check)
 {
 	int	count;
 	int	x;
@@ -89,18 +89,15 @@ static int	ft_check_EPC(t_mlx_data *data, char to_check)
 		y++;
 	}
 	if (!count || (count > 1 && (to_check == 'E' || to_check == 'P')))
-		return (ft_print_err_EPC(count, to_check), -1);
+		return (ft_print_err_items(count, to_check), -1);
 	if (count && to_check == 'C')
 		data->game_data->nb_collectibles_left = count;
 	return (0);
 }
 
 /*
- * leak check if width not valid OK
- */
-/**
-
-	* @brief Checks and initializes the width of the map in the given data structure.
+ * @brief Checks and initializes the width of the map in the given data
+ * structure.
  *
  * This function verifies if each line has the same width.
  *

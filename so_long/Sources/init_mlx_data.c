@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 15:36:59 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 11:10:19 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:32:50 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,8 @@ t_mlx_data	*ft_init_t_mlx_data(void)
  * If the map is too big, ft_cleanup() is called to free all the mallocs
  * and to exit the program.
  *
- * @param data Pointer to a t_mlx_data structure where MLX pointers will be stored.
+ * @param data Pointer to a t_mlx_data structure where MLX pointers will be
+ * stored.
  * @param win_title The title to be used for the new window.
  * @return 0 on success, or -1 if a malloc fails.
  */

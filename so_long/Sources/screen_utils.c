@@ -6,17 +6,17 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 14:43:28 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/05 16:01:45 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:32:11 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "so_long.h"
+#include "so_long.h"
 
 int	ft_check_screen_size(t_mlx_data *data)
 {
-	int	screen_width;
-	int	screen_height;
-	int	tab[2];
+	int		screen_width;
+	int		screen_height;
+	int		tab[2];
 	char	*err_msg;
 
 	err_msg = "You're dreaming too big my friend please reduce the map size";

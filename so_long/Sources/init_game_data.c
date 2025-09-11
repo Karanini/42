@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/08 11:00:46 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 14:44:05 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:27:02 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,29 +72,31 @@ int	ft_init_data_map(t_mlx_data *data, char *filename)
 }
 
 /**
- * @brief Initializes and allocates a t_init_data_map structure using the provided
- *        MLX data and map filename.
+ * @brief Initializes and allocates a t_init_data_map structure using the
+ *        provided MLX data and map filename.
  *
- * @param data      Pointer to the MLX data structure used for graphical context.
+ * @param data      Pointer to the MLX data structure used for graphical
+ * context.
  * @param filename  Path to the map file to be loaded and initialized.
- * @return Pointer to the newly allocated and initialized t_init_data_map structure,
- *         or NULL if initialization fails or if an empty file is detected.
+ * @return Pointer to the newly allocated and initialized t_init_data_map
+ *         structure, or NULL if initialization fails or if an empty file
+ * is detected.
  */
 static t_init_data_map	*ft_init_struct(t_mlx_data *data, char *filename)
 {
 	t_init_data_map	*imap;
-	int				GNL_exit_code;
+	int				gnl_exit_code;
 
 	imap = malloc(sizeof(t_init_data_map));
-	GNL_exit_code = 0;
+	gnl_exit_code = 0;
 	if (!imap)
 		return (data->error_code = 1, NULL);
 	imap->tmp = NULL;
 	imap->res = NULL;
-	imap->fd = open(filename, O_RDONLY); // other flags to put ?
+	imap->fd = open(filename, O_RDONLY);
 	if (imap->fd == -1)
 		return (data->error_code = 1, free(imap), NULL);
-	imap->line = get_next_line(imap->fd, &GNL_exit_code);
+	imap->line = get_next_line(imap->fd, &gnl_exit_code);
 	if (!imap->line)
 		return (data->error_code = -1,
 			ft_print_err("Empty file! No map no game byyee"),
@@ -108,11 +110,13 @@ static t_init_data_map	*ft_init_struct(t_mlx_data *data, char *filename)
  * given map array.
  *
  * This function iterates over the array of strings pointed to by `map`
- * and deletes any newline characters `\\n` found at the end of each string.
- * If an empty line is detected the function stops and throws an error.
+ * and deletes any newline characters `\\n` found at the end of each
+ * string. If an empty line is detected the function stops and throws
+ * an error.
  *
  * @param map A NULL-terminated array of strings representing the map.
- * @return int Returns 0 on success, or a non-zero value if an error occurs.
+ * @return int Returns 0 on success, or a non-zero value if an error
+ * occurs.
  */
 static int	ft_delete_newlines(char **map)
 {
@@ -142,7 +146,8 @@ static int	ft_delete_newlines(char **map)
  * game initialization phase to ensure that both the player and exit are
  * correctly placed on the game map.
  *
- * @param data Pointer to the t_mlx_data structure containing game state information.
+ * @param data Pointer to the t_mlx_data structure containing game state
+ * information.
  */
 void	ft_init_player_and_exit_pos(t_mlx_data *data)
 {

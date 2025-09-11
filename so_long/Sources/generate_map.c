@@ -6,13 +6,14 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:39:02 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 14:53:17 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:41:24 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
 static t_img	*ft_convert_xpm_to_images(void *mlx_connection, char *path);
+static void		ft_put_collectible(t_mlx_data *data, int x, int y);
 
 int	ft_generate_images(t_mlx_data *data)
 {
@@ -74,11 +75,16 @@ void	ft_generate_map(t_mlx_data *data)
 				mlx_put_image_to_window(data->mlx_connection, data->win,
 					data->player, x * 32, y * 32);
 			else if (data->map[y][x] == 'C')
-				mlx_put_image_to_window(data->mlx_connection, data->win,
-					data->collectible, x * 32, y * 32);
+				ft_put_collectible(data, x, y);
 			y++;
 		}
 		y = 0;
 		x++;
 	}
+}
+
+static void	ft_put_collectible(t_mlx_data *data, int x, int y)
+{
+	mlx_put_image_to_window(data->mlx_connection, data->win, data->collectible,
+		x * 32, y * 32);
 }

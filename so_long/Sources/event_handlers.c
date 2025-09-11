@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/03 17:08:01 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 11:14:58 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 12:15:08 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,17 @@
 static void	ft_increment_and_print_nb_moves(t_game *player);
 static void	ft_grab_collectible(t_mlx_data *data);
 
-int	ft_handle_key(int keycode, t_mlx_data *data)
+int	ft_handle_key(int key, t_mlx_data *data)
 {
 	int	put_exit_img;
 
 	put_exit_img = 0;
-	if (keycode == XK_Escape)
+	if (key == XK_Escape)
 		exit(ft_cleanup(data, 0));
-	if (keycode == 119 || keycode == 65362 || keycode == 115
-		|| keycode == 65364)
-		ft_move_player_y(keycode, data);
-	if (keycode == 97 || keycode == 65361 || keycode == 100 || keycode == 65363)
-		ft_move_player_x(keycode, data);
+	if (key == 119 || key == 65362 || key == 115 || key == 65364)
+		ft_move_player_y(key, data);
+	if (key == 97 || key == 65361 || key == 100 || key == 65363)
+		ft_move_player_x(key, data);
 	if (data->game_data->nb_collectibles_left == 0)
 	{
 		if (!put_exit_img)
@@ -45,7 +44,7 @@ int	ft_handle_key(int keycode, t_mlx_data *data)
 	return (0);
 }
 
-void	ft_move_player_y(int keycode, t_mlx_data *data)
+void	ft_move_player_y(int key, t_mlx_data *data)
 {
 	int	x;
 	int	y;
@@ -53,7 +52,7 @@ void	ft_move_player_y(int keycode, t_mlx_data *data)
 
 	x = data->game_data->player_x;
 	y = data->game_data->player_y;
-	if (keycode == 119 || keycode == 65362)
+	if (key == 119 || key == 65362)
 		move_dir = -1;
 	else
 		move_dir = 1;
@@ -69,7 +68,7 @@ void	ft_move_player_y(int keycode, t_mlx_data *data)
 	ft_increment_and_print_nb_moves(data->game_data);
 }
 
-void	ft_move_player_x(int keycode, t_mlx_data *data)
+void	ft_move_player_x(int key, t_mlx_data *data)
 {
 	int	x;
 	int	y;
@@ -77,7 +76,7 @@ void	ft_move_player_x(int keycode, t_mlx_data *data)
 
 	x = data->game_data->player_x;
 	y = data->game_data->player_y;
-	if (keycode == 97 || keycode == 65361)
+	if (key == 97 || key == 65361)
 		move_dir = -1;
 	else
 		move_dir = 1;

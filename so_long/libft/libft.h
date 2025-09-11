@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/23 17:36:09 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/08/06 14:32:40 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:18:55 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,6 @@ void	ft_put_hexnbr(unsigned int nbr, char conv_specifier,
 void	ft_putptr(void *ptr, int *bites_printed);
 int		ft_put_uint_fd(unsigned int n, int fd);
 int		ft_printf(const char *format, ...);
-char	*get_next_line(int fd);
+char	*get_next_line(int fd, int *exit_code);
 
 #endif

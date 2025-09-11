@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:11:01 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 11:14:19 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 13:31:54 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ int	ft_exit_on_destroy(t_mlx_data *data)
 
 void	ft_cleanup_imap(t_init_data_map *imap)
 {
+	int	GNL_exit_code;
+
+	GNL_exit_code = 0;
+	get_next_line(-1, &GNL_exit_code);
 	if (imap->fd != -1)
 		close(imap->fd);
 	if (imap->line)

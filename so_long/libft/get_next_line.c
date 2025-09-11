@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/03 14:13:10 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/04 10:12:53 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 14:37:12 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,24 @@ static char	*cooking_stash(int fd, char *buff, char *stash,
 				ssize_t *read_bytes);
 static char	*extract_and_clean(char **stash);
 static int	ft_find_the_nl(char *str);
+static char	*ft_exit_on_err(char *stash);
 
 /**
  * Reads a line from the given file descriptor.
  *
  * This function reads characters from the file descriptor `fd` until a newline
  * character is encountered or the end of file is reached. The returned string
-
-	* includes the newline character if one was read. Memory for the returned string
+ * includes the newline character if one was read. Memory for the returned string
  * is dynamically allocated and should be freed by the caller.
  *
+ * 09/11/25: Updated version to return an exit code + to free(stash) if it is
+ * malloced and we call get_next_line(-1). Useful to free(stash) if something
+ * goes wrong in the middle of the file reading.
+ *
  * @param fd The file descriptor to read from.
+ * @param exit_code 0 on success, 1 if a malloc failed (WIP: except for the
+ * mallocs in cooking_stash() since returning !stash to the main function is
+ * also a normal behavior at the end of the file read)
  * @return A pointer to the newly allocated string containing the line read,
  *         or NULL if there is nothing more to read or an error occurs.
  */
@@ -37,7 +44,7 @@ static int	ft_find_the_nl(char *str);
 4. on recupere line et on nettoie stash avec extract_and_clean()
 5. on free buff et on return line
 * ************************************************************************** */
-char	*get_next_line(int fd)
+char	*get_next_line(int fd, int *exit_code)
 {
 	ssize_t		read_bytes;
 	char		*buff;
@@ -45,23 +52,33 @@ char	*get_next_line(int fd)
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+		return (*exit_code = 1, ft_exit_on_err(stash));
 	buff = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buff)
-		return (NULL);
+		return (*exit_code = 1, NULL);
 	read_bytes = 1;
 	stash = cooking_stash(fd, buff, stash, &read_bytes);
 	if (!stash)
-		return (free(buff), NULL);
+		return (free(buff), *exit_code = 0, NULL);
 	line = extract_and_clean(&stash);
 	if (!line)
-		return (free(buff), NULL);
+		return (free(buff), *exit_code = 1, NULL);
 	if (stash && read_bytes == 0)
 	{
 		free(stash);
 		stash = NULL;
 	}
-	return (free(buff), line);
+	return (free(buff), *exit_code = 0, line);
+}
+
+static char	*ft_exit_on_err(char *stash)
+{
+	if (stash)
+	{
+		free(stash);
+		stash = NULL;
+	}
+	return (NULL);
 }
 
 /* ************************************************************************** *

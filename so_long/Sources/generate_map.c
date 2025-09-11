@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:39:02 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 11:11:55 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 14:53:17 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static t_img	*ft_convert_xpm_to_images(void *mlx_connection, char *path)
 	int		width;
 	int		height;
 
-	width = 30;
-	height = 31;
+	width = 32;
+	height = 32;
 	player = mlx_xpm_file_to_image(mlx_connection, path, &width, &height);
 	if (!player)
 		return (NULL);

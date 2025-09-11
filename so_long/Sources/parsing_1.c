@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:53:25 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 11:02:47 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 15:56:00 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,27 +80,15 @@ static int	ft_check_EPC(t_mlx_data *data, char to_check)
 	{
 		while (data->map[y][x])
 		{
-			// ft_printf("%c", data->map[y][x]);
 			if (data->map[y][x] == to_check)
-			{
 				count++;
-				if (to_check == 'E' && count > 1)
-					return (ft_print_err("Too many exits!"), -1);
-				if (to_check == 'P' && count > 1)
-					return (ft_print_err("Too many players!"), -1);
-			}
 			x++;
 		}
-		// ft_printf("\n");
 		x = 0;
 		y++;
 	}
-	if (!count && to_check == 'E')
-		return (ft_print_err("No exit no game byeeee"), -1);
-	else if (!count && to_check == 'P')
-		return (ft_print_err("No player no game byeeee"), -1);
-	else if (!count && to_check == 'C')
-		return (ft_print_err("No collectibles no game byeeee"), -1);
+	if (!count || (count > 1 && (to_check == 'E' || to_check == 'P')))
+		return (ft_print_err_EPC(count, to_check), -1);
 	if (count && to_check == 'C')
 		data->game_data->nb_collectibles_left = count;
 	return (0);

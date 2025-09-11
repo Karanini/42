@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:11:01 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 13:31:54 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 14:50:30 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,21 @@ void	ft_destroy_images(t_mlx_data *data)
 	}
 }
 /*
-* to reduce lines: modify the char messages by int error codes ?
+*
 */
+/**
+ * @brief Cleans up resources associated with the given t_mlx_data structure
+ * and exits the program.
+ *
+ * This function is responsible for freeing all allocated memory, destroying
+ * images, and performing any necessary cleanup before exiting the program.
+ * The exit code provided will be used as the program's exit status.
+ *
+ * @param data Pointer to the t_mlx_data structure containing all resources
+ * to be cleaned up.
+ * @param exit_code The exit status code to be returned by the program.
+ * @return The exit code.
+ */
 int	ft_cleanup(t_mlx_data *data, int exit_code)
 {
 	if (exit_code == 0)
@@ -62,6 +75,17 @@ int	ft_exit_on_destroy(t_mlx_data *data)
 	exit(0);
 }
 
+/**
+ * @brief Cleans up and frees all resources associated with the given map data structure.
+ *
+ * This function is responsible for deallocating any memory and performing
+ * necessary cleanup for the t_init_data_map structure pointed to by imap.
+ *
+ * If the function is called when get_next_line() has not reached the end
+ * of the file being read, the stash variable is freed by calling get_next_line(-1).
+ *
+ * @param imap Pointer to the map data structure to be cleaned up.
+ */
 void	ft_cleanup_imap(t_init_data_map *imap)
 {
 	int	GNL_exit_code;

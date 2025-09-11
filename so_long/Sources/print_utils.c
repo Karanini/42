@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/05 12:06:32 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/08 15:30:26 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 15:56:05 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,24 @@ void	ft_print_player_pos(t_game *game_data)
 {
 	ft_printf("Player x position: %d\n", game_data->player_x);
 	ft_printf("Player y position: %d\n", game_data->player_y);
+}
+
+void	ft_print_err_EPC(int count, char to_check)
+{
+	if (!count)
+	{
+		if (to_check == 'E')
+			ft_print_err("No exit no game byeeee");
+		else if (to_check == 'P')
+			ft_print_err("No player no game byeeee");
+		else if (to_check == 'C')
+			ft_print_err("No collectibles no game byeeee");
+	}
+	if (count > 1)
+	{
+		if (to_check == 'E')
+			ft_print_err("Too many exits!");
+		if (to_check == 'P')
+			ft_print_err("Too many players!");
+	}
 }

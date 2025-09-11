@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:44:26 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 10:52:03 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 15:56:20 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,6 @@ void		ft_cleanup_imap(t_init_data_map *imap);
 int			ft_exit_on_destroy(t_mlx_data *data);
 
 void		ft_print_err(char *err_msg);
+void		ft_print_err_EPC(int count, char to_check);
 void		ft_print_map(t_mlx_data *data);
 void		ft_print_player_pos(t_game *game_data);

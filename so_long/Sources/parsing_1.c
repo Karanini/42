@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/04 14:53:25 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 15:56:00 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:14:27 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int	ft_check_EPC(t_mlx_data *data, char to_check);
 static int	ft_check_init_width(t_mlx_data *data);
 static int	ft_check_valid_chars(t_mlx_data *data);
+static int	*ft_set_tab_width(t_mlx_data *data);
 
 int	ft_check_map(t_mlx_data *data)
 {
@@ -114,17 +115,9 @@ static int	ft_check_init_width(t_mlx_data *data)
 	int	j;
 	int	*tab_width;
 
-	tab_width = malloc(sizeof(int) * data->map_height);
+	tab_width = ft_set_tab_width(data);
 	if (!tab_width)
-		return (1);
-	i = 0;
-	while (i < data->map_height)
-	{
-		tab_width[i] = ft_strlen(data->map[i]);
-		if (tab_width[i] < 3)
-			return (ft_print_err("The map is too small."), free(tab_width), -1);
-		i++;
-	}
+		return (data->error_code);
 	i = 0;
 	j = i + 1;
 	while (i < data->map_height)
@@ -141,4 +134,24 @@ static int	ft_check_init_width(t_mlx_data *data)
 	}
 	data->map_width = ft_strlen(data->map[0]);
 	return (free(tab_width), 0);
+}
+
+static int	*ft_set_tab_width(t_mlx_data *data)
+{
+	int	*tab_width;
+	int	i;
+
+	tab_width = malloc(sizeof(int) * data->map_height);
+	if (!tab_width)
+		return (data->error_code = 1, NULL);
+	i = 0;
+	while (i < data->map_height)
+	{
+		tab_width[i] = ft_strlen(data->map[i]);
+		if (tab_width[i] < 3)
+			return (data->error_code = -1,
+				ft_print_err("The map is too small."), free(tab_width), NULL);
+		i++;
+	}
+	return (tab_width);
 }

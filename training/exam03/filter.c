@@ -34,7 +34,7 @@ char	*ft_get_input(void)
 		tmp = realloc(str, new_len + 1);
 		if (!tmp)
 		{
-			free(str);
+			free(str); //tmp ptr to be able to free str if realloc fails
 			free(buf);
 			return (perror("realloc error"), NULL);
 		}

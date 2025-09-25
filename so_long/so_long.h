@@ -6,17 +6,20 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 20:44:26 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 16:18:40 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/09/24 11:21:53 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "mlx.h"
-#include "mlx_int.h"
+#ifndef SO_LONG_H
+# define SO_LONG_H
 
-#define SIZE_X 800
-#define SIZE_Y 600
-#define SPRITES_PATH "Sprites"
+# include "libft.h"
+# include "mlx.h"
+# include "mlx_int.h"
+
+# define SIZE_X 800
+# define SIZE_Y 600
+# define SPRITES_PATH "Sprites"
 
 typedef struct s_init_data_map
 {
@@ -83,3 +86,5 @@ void		ft_print_err(char *err_msg);
 void		ft_print_err_items(int count, char to_check);
 void		ft_print_map(t_mlx_data *data);
 void		ft_print_player_pos(t_game *game_data);
+
+#endif

@@ -18,7 +18,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 		((char *)dest)[n - 1] = ((char *)src)[n - 1];
 		n--;
 	}
-		
+
 	return (dest);
 }
 
@@ -26,7 +26,7 @@ size_t	ft_strlen(char *s)
 {
 	size_t	ret = 0;
 	if (!s) // ajout protection
-		return (0); 
+		return (0);
 	while (*s)
 	{
 		s++;
@@ -69,34 +69,49 @@ int	str_append_str(char **s1, char *s2)
 // 	return (dest);
 // }
 
-void	ft_free()
+
+/*
+* malloc: b, ret
+* fdes: fd
+*/
+void	ft_cleanup(char *b, char *ret, int fd)
 {
-	
+	if (b)
+		free(b);
+	if (ret)
+		free(ret);
+	if (fd > 0)
+		close(fd);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	b[BUFFER_SIZE + 1] = "";
+	// static char	b[BUFFER_SIZE + 1] = "";
+	static char	*b;
 	char	*ret = NULL;
+	char	*tmp;
+	int		read_ret;
 
-	char	*tmp = ft_strchr(b, '\n');
+	*tmp = ft_strchr(b, '\n');
+	read_ret = -1;
+	b = malloc(sizeof(char) * (BUFFER_SIZE + 1)); //malloc de b pour éviter un
+	// stack overflow
+	if (!b)
+		return (ft_cleanup(b, ret, fd), NULL);
 	if (fd < 0) //ajout protection fd incorrect
 		return (NULL);
 	while (!tmp)
 	{
 		if (!str_append_str(&ret, b))
-			return (NULL);
-		int	read_ret = read(fd, b, BUFFER_SIZE);
+			return (ft_cleanup(b, ret, fd), NULL);
+		read_ret = read(fd, b, BUFFER_SIZE);
 		if (read_ret == -1)
-			return (NULL);
+			return (ft_cleanup(b, ret, fd), NULL);
 		b[read_ret] = 0;
 		tmp = ft_strchr(b, '\n'); //ajout maj de tmp
 	}
 	if (!str_append_mem(&ret, b, tmp - b + 1))
-	{
-		free(ret);
-		return (NULL);
-	}
+		return (ft_cleanup(b, ret, fd), NULL);
 	return (ret);
 }
 

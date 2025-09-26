@@ -102,7 +102,7 @@ char	*get_next_line(int fd)
 		return (ft_cleanup(b, ret, fd), NULL);
 	if (fd < 0) //ajout protection fd incorrect
 		return (NULL);
-	while (!tmp)
+	while (!tmp && read_ret != 0) //ajout condition && read_ret != 0
 	{
 		if (!str_append_str(&ret, b))
 			return (ft_cleanup(b, ret, fd), NULL);

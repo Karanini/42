@@ -88,12 +88,14 @@ char	*get_next_line(int fd)
 {
 	// static char	b[BUFFER_SIZE + 1] = "";
 	static char	*b;
-	char	*ret = NULL;
+	char	*ret;
 	char	*tmp;
 	int		read_ret;
 
-	*tmp = ft_strchr(b, '\n');
+	// tmp = ft_strchr(b, '\n'); ligne supprimée
+	tmp = NULL;
 	read_ret = -1;
+	ret = NULL;
 	b = malloc(sizeof(char) * (BUFFER_SIZE + 1)); //malloc de b pour éviter un
 	// stack overflow
 	if (!b)
@@ -117,10 +119,32 @@ char	*get_next_line(int fd)
 
 int	main(void)
 {
-	char	*ret = NULL;
-	char	*b = "";
+	int	fd;
+	char	*line;
+	int	i;
 
-	str_append_str(&ret, b);
-	printf("ret: %s\n", ret);
+	i = 0;
+	fd = open("../test.txt", O_RDONLY);
+	if (fd < 0)
+		return(perror("open error"), 1);
+	line = get_next_line(fd);
+	while (line)
+	{
+		while (line[i])
+			write(1, &line[i++], 1);
+		free(line);
+		i = 0;
+		line = get_next_line(fd);
+	}
 	return (0);
 }
+
+// int	main(void)
+// {
+// 	char	*ret = NULL;
+// 	char	*b = "";
+
+// 	str_append_str(&ret, b);
+// 	printf("ret: %s\n", ret);
+// 	return (0);
+// }

@@ -87,7 +87,7 @@ void	ft_cleanup(char *b, char *ret, int fd)
 char	*get_next_line(int fd)
 {
 	// static char	b[BUFFER_SIZE + 1] = "";
-	static char	*b;
+	static char	*b = NULL;
 	char	*ret;
 	char	*tmp;
 	int		read_ret;
@@ -96,7 +96,8 @@ char	*get_next_line(int fd)
 	tmp = NULL;
 	read_ret = -1;
 	ret = NULL;
-	b = malloc(sizeof(char) * (BUFFER_SIZE + 1)); //malloc de b pour éviter un
+	if (!b)
+		b = malloc(sizeof(char) * (BUFFER_SIZE + 1)); //malloc de b pour éviter un
 	// stack overflow
 	if (!b)
 		return (ft_cleanup(b, ret, fd), NULL);
@@ -107,13 +108,29 @@ char	*get_next_line(int fd)
 		if (!str_append_str(&ret, b))
 			return (ft_cleanup(b, ret, fd), NULL);
 		read_ret = read(fd, b, BUFFER_SIZE);
+		// printf("read_ret: %d\n", read_ret);
 		if (read_ret == -1)
 			return (ft_cleanup(b, ret, fd), NULL);
 		b[read_ret] = 0;
 		tmp = ft_strchr(b, '\n'); //ajout maj de tmp
 	}
-	if (!str_append_mem(&ret, b, tmp - b + 1))
+	// printf("ret: %s\n", ret);
+	if ((tmp && !str_append_mem(&ret, b, tmp - b + 1))
+		|| (read_ret == 0 && !str_append_mem(&ret, b, ft_strlen(b)))) //ajout if !tmp --> cas ligne sans \n
 		return (ft_cleanup(b, ret, fd), NULL);
+	if (read_ret == 0) //ajout pour free(b) quand on a fini
+	{
+		free(b);
+		close(fd);
+		b = NULL;
+	}
+	else
+	{
+		tmp = ft_strdup(b); // a corriger
+		free(b);
+		b = tmp;
+	}
+	// printf("ret: %s\n", ret);
 	return (ret);
 }
 

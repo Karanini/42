@@ -1,12 +1,44 @@
 #include "broken_gnl.h"
 
+size_t	ft_strlen(char *s)
+{
+	size_t	ret = 0;
+	if (!s) // ajout protection
+		return (0);
+	while (*s)
+	{
+		s++;
+		ret++;
+	}
+	return (ret);
+}
+
+/*
+* modif: malloc du resultat pour pouvoir l'assigner a
+* b. b gardera ainsi le reste des char apres \n
+*/
 char	*ft_strchr(char *s, int c)
 {
-	int	i = 0;
+	char	*str;
+
+	size_t	i = 0;
+	size_t	j = 0;
 	while (s[i] && s[i] != c) //ajout condition s[i]
 		i++;
 	if (s[i] == c)
-		return (s + i);
+	{
+		str = malloc(sizeof(char) * (ft_strlen(s + i) + 1));
+		if (!str)
+			return (NULL);
+		while (j < ft_strlen(s + i))
+		{
+			str[j] = s[i + j];
+			i++;
+			j++;
+		}
+		str[j] = '\0';
+		return (str);
+	}
 	else
 		return (NULL);
 }
@@ -20,19 +52,6 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	}
 
 	return (dest);
-}
-
-size_t	ft_strlen(char *s)
-{
-	size_t	ret = 0;
-	if (!s) // ajout protection
-		return (0);
-	while (*s)
-	{
-		s++;
-		ret++;
-	}
-	return (ret);
 }
 
 int	str_append_mem(char **s1, char *s2, size_t size2)
@@ -74,12 +93,14 @@ int	str_append_str(char **s1, char *s2)
 * malloc: b, ret
 * fdes: fd
 */
-void	ft_cleanup(char *b, char *ret, int fd)
+void	ft_cleanup(char *b, char *ret, char *tmp, int fd)
 {
 	if (b)
 		free(b);
 	if (ret)
 		free(ret);
+	if (tmp)
+		free(tmp);
 	if (fd > 0)
 		close(fd);
 }
@@ -100,24 +121,25 @@ char	*get_next_line(int fd)
 		b = malloc(sizeof(char) * (BUFFER_SIZE + 1)); //malloc de b pour éviter un
 	// stack overflow
 	if (!b)
-		return (ft_cleanup(b, ret, fd), NULL);
+		return (ft_cleanup(b, ret, tmp, fd), NULL);
 	if (fd < 0) //ajout protection fd incorrect
 		return (NULL);
 	while (!tmp && read_ret != 0) //ajout condition && read_ret != 0
 	{
 		if (!str_append_str(&ret, b))
-			return (ft_cleanup(b, ret, fd), NULL);
+			return (ft_cleanup(b, ret, tmp, fd), NULL);
 		read_ret = read(fd, b, BUFFER_SIZE);
-		// printf("read_ret: %d\n", read_ret);
+		printf("read_ret: %d\n", read_ret);
 		if (read_ret == -1)
-			return (ft_cleanup(b, ret, fd), NULL);
+			return (ft_cleanup(b, ret, tmp, fd), NULL);
 		b[read_ret] = 0;
 		tmp = ft_strchr(b, '\n'); //ajout maj de tmp
+		printf("tmp: %s\n", tmp);
 	}
-	// printf("ret: %s\n", ret);
+	printf("ret: %s\n", ret);
 	if ((tmp && !str_append_mem(&ret, b, tmp - b + 1))
 		|| (read_ret == 0 && !str_append_mem(&ret, b, ft_strlen(b)))) //ajout if !tmp --> cas ligne sans \n
-		return (ft_cleanup(b, ret, fd), NULL);
+		return (ft_cleanup(b, ret, tmp, fd), NULL);
 	if (read_ret == 0) //ajout pour free(b) quand on a fini
 	{
 		free(b);
@@ -126,12 +148,11 @@ char	*get_next_line(int fd)
 	}
 	else
 	{
-		tmp = ft_strdup(b); // a corriger
 		free(b);
 		b = tmp;
 	}
-	// printf("ret: %s\n", ret);
-	return (ret);
+	printf("ret: %s\n", ret);
+	return (free(tmp), ret);
 }
 
 int	main(void)

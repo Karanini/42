@@ -4,7 +4,7 @@
 char	*ft_strchr(char *s, int c)
 {
 	int	i = 0;
-	while (s[i] != c)
+	while (s[i] && s[i] != c) //s[i] added
 		i++;
 	if (s[i] == c)
 		return (s + i);
@@ -14,14 +14,19 @@ char	*ft_strchr(char *s, int c)
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	while (--n > 0)
+	while (n > 0)
+	{
 		((char *)dest)[n - 1] = ((char *)src)[n - 1];
+		n--;
+	}
 	return (dest);
 }
 
 size_t	ft_strlen(char *s)
 {
 	size_t	ret = 0;
+	if (!s) // added
+		return (0);
 	while (*s)
 	{
 		s++;
@@ -55,7 +60,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 		return (ft_memcpy(dest, src, n));
 	else if (dest == src)
 		return (dest);
-	size_t	i = ft_strlen((char *)src) - 1;
+	int	i = (int)ft_strlen((char *)src) - 1;
 	while (i >= 0)
 	{
 		((char *)dest)[i] = ((char *)src)[i];
@@ -68,21 +73,52 @@ char	*get_next_line(int fd)
 {
 	static char	b[BUFFER_SIZE + 1] = "";
 	char	*ret = NULL;
+	int		read_ret;
+	char	*update_b;
 
-	char	*tmp = ft_strchr(b, '\n');
-	while (!tmp)
+	update_b = NULL;
+	read_ret = -1;
+	char	*newline_ptr = NULL; //mod: initializing at NULL
+	while (!newline_ptr && read_ret != 0)
 	{
 		if (!str_append_str(&ret, b))
 			return (NULL);
-		int	read_ret = read(fd, b, BUFFER_SIZE);
+		read_ret = read(fd, b, BUFFER_SIZE);
 		if (read_ret == -1)
 			return (NULL);
 		b[read_ret] = 0;
+		newline_ptr = ft_strchr(b, '\n'); // added: updating newline_ptr
 	}
-	if (!str_append_mem(&ret, b, tmp - b + 1))
+	if (newline_ptr)
 	{
-		free(ret);
-		return (NULL);
+		if (!str_append_mem(&ret, b, newline_ptr - b + 1))
+		{
+			free(ret);
+			return (NULL);
+		}
+		ft_memmove(b, newline_ptr + 1, ft_strlen(newline_ptr) - 1);
+	}
+	else
+	{
+		b[0] = '\0';
 	}
 	return (ret);
+}
+
+int main(void)
+{
+	int	fd;
+	char *line;
+
+	fd = open("../test.txt", O_RDONLY);
+	if (fd < 0)
+		return (1);
+	line = get_next_line(fd);
+	while (line)
+	{
+		printf("%s", line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	return (0);
 }

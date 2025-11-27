@@ -14,10 +14,14 @@ char	*ft_strchr(char *s, int c)
 
 void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
-	while (n > 0)
+	size_t	i;
+
+	i = 0;
+	while (i < n) //changed copy direction: from left to right
+	//like the original memcpy to avoid memory overlaps
 	{
-		((char *)dest)[n - 1] = ((char *)src)[n - 1];
-		n--;
+		((char *)dest)[i] = ((char *)src)[i];
+		i++;
 	}
 	return (dest);
 }
@@ -74,9 +78,9 @@ char	*get_next_line(int fd)
 	static char	b[BUFFER_SIZE + 1] = "";
 	char	*ret = NULL;
 	int		read_ret;
-	char	*update_b;
+	// char	*update_b;
 
-	update_b = NULL;
+	// update_b = NULL;
 	read_ret = -1;
 	char	*newline_ptr = NULL; //mod: initializing at NULL
 	while (!newline_ptr && read_ret != 0)
@@ -85,8 +89,19 @@ char	*get_next_line(int fd)
 			return (NULL);
 		read_ret = read(fd, b, BUFFER_SIZE);
 		if (read_ret == -1)
+		{
+			if (ret) //added
+				free(ret);
 			return (NULL);
+		}
 		b[read_ret] = 0;
+		if (read_ret == 0) // added: instructions if nothing else to read
+		{
+			if (ret && *ret)
+				return (ret);
+			free(ret);
+			return (NULL);
+		}
 		newline_ptr = ft_strchr(b, '\n'); // added: updating newline_ptr
 	}
 	if (newline_ptr)
@@ -96,7 +111,10 @@ char	*get_next_line(int fd)
 			free(ret);
 			return (NULL);
 		}
-		ft_memmove(b, newline_ptr + 1, ft_strlen(newline_ptr) - 1);
+		ft_memcpy(b, newline_ptr + 1, ft_strlen(newline_ptr + 1) + 1); // +
+		// newline_ptr + 1 because we copy the chars after the \n from newline_ptr to b
+		// ft_strlen(newline_ptr + 1) + 1 because we include the '\0' at the end of newline_ptr
+		// to eliminate the old chars from b
 	}
 	else
 	{

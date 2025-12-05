@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/27 16:00:19 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/12/04 18:07:05 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2025/12/05 10:56:15 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ int	ft_check_balance(char *str)
 			open++;
 		else if (str[i] == ')')
 		{
-			close++;
-			if (open - close < 0)
-				return (open - close);
+			if (open > 0)
+				open--;
+			else
+				close++;
 		}
 		i++;
 	}
-	return (open - close);
+	return (open + close);
 }
 
 void	ft_rec_rip(char *str, int i, int len)
@@ -72,12 +73,14 @@ int	main(int argc, char *argv[])
 {
 	int	i;
 	int	len;
+	int	nb_to_fix;
 
 	if (argc != 2)
 		return (1);
 	i = 0;
 	len = ft_strlen(argv[1]);
-	printf("balance=%d\n", ft_check_balance(argv[1]));
+	nb_to_fix = ft_check_balance(argv[1]);
+	printf("nb_to_fix=%d\n", nb_to_fix);
 	ft_rec_rip(argv[1], i, len);
 	return (0);
 }

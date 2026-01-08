@@ -6,7 +6,7 @@
 /*   By: bkaras-g <bkaras-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/02 21:19:44 by bkaras-g          #+#    #+#             */
-/*   Updated: 2025/09/11 11:12:43 by bkaras-g         ###   ########.fr       */
+/*   Updated: 2026/01/08 15:20:50 by bkaras-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,7 @@ static void	ft_hook_and_loop(t_mlx_data *data);
  * -1 if a wrong map is detected (parsing error)
  * 1 if a critical error is detected (open() or malloc() fail)
  *
- * to do: spread love!! and the data->error_code
- * return -1 and not 0 if a parsing error is detected
+ * to do: spread love!! and nothing else
  */
 int	main(int argc, char *argv[])
 {
